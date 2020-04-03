@@ -31,9 +31,8 @@ public abstract class Solution {
 		this.valuesVariables[iIndexVariable] = iValue;
 		
 	}
-	// vous n'avez pas de classe problème !
 	
-	// public abstract void evaluate(Problem pb);
+	public abstract void evaluate(Problem pb);
 
 
 	

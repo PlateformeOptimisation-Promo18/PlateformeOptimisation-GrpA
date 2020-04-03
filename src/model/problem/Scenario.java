@@ -3,6 +3,7 @@ package model.problem;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import model.generic.Problem;
 import model.generic.Solution;
 
 public class Scenario extends Solution {
@@ -23,7 +24,8 @@ public class Scenario extends Solution {
 	protected void setCost(double iVal) {
 		valuesObjectives.set(1, iVal);
 	}
-	public void evaluate (GraphProject gpTest) {
+	public void evaluate(Problem gpTest) {
+		
 		int tableauEntier[] = { 0, 0, 0, 0, 0 };
 		if (Arrays.equals(this.valuesVariables, tableauEntier)) {
 			setDuration(3.8);
