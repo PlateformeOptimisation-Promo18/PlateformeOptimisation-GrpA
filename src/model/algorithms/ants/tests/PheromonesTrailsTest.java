@@ -18,13 +18,7 @@ public class PheromonesTrailsTest {
 
 	@Before
 	public void setUp() throws Exception {
-		List<int[]> tabAlternatives = new ArrayList<>();
-		int[] tab1 = {1,2,3};
-		int[] tab2 = {1,2};
-		int[] tab3 = {1,2,3};
-		tabAlternatives.add(tab1);
-		tabAlternatives.add(tab2);
-		tabAlternatives.add(tab3);
+		int[] tabAlternatives = {3,2,3};
 		
 		this.environnementProbable = new PheromonesTrails (tabAlternatives, 100);
 	}
@@ -69,13 +63,7 @@ public class PheromonesTrailsTest {
 	
 	@Test
 	public void test100Pourcent () {
-		List<int[]> tabAlternatives = new ArrayList<>();
-		int[] tab1 = {1};
-		int[] tab2 = {1};
-		int[] tab3 = {1};
-		tabAlternatives.add(tab1);
-		tabAlternatives.add(tab2);
-		tabAlternatives.add(tab3);
+		int[] tabAlternatives = {1,1,1};
 		
 		PheromonesTrails test = new PheromonesTrails (tabAlternatives, 100);
 		int[] testV = {0,0,0};
@@ -84,13 +72,7 @@ public class PheromonesTrailsTest {
 	
 	@Test
 	public void test0Pourcent () {
-		List<int[]> tabAlternatives = new ArrayList<>();
-		int[] tab1 = {};
-		int[] tab2 = {};
-		int[] tab3 = {};
-		tabAlternatives.add(tab1);
-		tabAlternatives.add(tab2);
-		tabAlternatives.add(tab3);
+		int[] tabAlternatives = {0,0,0};
 		
 		PheromonesTrails test = new PheromonesTrails (tabAlternatives, 100);
 		int[] testV = {-1,-1,-1};
