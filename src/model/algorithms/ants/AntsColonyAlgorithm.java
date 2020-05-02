@@ -5,10 +5,10 @@ import java.util.List;
 
 public class AntsColonyAlgorithm {
 	
-	private List<int[]> noeuds;
+	private int[] noeuds;
 	private PheromonesTrails pheromonesTrails;
 	
-	public AntsColonyAlgorithm (List<int[]> ListTabNoeud) {
+	public AntsColonyAlgorithm (int[] ListTabNoeud) {
 		this.noeuds = ListTabNoeud;
 		this.pheromonesTrails = new PheromonesTrails(ListTabNoeud,1000);
 	}
