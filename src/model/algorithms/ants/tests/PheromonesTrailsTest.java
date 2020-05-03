@@ -11,21 +11,23 @@ import org.junit.Test;
 
 import model.algorithms.ants.Ant;
 import model.algorithms.ants.PheromonesTrails;
+import utils.InterfaceRandom;
+import utils.InterfaceRandom;
 
 public class PheromonesTrailsTest {
 
-	private PheromonesTrails environnementProbable;
+	private PheromonesTrails envTraces;
 
 	@Before
 	public void setUp() throws Exception {
 		int[] tabAlternatives = {3,2,3};
 		
-		this.environnementProbable = new PheromonesTrails (tabAlternatives, 100);
+		this.envTraces = new PheromonesTrails (tabAlternatives, 100);
 	}
  
 	@After
 	public void tearDown() throws Exception {
-		this.environnementProbable = null;
+		this.envTraces = null;
 	}
 
 	@Test
@@ -38,50 +40,35 @@ public class PheromonesTrailsTest {
 		test.add(tab2);
 		test.add(tab3);
 		
-		assertTrue(Arrays.equals(tab1, this.environnementProbable.getEnvProba().get(0)));
-		assertTrue(Arrays.equals(tab2, this.environnementProbable.getEnvProba().get(1)));
-		assertTrue(Arrays.equals(tab3, this.environnementProbable.getEnvProba().get(2)));
+		assertTrue(Arrays.equals(tab1, this.envTraces.getEnvProba().get(0)));
+		assertTrue(Arrays.equals(tab2, this.envTraces.getEnvProba().get(1)));
+		assertTrue(Arrays.equals(tab3, this.envTraces.getEnvProba().get(2)));
 	}
 	
 	@Test
 	public void testNewAnts1 () {
 		int[] test = {1,0,1};
-		assertTrue(Arrays.equals(test, this.environnementProbable.newAnts(0.5)));
+		RandomTest generator = new RandomTest (test);
+		assertTrue(Arrays.equals(test, this.envTraces.newAnt(generator).getObjectifs()));
 	}
 	
 	@Test
 	public void testNewAnts2 () {
-		int[] test2 = {2,1,2};
-		assertTrue(Arrays.equals(test2, this.environnementProbable.newAnts(0.9)));
+		int[] test = {2,1,2};
+		RandomTest generator = new RandomTest (test);
+		assertTrue(Arrays.equals(test, this.envTraces.newAnt(generator).getObjectifs()));
 	}
 	
 	@Test
 	public void testNewAnts3 () {
-		int[] test3 = {0,0,0};
-		assertTrue(Arrays.equals(test3, this.environnementProbable.newAnts(0.2)));
-	}
-	
-	@Test
-	public void test100Pourcent () {
-		int[] tabAlternatives = {1,1,1};
-		
-		PheromonesTrails test = new PheromonesTrails (tabAlternatives, 100);
-		int[] testV = {0,0,0};
-		assertTrue(Arrays.equals(testV, test.newAnts(0.9)));
-	}
-	
-	@Test
-	public void test0Pourcent () {
-		int[] tabAlternatives = {0,0,0};
-		
-		PheromonesTrails test = new PheromonesTrails (tabAlternatives, 100);
-		int[] testV = {-1,-1,-1};
-		assertTrue(Arrays.equals(testV, test.newAnts(0.9)));
+		int[] test = {0,0,0};
+		RandomTest generator = new RandomTest (test);
+		assertTrue(Arrays.equals(test, this.envTraces.newAnt(generator).getObjectifs()));
 	}
 	
 	@Test
 	public void testArrondi () {
-		assertTrue(this.environnementProbable.initProbaTest(9)==(0.11));
+		assertTrue(this.envTraces.initProbaTest(9)==(0.11));
 	}
 	
 	@Test
@@ -93,11 +80,11 @@ public class PheromonesTrailsTest {
 		test.add(tab1);
 		test.add(tab2);
 		test.add(tab3);
-		this.environnementProbable.evaporer(0.1);
+		this.envTraces.evaporer(0.1);
 		
-		assertTrue(Arrays.equals(tab1, this.environnementProbable.getEnvProba().get(0)));
-		assertTrue(Arrays.equals(tab2, this.environnementProbable.getEnvProba().get(1)));
-		assertTrue(Arrays.equals(tab3, this.environnementProbable.getEnvProba().get(2)));
+		assertTrue(Arrays.equals(tab1, this.envTraces.getEnvProba().get(0)));
+		assertTrue(Arrays.equals(tab2, this.envTraces.getEnvProba().get(1)));
+		assertTrue(Arrays.equals(tab3, this.envTraces.getEnvProba().get(2)));
 	}
 	
 	@Test
@@ -105,7 +92,7 @@ public class PheromonesTrailsTest {
 		Ant ant = new Ant (3);
 		int[] objectifs = {2,1,0};
 		ant.setObjectifs(objectifs);
-		this.environnementProbable.recompenser(ant, 0.3);
+		this.envTraces.recompenser(ant, 0.3);
 		
 		List<double[]> test = new ArrayList<>();
 		double[] tab1 = {0.33,0.33,0.63};
@@ -115,9 +102,9 @@ public class PheromonesTrailsTest {
 		test.add(tab2);
 		test.add(tab3);
 		
-		assertTrue(Arrays.equals(tab1, this.environnementProbable.getEnvProba().get(0)));
-		assertTrue(Arrays.equals(tab2, this.environnementProbable.getEnvProba().get(1)));
-		assertTrue(Arrays.equals(tab3, this.environnementProbable.getEnvProba().get(2)));
+		assertTrue(Arrays.equals(tab1, this.envTraces.getEnvProba().get(0)));
+		assertTrue(Arrays.equals(tab2, this.envTraces.getEnvProba().get(1)));
+		assertTrue(Arrays.equals(tab3, this.envTraces.getEnvProba().get(2)));
 	}
 	
 	@Test
@@ -125,8 +112,8 @@ public class PheromonesTrailsTest {
 		Ant ant = new Ant (3);
 		int[] objectifs = {2,1,0};
 		ant.setObjectifs(objectifs);
-		this.environnementProbable.recompenser(ant, 0.3);
-		this.environnementProbable.ajuster(0.2);
+		this.envTraces.recompenser(ant, 0.3);
+		this.envTraces.ajuster(0.2);
 		
 		List<double[]> test = new ArrayList<>();
 		double[] tab1 = {0.26,0.26,0.49};
@@ -136,9 +123,9 @@ public class PheromonesTrailsTest {
 		test.add(tab2);
 		test.add(tab3);
 		
-		assertTrue(Arrays.equals(tab1, this.environnementProbable.getEnvProba().get(0)));
-		assertTrue(Arrays.equals(tab2, this.environnementProbable.getEnvProba().get(1)));
-		assertTrue(Arrays.equals(tab3, this.environnementProbable.getEnvProba().get(2)));
+		assertTrue(Arrays.equals(tab1, this.envTraces.getEnvProba().get(0)));
+		assertTrue(Arrays.equals(tab2, this.envTraces.getEnvProba().get(1)));
+		assertTrue(Arrays.equals(tab3, this.envTraces.getEnvProba().get(2)));
 	}
 	
 	@Test
@@ -146,18 +133,23 @@ public class PheromonesTrailsTest {
 		Ant ant = new Ant (3);
 		int[] objectifs = {2,1,0};
 		ant.setObjectifs(objectifs);
-		this.environnementProbable.recompenser(ant, 0.3);
+		this.envTraces.recompenser(ant, 0.3);
 		
 		double[] tab1 = {0.2,0.2,0.62};
 		double[] tab2 = {0.33,0.67};
 		double[] tab3 = {0.62,0.2,0.2};
 
-		this.environnementProbable.evaporer(0.2);
-		this.environnementProbable.ajuster(0.2);
+		this.envTraces.evaporer(0.2);
+		this.envTraces.ajuster(0.2);
 		
-		assertTrue(Arrays.equals(tab1, this.environnementProbable.getEnvProba().get(0)));
-		assertTrue(Arrays.equals(tab2, this.environnementProbable.getEnvProba().get(1)));
-		assertTrue(Arrays.equals(tab3, this.environnementProbable.getEnvProba().get(2)));
+		assertTrue(Arrays.equals(tab1, this.envTraces.getEnvProba().get(0)));
+		assertTrue(Arrays.equals(tab2, this.envTraces.getEnvProba().get(1)));
+		assertTrue(Arrays.equals(tab3, this.envTraces.getEnvProba().get(2)));
+	}
+	
+	@Test
+	public void testToString () {
+		assertEquals("{ { 0.33 0.33 0.33 }  { 0.5 0.5 }  { 0.33 0.33 0.33 } }", this.envTraces.toString());
 	}
 
 }
