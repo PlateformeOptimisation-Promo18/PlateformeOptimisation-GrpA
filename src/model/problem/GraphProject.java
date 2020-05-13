@@ -1,6 +1,8 @@
 package model.problem;
 
-public class GraphProject {
+import model.generic.Problem;
+
+public class GraphProject extends Problem {
 	
 	public GraphProject (String text) {
 		
