@@ -188,9 +188,15 @@ public class Scenario extends Solution {
 			setCost(17.5);
 		}
 	}
+
+	@Override
+	public void evaluer() {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	// ses fonctions sont à retirer pour moi 
-	// car elles sont réalisées dans la classe solution
+	// ses fonctions sont ï¿½ retirer pour moi 
+	// car elles sont rï¿½alisï¿½es dans la classe solution
 	
 //	public void setValuesVariables (int e1, int e2) {
 //		
