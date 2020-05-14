@@ -2,8 +2,8 @@ package model.generic;
 
 
 /**
- * Classe paramètre générique
- * un paramètre est une valeur numérique (classe Number) et un label (string) pour l'affichage
+ * Classe paramï¿½tre gï¿½nï¿½rique
+ * un paramï¿½tre est une valeur numï¿½rique (classe Number) et un label (string) pour l'affichage
  * @author p.pitiot
  *
  */
