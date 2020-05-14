@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import test.algorithms.InterfaceRandom;
+import utils.InterfaceRandom;
 
 public abstract class Solution {
 
