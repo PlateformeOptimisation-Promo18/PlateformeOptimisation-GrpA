@@ -6,7 +6,7 @@ public class TypeOfProblem {
 	
 	private String name;
 	
-	private List<Algorithm> algo;
+	private List<CombinatorialMultiObjectiveOptimizationAlgorithm> algo;
 	
 	public TypeOfProblem () {
 		
