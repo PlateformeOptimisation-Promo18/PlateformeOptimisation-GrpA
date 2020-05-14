@@ -5,7 +5,7 @@ import java.util.Observable;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import test.algorithms.InterfaceRandom;
+import utils.InterfaceRandom;
 
 import java.util.Observer;
 
