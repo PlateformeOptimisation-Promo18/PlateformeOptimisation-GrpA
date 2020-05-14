@@ -2,6 +2,7 @@ package model.algorithms.ants;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.generic.Problem;
 import utils.InterfaceRandom;
 
 public class PheromonesTrails {
@@ -37,16 +38,15 @@ public class PheromonesTrails {
 	 * Objectifs aleatoire avec un % de chance par possibilite de chaque variable definit dans le tableau traces.
 	 * @return Fourmi avec objectifs parametrer
 	 */
-	public Ant newAnt(InterfaceRandom generator) {
+	public void newAnt(Ant ant, InterfaceRandom generator) {
 		int size = this.traces.size();
+		
 		int[] res = new int [size];
 		for (int i = 0; i < size; i++) {
 			int tmp = generator.nextInt(this.traces.get(i).length);
 			res[i] = tmp; 
 		}
-		Ant ants = new Ant (size);
-		ants.setObjectifs(res);
-		return ants;
+		ant.setValuesVariables(res);
 	}
 	/* ANCIEN CODE
 	 * public Ant newAnt () {
@@ -86,9 +86,9 @@ public class PheromonesTrails {
 	 * @param ant : Fourmi a recompensee
 	 * @param dQuantitePheromoneAjout : Quantite de pheromone a depose
 	 */
-	public void recompenser (Ant ant, double dQuantitePheromoneAjout) {
-		for(int i = 0; i < ant.getObjectifs().length; i++) {
-			this.traces.get(i)[ant.getObjectifs()[i]] += dQuantitePheromoneAjout;
+	public void recompenser (Problem pb, Ant ant, double dQuantitePheromoneAjout) {
+		for(int i = 0; i < ant.getNbVariables(); i++) {
+			this.traces.get(i)[ant.getValueVariable(i)] += dQuantitePheromoneAjout;
 		}
 	}
 	
