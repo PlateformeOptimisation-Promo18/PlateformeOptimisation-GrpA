@@ -2,7 +2,7 @@ package model.generic;
 
 public class Platform {
 	
-	private Algorithm algo;
+	private CombinatorialMultiObjectiveOptimizationAlgorithm algo;
 	
 	private TypeOfProblem typeProblem;
 	
@@ -32,11 +32,11 @@ public class Platform {
 		
 	}
 
-	public Algorithm getAlgo() {
+	public CombinatorialMultiObjectiveOptimizationAlgorithm getAlgo() {
 		return algo;
 	}
 
-	public void setAlgo(Algorithm algo) {
+	public void setAlgo(CombinatorialMultiObjectiveOptimizationAlgorithm algo) {
 		this.algo = algo;
 	}
 
