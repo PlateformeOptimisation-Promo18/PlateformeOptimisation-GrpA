@@ -23,7 +23,7 @@ public class Scenario extends Solution {
 	protected void setDuration(double iVal) {
 		valuesObjectives.set(0, iVal);
 	}
-
+ 
 	protected void setCost(double iVal) {
 		valuesObjectives.set(1, iVal);
 	}

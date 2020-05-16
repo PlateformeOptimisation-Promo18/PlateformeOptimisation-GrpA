@@ -12,7 +12,7 @@ public abstract class Solution {
 	protected List<Double> valuesObjectives;
 	protected List<Double> valuesObjectivesNormalized;
 	protected double hypervolum = 0.0;
-	
+	 
 	public abstract void evaluate(Problem pb);
 	public abstract void randomSetValues(Problem pb, InterfaceRandom generator) throws Exception;
 	public Solution(Problem gp) {

@@ -5,7 +5,7 @@ public interface Problem {
 	public Solution getSolution();
 
 	public Solution copySolution(Solution sol);
-	
+	 
 	public int [] getTabSizeDomainVariables();
 
 	public Double getMaxObjectif(int i);
