@@ -1,5 +1,11 @@
 package model.generic;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -25,13 +31,14 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 	    protected boolean stopRequired;
 	    // liste des paramètres modifiable par l'utilisateur
 	    protected List<Parameter> listParam;
-	    // ensemble des meilleurs solutions trouvées
+		// ensemble des meilleurs solutions trouvées
 		protected ParetoFront bestSolutions; 
 		// tableaux pour l'évolution de la performance en fonction du temps
 		protected List<Double> evolutionHypervolum; 
 		protected List<Long> evolutionTime; 
-		// nom du fichier de sauveguarde des résultats et pour l'affichage dans l'IHM
+		// éléments de sauveguarde des résultats et pour l'affichage dans l'IHM
 		protected String fileName;
+		protected Path savingFilePath;
 		protected String algorithmName;
 		// référence du problème à résoudre
 		protected Problem pb;
@@ -47,14 +54,13 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 	    	stopRequired = false;
 	    	stop.addObserver(this);
 	    	bestSolutions = new ParetoFront();
-			listSolutionsObservables = FXCollections.observableList(bestSolutions.getSet());
+			listSolutionsObservables = FXCollections.observableArrayList();
 			listParam = new ArrayList<>();
 			evolutionHypervolum = new ArrayList<>();
 			perfObservable = FXCollections.observableList(evolutionHypervolum);
 			evolutionTime = new ArrayList<>();
 			timeObservable = FXCollections.observableList(evolutionTime);
 			this.pb = pb;
-			updateFileName();
 	    }
 		
 	    /**
@@ -67,16 +73,50 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 	     */
 	    public abstract void launch(InterfaceRandom generator);
 	   
-	    public void updateAndSave(List<Solution> listNewSolutions, long lCurrentTime){
+	    /**
+	     * Méthode de mise à jour des meilleurs solutions trouvées, des attributs pour l'interface
+	     * et écriture dans le fichier de sauvegarde
+	     * @param listNewSolutions
+	     * @param lCurrentTime
+	     * @throws IOException 
+	     */
+	    public void updateAndSave(List<Solution> listNewSolutions, long lCurrentTime) throws IOException{
 	    	// add new solutions to the observable set
-	    	listNewSolutions.forEach(solutionCurrent -> listSolutionsObservables.add(solutionCurrent));
+	    	for(Solution solutionCurrent : listNewSolutions){
+	    		if(bestSolutions.addSolutionIfIsParetoFrontSolution(solutionCurrent)){
+	    	    	listSolutionsObservables.clear();
+	    	    	List<Solution> pareto = bestSolutions.getSet();
+	    	    	for(Solution sol : pareto ){
+	    	    		listSolutionsObservables.add(sol);
+	    	    	}
+	    		}
+	    	}
+	    	listNewSolutions.forEach(solutionCurrent -> bestSolutions.addSolutionIfIsParetoFrontSolution(solutionCurrent));
 	    	// compute and add hypervolum to the observable performance list
-	    	perfObservable.add(bestSolutions.calculHV(pb));
+	    	double dHypervolumCurrent = bestSolutions.calculHV(pb);
+	    	perfObservable.add(dHypervolumCurrent);
 	    	timeObservable.add(lCurrentTime);
 	    	// save data in file
-	    	/* to do */
+	    	if(savingFilePath == null){
+	    		updateFileName();
+	    		Files.deleteIfExists(savingFilePath);
+	    		try(BufferedWriter bufferWriter = Files.newBufferedWriter(savingFilePath, StandardOpenOption.CREATE)){
+	    			bufferWriter.write(pb.getName());
+	    			bufferWriter.newLine();
+	    		}catch(IOException e){
+	    			System.out.println("impossible de créer le fichier : " + savingFilePath );
+	    		}
+	    	}
+    		try(BufferedWriter bufferWriter = Files.newBufferedWriter(savingFilePath, StandardOpenOption.APPEND)){
+    			// we write fitness and time in ms
+    	    	bufferWriter.write(dHypervolumCurrent + "\t" + lCurrentTime/1000000.0);
+    	    	bufferWriter.newLine();
+    		}catch(IOException e){
+    			System.out.println("impossible d'écrire dans le fichier : " + savingFilePath );
+    		}	    	
 	    }
-	    /**
+
+		/**
 	     * getter pour la liste des paramètres
 	     * @return la liste des paramètres
 	     */
@@ -89,7 +129,6 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 	     */
 	    public void setParameters(List<Parameter> list){
 	    	this.listParam = list;
-	    	updateFileName();
 	    }
 	    
 		/* (non-Javadoc)
@@ -124,6 +163,8 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 	    	    bld.append(paramCurrent.getValue().toString());
 	    	}
 	    	fileName = bld.toString();
+	    	savingFilePath = Paths.get(System.getProperty("user.dir"), "Resultats\\" + fileName + ".txt");
 	    }
+
 }
 
