@@ -35,7 +35,7 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 		protected String fileName;
 		protected String algorithmName;
 		// référence du problème à résoudre
-		Problem pb;
+		protected Problem pb;
 
 		/**
 		 * Constructeur initialisant les propriétés génériques des algos
