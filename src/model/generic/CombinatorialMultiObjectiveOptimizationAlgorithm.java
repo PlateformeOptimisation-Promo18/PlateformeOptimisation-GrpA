@@ -40,7 +40,7 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 		protected String fileName;
 		protected Path savingFilePath;
 		protected String algorithmName;
-		// r�f�rence du probl�me � r�soudre
+		// référence du problème à résoudre
 		protected Problem pb;
 
 		/**
