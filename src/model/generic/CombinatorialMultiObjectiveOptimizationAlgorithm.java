@@ -6,42 +6,41 @@ import java.util.Observable;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import utils.InterfaceRandom;
 
 import java.util.Observer;
 
 import application.StopRequired;
 
 /**
- * Classe abstraite pour les traitements génériques des algorithmes
- * interface entre les algos, le problème à résoudre et l'IHM
+ * Classe abstraite pour les traitements g�n�riques des algorithmes
+ * interface entre les algos, le probl�me � r�soudre et l'IHM
  * @author p.pitiot
  */
 public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implements Observer {
-		// attributs nécessaires pour la mise à jour de l'IHM
+		// attributs n�cessaires pour la mise � jour de l'IHM
 	    protected ObservableList<Solution> listSolutionsObservables;
 	    protected ObservableList<Double> perfObservable;
 	    protected ObservableList<Long> timeObservable;
-	    // observateur pour la demande d'arrêt utilisateur
+	    // observateur pour la demande d'arr�t utilisateur
 	    protected boolean stopRequired;
-	    // liste des paramètres modifiable par l'utilisateur
+	    // liste des param�tres modifiable par l'utilisateur
 	    protected List<Parameter> listParam;
-	    // ensemble des meilleurs solutions trouvées
+	    // ensemble des meilleurs solutions trouv�es
 		protected ParetoFront bestSolutions; 
-		// tableaux pour l'évolution de la performance en fonction du temps
+		// tableaux pour l'�volution de la performance en fonction du temps
 		protected List<Double> evolutionHypervolum; 
 		protected List<Long> evolutionTime; 
-		// nom du fichier de sauveguarde des résultats et pour l'affichage dans l'IHM
+		// nom du fichier de sauveguarde des r�sultats et pour l'affichage dans l'IHM
 		protected String fileName;
 		protected String algorithmName;
-		// référence du problème à résoudre
+		// r�f�rence du probl�me � r�soudre
 		protected Problem pb;
 
 		/**
-		 * Constructeur initialisant les propriétés génériques des algos
-		 * doit être appelé par les constructeurs des classes d'algorithmes 
-		 * @param stop	objet écouteur arrêt utilisateur
-		 * @param algorithmName nom de l'algorithme pour l'affichage et la sauveguarde des résulats
+		 * Constructeur initialisant les propri�t�s g�n�riques des algos
+		 * doit �tre appel� par les constructeurs des classes d'algorithmes 
+		 * @param stop	objet �couteur arr�t utilisateur
+		 * @param algorithmName nom de l'algorithme pour l'affichage et la sauveguarde des r�sulats
 		 */
 		public CombinatorialMultiObjectiveOptimizationAlgorithm(Problem pb, StopRequired stop, String algorithmName){
 			this.algorithmName = algorithmName;
@@ -59,12 +58,12 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 	    }
 		
 	    /**
-	     * méthode à écrire pour lancer un algorithme (doit être implémenté dans les classes algorithmes
-	     * il faut qu'elle commence par la collecte des paramètres (listParam)
-	     * Elle va ensuite générer des solutions
-	     * A chaque pas de l'algorithme (boucle générale), il faut appeler la méthode UpdateAndSave()
-	     * @param pb	instance du problème à résoudre
-	     * @param generator	objet générateur de nombre (classe héritant de InterfaceRandom)
+	     * m�thode � �crire pour lancer un algorithme (doit �tre impl�ment� dans les classes algorithmes
+	     * il faut qu'elle commence par la collecte des param�tres (listParam)
+	     * Elle va ensuite g�n�rer des solutions
+	     * A chaque pas de l'algorithme (boucle g�n�rale), il faut appeler la m�thode UpdateAndSave()
+	     * @param pb	instance du probl�me � r�soudre
+	     * @param generator	objet g�n�rateur de nombre (classe h�ritant de InterfaceRandom)
 	     */
 	    public abstract void launch(InterfaceRandom generator);
 	   
@@ -75,19 +74,18 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 	    	perfObservable.add(bestSolutions.calculHV(pb));
 	    	timeObservable.add(lCurrentTime);
 	    	// save data in file
-	    	
-	    	
+	    	/* to do */
 	    }
 	    /**
-	     * getter pour la liste des paramètres
-	     * @return la liste des paramètres
+	     * getter pour la liste des param�tres
+	     * @return la liste des param�tres
 	     */
 	    public List<Parameter> getParameters(){
 	    	return listParam;
 	    }
 	    /**
-	     * getter pour la liste des paramètres
-	     * @param liste des paramètres modifiés
+	     * getter pour la liste des param�tres
+	     * @param liste des param�tres modifi�s
 	     */
 	    public void setParameters(List<Parameter> list){
 	    	this.listParam = list;
@@ -95,8 +93,8 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 	    }
 	    
 		/* (non-Javadoc)
-		 * méthode appelée pour la mise à jour de stopRequired 
-		 * si l'utilisateur demande l'arrêt d'un algorithme
+		 * m�thode appel�e pour la mise � jour de stopRequired 
+		 * si l'utilisateur demande l'arr�t d'un algorithme
 		 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 		 */
 		@Override
@@ -105,7 +103,7 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 		}
 		
 	    /**
-	     * getter pour l'ensemble des meilleurs solutions trouvées
+	     * getter pour l'ensemble des meilleurs solutions trouv�es
 	     * @return l'ensemble des meilleurs solutions
 	     */
 	    public ParetoFront getBestSolutions() {
@@ -113,8 +111,8 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 		}
 	    
 	    /**
-	     * Mise à jour du nom du fichier de sauvegarde 
-	     * (initialement ou lorsque l'on change les paramètres)
+	     * Mise � jour du nom du fichier de sauvegarde 
+	     * (initialement ou lorsque l'on change les param�tres)
 	     */
 	    protected void updateFileName(){
 	    	StringBuilder bld = new StringBuilder();
