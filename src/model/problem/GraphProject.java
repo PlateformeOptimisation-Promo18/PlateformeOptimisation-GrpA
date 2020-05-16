@@ -11,7 +11,7 @@ public class GraphProject implements Problem {
 		this.name = text;
 		// TODO Auto-generated method stub
 	}
-	
+	 
 	public String getName () {
 		return this.name;
 	}

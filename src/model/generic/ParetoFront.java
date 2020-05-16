@@ -95,11 +95,11 @@ public class ParetoFront {
 	 * @param pb 
 	 * @return La distance calcul�e entre les deux solutions 
 	 */
-	private double getDistance(Solution sol1, Solution sol2, Problem pb) {
+	public double getDistance(Solution sol1, Solution sol2, Problem pb) {
 		int iNbObjectif = pb.getNbObjectives();
 		double powRes = 0;
 		for(int i=0;i<iNbObjectif;i++) {
-			powRes += Math.pow(Math.abs(sol2.getValueObjective(i) - sol1.getValueObjective(i)),2);
+			powRes +=  Math.pow(Math.abs(sol2.getValueObjective(i) - sol1.getValueObjective(i)),2);
 		}
 		double res = Math.sqrt(powRes);
 		return res;
@@ -113,8 +113,7 @@ public class ParetoFront {
 	 * @return La distance calcul�e entre les deux clusters
 	 */
 	private double getDistanceClusters(ArrayList<Solution> cluster1, ArrayList<Solution> cluster2, Problem pb) {
-		// todo
-	private Solution centroide(ArrayList<Solution> cluster, Problem pb) {
+		
 		return 0.0;
 	}
 	
