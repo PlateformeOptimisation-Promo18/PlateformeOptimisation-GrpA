@@ -1,4 +1,4 @@
-package test.model.algorithms.evolutionary;
+package test.model.evolutionary;
 
 import static org.junit.Assert.*;
 

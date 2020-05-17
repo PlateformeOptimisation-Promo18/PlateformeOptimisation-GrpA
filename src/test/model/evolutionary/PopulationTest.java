@@ -1,4 +1,4 @@
-package test.model.algorithms.evolutionary;
+package test.model.evolutionary;
 
 import static org.junit.Assert.*;
 
@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import model.algorithms.evolutionary.Individual;
 import model.algorithms.evolutionary.Population;
+import model.generic.InterfaceRandom;
 import model.generic.Problem;
-import utils.InterfaceRandom;
 
 public class PopulationTest {
 
