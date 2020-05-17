@@ -46,7 +46,7 @@ public abstract class Solution {
 		}
 		hypervolum = sol.getHypervolum();
 	}
-	protected double getHypervolum() {
+	public double getHypervolum() {
 		return hypervolum;
 	}
 	private List<Double> getValuesObjectivesNormalized() {
