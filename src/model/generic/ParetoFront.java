@@ -31,8 +31,9 @@ public class ParetoFront {
 		// to do
 		return 0;
 	}
-	public void addSolutionIfIsParetoFrontSolution(Solution solutionToAdd) {
+	public boolean addSolutionIfIsParetoFrontSolution(Solution solutionToAdd) {
 		// to do
+		return true;
 
 	}
 	/**
