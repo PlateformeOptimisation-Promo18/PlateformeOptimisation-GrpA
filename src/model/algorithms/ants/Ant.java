@@ -1,6 +1,6 @@
 package model.algorithms.ants;
 
-import utils.InterfaceRandom;
+import model.generic.InterfaceRandom;
 import model.generic.Problem;
 import model.generic.Solution;
 
