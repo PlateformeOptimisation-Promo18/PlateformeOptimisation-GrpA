@@ -3,9 +3,9 @@ package model.problem;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import model.generic.InterfaceRandom;
 import model.generic.Problem;
 import model.generic.Solution;
-import utils.InterfaceRandom;
 
 public class Scenario extends Solution {
 	

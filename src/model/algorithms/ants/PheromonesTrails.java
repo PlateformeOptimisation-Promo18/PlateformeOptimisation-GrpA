@@ -2,8 +2,8 @@ package model.algorithms.ants;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.generic.InterfaceRandom;
 import model.generic.Problem;
-import utils.InterfaceRandom;
 
 public class PheromonesTrails {
 	

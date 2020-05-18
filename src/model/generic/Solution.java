@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import utils.InterfaceRandom;
-
 public abstract class Solution {
 
 	protected int[] valueVariables;
@@ -46,7 +44,7 @@ public abstract class Solution {
 		}
 		hypervolum = sol.getHypervolum();
 	}
-	protected double getHypervolum() {
+	public double getHypervolum() {
 		return hypervolum;
 	}
 	private List<Double> getValuesObjectivesNormalized() {

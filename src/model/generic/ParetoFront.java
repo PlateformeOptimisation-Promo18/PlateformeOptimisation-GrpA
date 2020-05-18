@@ -5,61 +5,81 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ParetoFront {
-	
 	protected double hypervolum = 0.0;
 	protected ArrayList<Solution> set;
 	
 	public ParetoFront() {
-		
+	// to do
 	}
-	
 	public ParetoFront(ParetoFront paretoFront) {
+		// to do
 		
 	}
-	
-	public ArrayList<Solution> getSet(){
-		return this.set;
-	}
-	
-	public String toString() {
+	public List<Solution> getSet() {
+		// to do
 		return null;
 	}
-	
+	@Override
+	public String toString() {
+		// to do
+		return null;
+	}
 	public double getHypervolum() {
-		return this.hypervolum;
-	}
-	
-	public void add(Solution sol) {
-	}
-	
-	public int getNbElements() {
-		return this.set.size();
-	}
-	
-	public void addSolutionIfIsParetoFrontSolution(Solution solutionToAdd) {
-		
-	}
-	//Teste si une solution en domine une autre
-	public static boolean domine(Solution sol1, Solution sol2, Problem pb) {
-		return false;
-	}
-	//Actualise le front de pareto
-	public void updateFront(List<Solution> solutionSet, Problem pb) {
-		
-	}
-	
-	public double calculHV(Problem pb) {
 		return 0.0;
 	}
-	
-	public void remove(Solution sol) {
-		
+	public int getNbElements() {
+		// to do
+		return 0;
+	}
+	public boolean addSolutionIfIsParetoFrontSolution(Solution solutionToAdd) {
+		// to do
+		return true;
+
+	}
+	/**
+	 * Teste si une solution en domine un autre.
+	 * 
+	 * Retoune vrai si la 1ere solution domine la 2eme, faux sinon.
+	 * 
+	 * @param sol1
+	 *            : la premiï¿½re solution
+	 * @param sol2
+	 *            : la seconde solution
+	 * @param pb
+	 *            : le problï¿½me concernï¿½
+	 **/
+	static public boolean domine(Solution sol1, Solution sol2, Problem pb) {
+		// to do
+		return true;
+	}
+	/**
+	 * \brief Actualise le front de ParetoFront
+	 * 
+	 * Insï¿½re les nouvelles solutions de l'ensemble dans le front de ParetoFront
+	 * dans l'ordre et retire ceux qui sont devenus dominï¿½s
+	 * 
+	 * @param solutionsSet
+	 *            : solution set to add
+	 * @param pb
+	 *            : problem
+	 **/
+	public void updateFront(List<Solution> solutionsSet, Problem pb) {
+		// to do
+	}
+	public double calculHV(Problem pb) {
+		// to do
+		return 0.0;
+
 	}
 	
-	public Iterator<Solution> getIteratorSet(){
+	private void remove(Solution sol) {
+		// to do
+
+	}
+	private Iterator<Solution> getIteratorSet() {
+		// to do
 		return null;
 	}
-
 	
 	/**
 	 * Réduit le nombre de solution du front de Pareto.
@@ -78,9 +98,7 @@ public class ParetoFront {
 				cluster.add(s);
 				allclusters.add(cluster);
 			}
-			
 		}
-		
 	}
 	
 	/**
@@ -122,6 +140,7 @@ public class ParetoFront {
 	 * @param pb (Problem)
 	 * @return la solution qui se situe le plus au centre d'un cluster
 	 */
+
 	private Solution centroide(ArrayList<Solution> cluster, Problem pb) {
 		return null;
 	}
