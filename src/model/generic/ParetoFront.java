@@ -81,12 +81,12 @@ public class ParetoFront {
 
 	
 	/**
-	 * R�duit le nombre de solution du front de Pareto.
+	 * Reduit le nombre de solution du front de Pareto.
 	 * Conserve les solutions les plus r�parties sur le front.
-	 * Ne fait rien si le nombre de solution � garder est �gal au nombre de solution initial.
+	 * Ne fait rien si le nombre de solution a garder est egal au nombre de solution initial.
 	 * @param nbMaxSol (int) le nombre de solution � garder
 	 * @param pb (Problem)
-	 * @throws IllegalArgumentException si le nombre de solution � garder est sup�rieur au nombre de solution initial
+	 * @throws IllegalArgumentException si le nombre de solution a garder est sup�rieur au nombre de solution initial
 	 */
 	public void reduceIfNecessary(int nbMaxSol, Problem pb) throws IllegalArgumentException {
 		if(nbMaxSol > this.set.size()) throw new IllegalArgumentException("");
@@ -103,11 +103,11 @@ public class ParetoFront {
 	}
 	
 	/**
-	 * Calcule la distance entre deux solutions sol1 et sol2 en fonction du nombre d'objectif
+	 * Calcule la distance entre deux solutions sol1 et sol2 en fonction du nombre d objectif
 	 * @param sol1 (Solution)
 	 * @param sol2 (Solution)
 	 * @param pb (Problem)
-	 * @return La distance calcul�e entre les deux solutions 
+	 * @return La distance calculee entre les deux solutions 
 	 */
 	public double getDistance(Solution sol1, Solution sol2, Problem pb) {
 		int iNbObjectives = pb.getNbObjectives();
@@ -119,11 +119,11 @@ public class ParetoFront {
 	}
 	
 	/**
-	 * Calcule la distance entre cluster1 et cluster2 en fonction du nombre d'objectif
+	 * Calcule la distance entre cluster1 et cluster2 en fonction du nombre d objectif
 	 * @param cluster1 (ArrayList<Solution>)
 	 * @param cluster2 (ArrayList<Solution>)
 	 * @param pb (Problem)
-	 * @return La distance calcul�e entre les deux clusters
+	 * @return La distance calculee entre les deux clusters
 	 */
 	public double getDistanceClusters(ArrayList<Solution> cluster1, ArrayList<Solution> cluster2, Problem pb) {
 		double dRawRes = 0;
@@ -141,7 +141,22 @@ public class ParetoFront {
 	 * @param pb (Problem)
 	 * @return la solution qui se situe le plus au centre d'un cluster
 	 */
-	private Solution centroide(ArrayList<Solution> cluster, Problem pb) {
-		return null;
+
+	public Solution centroide(ArrayList<Solution> cluster, Problem pb) {
+		double[] dDistances = new double[cluster.size()];
+		for(int i=0;i<cluster.size();i++) {
+			for(int j=0;j<cluster.size();j++) {
+				dDistances[i] += getDistance(cluster.get(i), cluster.get(j), pb);
+			}
+		}
+		double dTmpMinDistance=dDistances[0];
+		int indexMinDistance=0;
+		for(int i=1;i<dDistances.length;i++) {
+			if(dDistances[i] < dTmpMinDistance) {
+				dTmpMinDistance = dDistances[i];
+				indexMinDistance = i;
+			}
+		}
+		return cluster.get(indexMinDistance);
 	}
 }

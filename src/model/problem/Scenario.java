@@ -19,7 +19,7 @@ public class Scenario extends Solution {
 		// we fill scenario with 0 initially
 		Arrays.fill(valueVariables, 0);	
 	}
-	
+	  
 	protected void setDuration(double iVal) {
 		valuesObjectives.set(0, iVal);
 	}

@@ -1,6 +1,7 @@
 package test.model.generic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class ParetoFrontTest {
 		assertEquals(8.3868, this.pFront.getDistance(sol0, sol1, gpt),0.0001);
 		System.out.println("");
 	}
-	
+	 
 	@Test
 	public void testGetDistanceCluster() {
 		ArrayList<Solution> cluster0 = new ArrayList<Solution>();
@@ -88,6 +89,25 @@ public class ParetoFrontTest {
 		System.out.println("Distance calculée : " +  this.pFront.getDistanceClusters(cluster0, cluster1,this.gpt));
 		assertEquals(7.5055, this.pFront.getDistanceClusters(cluster0, cluster1,this.gpt),0.0001);
 		System.out.println("");
+	}
+	
+	@Test
+	public void testCentroide() {
+		ArrayList<Solution> cluster = new ArrayList<Solution>();
+		cluster.add(this.sol0);
+		cluster.add(this.sol1);
+		cluster.add(this.sol2);
+		System.out.println("--------------");
+		System.out.println("TEST GET CENTROIDE");
+		System.out.println("--------------");
+		if(this.pFront.centroide(cluster, this.gpt).equals(this.sol2)) {
+			System.out.println("Success");
+		}else {
+			System.out.println("Error");
+		}
+		assertTrue(this.pFront.centroide(cluster, this.gpt).equals(this.sol2));
+		System.out.println("");
 
 	}
+	
 }

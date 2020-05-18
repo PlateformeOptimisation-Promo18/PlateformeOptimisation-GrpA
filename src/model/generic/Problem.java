@@ -36,9 +36,9 @@ public interface Problem {
 	public int[] getTabSizeDomainVariables();
 
 	public Double getMaxObjectif(int i);
-
+   
 	public Double getMinObjectif(int i);
-
+	
 	public int getNbObjectives();
 
 	public int getNbVariables();
