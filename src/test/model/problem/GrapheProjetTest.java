@@ -11,7 +11,7 @@ import model.problem.Scenario;
 public class GrapheProjetTest {
 	
 
-	@Test
+	@Test 
 	public void testGrapheProjet() {
 		GraphProject gp = new GraphProject("gpTest");
 		System.out.println(gp);

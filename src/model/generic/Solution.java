@@ -9,8 +9,8 @@ public abstract class Solution {
 	protected int[] valueVariables;
 	protected List<Double> valuesObjectives;
 	protected List<Double> valuesObjectivesNormalized;
-	protected double hypervolum = 0.0;
-	 
+	protected double hypervolum = 0.0; 
+
 	public abstract void evaluate(Problem pb);
 	public abstract void randomSetValues(Problem pb, InterfaceRandom generator) throws Exception;
 	public Solution(Problem gp) {
@@ -73,7 +73,7 @@ public abstract class Solution {
 		return valueVariables[iIndexVariable];
 	}
 	public double evaluatePerf(Problem pb) {
-		evaluate(pb);
+		evaluate(pb);     
 		computeNormalizedObjective(pb);
 		hypervolum = valuesObjectivesNormalized.get(0);
 		for (int i = 1; i < valuesObjectives.size(); i++) {

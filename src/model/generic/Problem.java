@@ -7,11 +7,11 @@ public interface Problem {
 	public Solution copySolution(Solution sol);
 	 
 	public int [] getTabSizeDomainVariables();
-
+    
 	public Double getMaxObjectif(int i);
-
+   
 	public Double getMinObjectif(int i);
-
+	
 	public int getNbObjectives();
 
 	public int getNbVariables();
