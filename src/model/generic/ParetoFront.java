@@ -81,51 +81,64 @@ public class ParetoFront {
 
 	
 	/**
-	 * Reduction du front de Pareto
-	 * @param nbMaxSol le nombre de solutions que l'on veut garder
-	 * @param pb 
+	 * R�duit le nombre de solution du front de Pareto.
+	 * Conserve les solutions les plus r�parties sur le front.
+	 * Ne fait rien si le nombre de solution � garder est �gal au nombre de solution initial.
+	 * @param nbMaxSol (int) le nombre de solution � garder
+	 * @param pb (Problem)
+	 * @throws IllegalArgumentException si le nombre de solution � garder est sup�rieur au nombre de solution initial
 	 */
-	public void reduceIfNecessary(int nbMaxSol, Problem pb) {
+	public void reduceIfNecessary(int nbMaxSol, Problem pb) throws IllegalArgumentException {
+		if(nbMaxSol > this.set.size()) throw new IllegalArgumentException("");
+		if(nbMaxSol < this.set.size()) {
+			ArrayList<ArrayList<Solution>> allclusters = new ArrayList<ArrayList<Solution>>();
+			for(Solution s : this.set) {
+				ArrayList<Solution> cluster = new ArrayList<Solution>();
+				cluster.add(s);
+				allclusters.add(cluster);
+			}
+			
+		}
+		
 	}
 	
 	/**
-	 * Calcule la distance entre sol1 et sol2 en fonction du nombre d'objectif
-	 * @param sol1 Solution 1
-	 * @param sol2 Solution 2
-	 * @param pb 
+	 * Calcule la distance entre deux solutions sol1 et sol2 en fonction du nombre d'objectif
+	 * @param sol1 (Solution)
+	 * @param sol2 (Solution)
+	 * @param pb (Problem)
 	 * @return La distance calcul�e entre les deux solutions 
 	 */
 	public double getDistance(Solution sol1, Solution sol2, Problem pb) {
 		int iNbObjectives = pb.getNbObjectives();
-		double powRes = 0;
+		double dPowRes = 0;
 		for(int i=0;i<iNbObjectives;i++) {
-			powRes +=  Math.pow(Math.abs(sol2.getValueObjective(i) - sol1.getValueObjective(i)),2);
+			dPowRes +=  Math.pow(Math.abs(sol2.getValueObjective(i) - sol1.getValueObjective(i)),2);
 		}
-		double res = Math.sqrt(powRes);
-		return res;
+		return Math.sqrt(dPowRes);
 	}
 	
 	/**
 	 * Calcule la distance entre cluster1 et cluster2 en fonction du nombre d'objectif
-	 * @param cluster1
-	 * @param cluster2
-	 * @param pb
+	 * @param cluster1 (ArrayList<Solution>)
+	 * @param cluster2 (ArrayList<Solution>)
+	 * @param pb (Problem)
 	 * @return La distance calcul�e entre les deux clusters
 	 */
 	public double getDistanceClusters(ArrayList<Solution> cluster1, ArrayList<Solution> cluster2, Problem pb) {
-		double rawRes = 0;
+		double dRawRes = 0;
 		for(int i=0;i<cluster1.size();i++) {
 			for(int j=0;j<cluster2.size();j++) {
-				rawRes += getDistance(cluster1.get(i), cluster2.get(j), pb);
+				dRawRes += getDistance(cluster1.get(i), cluster2.get(j), pb);
 			}
 		}
-		return rawRes/(cluster1.size() * cluster2.size());
+		return dRawRes/(cluster1.size() * cluster2.size());
 	}
 	
 	/**
 	 * Retourne la solution qui se situe le plus au centre d'un cluster
-	 * @param cluster 
-	 * @param pb
+	 * @param cluster (ArrayList<Solution>)
+	 * @param pb (Problem)
 	 * @return la solution qui se situe le plus au centre d'un cluster
 	 */
 	private Solution centroide(ArrayList<Solution> cluster, Problem pb) {
