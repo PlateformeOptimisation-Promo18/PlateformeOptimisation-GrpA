@@ -164,13 +164,17 @@ public abstract class Solution {
 		if (valuesObjectives == null) {
 			if (other.valuesObjectives != null)
 				return false;
-		} else if (!valuesObjectives.equals(other.valuesObjectives))
+		} else {
+			if (!valuesObjectives.equals(other.valuesObjectives))
 			return false;
+		}
 		if (valuesObjectivesNormalized == null) {
 			if (other.valuesObjectivesNormalized != null)
 				return false;
-		} else if (!valuesObjectivesNormalized.equals(other.valuesObjectivesNormalized))
+		} else {
+			if (!valuesObjectivesNormalized.equals(other.valuesObjectivesNormalized))
 			return false;
+		}
 		if (!Arrays.equals(valueVariables, other.valueVariables))
 			return false;
 		return true;
