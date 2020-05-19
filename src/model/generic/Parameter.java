@@ -1,5 +1,12 @@
 package model.generic;
 
+
+/**
+ * Classe param�tre g�n�rique
+ * un param�tre est une valeur num�rique (classe Number) et un label (string) pour l'affichage
+ * @author p.pitiot
+ *
+ */
 public class Parameter{
 	protected Number value;
 	protected String name;
