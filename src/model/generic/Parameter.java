@@ -1,5 +1,12 @@
 package model.generic;
 
+
+/**
+ * Classe paramètre générique
+ * un paramètre est une valeur numérique (classe Number) et un label (string) pour l'affichage
+ * @author p.pitiot
+ *
+ */
 public class Parameter{
 	protected Number value;
 	protected String name;
