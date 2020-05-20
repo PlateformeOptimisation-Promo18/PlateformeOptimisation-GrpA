@@ -69,7 +69,7 @@ public class GraphProject implements Problem {
 	@Override
 	public int getNbObjectives() {
 		// TODO Auto-generated method stub
-		return 2;
+		return 0;
 	} 
 
 	@Override

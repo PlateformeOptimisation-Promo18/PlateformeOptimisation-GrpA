@@ -18,6 +18,9 @@ public class ParetoFront {
 	public ArrayList<Solution> getSet(){
 		return this.set;
 	}
+	public void setSet(ArrayList<Solution> set) {
+		this.set = set;
+	}
 	@Override
 	public String toString() {
 		// to do
@@ -89,7 +92,8 @@ public class ParetoFront {
 	 * @throws IllegalArgumentException si le nombre de solution a garder est sup�rieur au nombre de solution initial
 	 */
 	public void reduceIfNecessary(int nbMaxSol, Problem pb) throws IllegalArgumentException {
-		if(nbMaxSol > this.set.size()) throw new IllegalArgumentException("");
+		if(nbMaxSol > this.set.size()) throw new IllegalArgumentException("Nombre de solution � garder"
+				+ "sup�rieur au nombre de solution du front de Pareto.");
 		if(nbMaxSol < this.set.size()) {
 			ArrayList<ArrayList<Solution>> allclusters = new ArrayList<ArrayList<Solution>>();
 			for(Solution s : this.set) {
@@ -97,7 +101,6 @@ public class ParetoFront {
 				cluster.add(s);
 				allclusters.add(cluster);
 			}
-			
 		}
 		
 	}
@@ -136,12 +139,11 @@ public class ParetoFront {
 	}
 	
 	/**
-	 * Retourne la solution qui se situe le plus au centre d'un cluster
+	 * Retourne la solution centrale d'un cluster
 	 * @param cluster (ArrayList<Solution>)
 	 * @param pb (Problem)
 	 * @return la solution qui se situe le plus au centre d'un cluster
 	 */
-
 	public Solution centroide(ArrayList<Solution> cluster, Problem pb) {
 		double[] dDistances = new double[cluster.size()];
 		for(int i=0;i<cluster.size();i++) {
