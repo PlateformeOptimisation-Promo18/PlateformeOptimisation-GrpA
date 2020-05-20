@@ -1,6 +1,6 @@
 package model.algorithms.ants.tests;
 
-import utils.InterfaceRandom;
+import model.generic.InterfaceRandom;
 
 public class RandomTest implements InterfaceRandom {
 	

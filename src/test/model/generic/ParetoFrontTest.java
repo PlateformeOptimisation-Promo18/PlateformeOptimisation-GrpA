@@ -63,6 +63,12 @@ public class ParetoFrontTest {
 		//fail("Not yet implemented");
 	}
 	
+	
+	/**
+	 * Si les tests suivant ne passent pas, c'est parce qu'il faut changer la méthode
+	 * ( qui n'était pas encore implémentée au moment de mes tests )
+	 * de la calsse GraphProject pour que la méthode getNbObjectives() => retourne 2
+	 */
 	@Test
 	public void testGetDistance() {
 		System.out.println("--------------");
@@ -107,7 +113,63 @@ public class ParetoFrontTest {
 		}
 		assertTrue(this.pFront.centroide(cluster, this.gpt).equals(this.sol2));
 		System.out.println("");
-
+	}
+	
+	@Test
+	public void testReductionFrontPareto() {
+		ArrayList<Solution> set = new ArrayList<Solution>();
+		int[] tab = {0,0,1,1,1};
+		Solution sol = new Scenario(gpt);
+		sol.setValuesVariables(tab);
+		sol.evaluate(gpt);
+		int[] tab1 = {0,0,0,1,1};
+		Solution sol1 = new Scenario(gpt);
+		sol1.setValuesVariables(tab1);
+		sol1.evaluate(gpt);
+		int[] tab2 = {0,1,1,0,1};
+		Solution sol2 = new Scenario(gpt);
+		sol2.setValuesVariables(tab2);
+		sol2.evaluate(gpt);
+		set.add(this.sol0);
+		set.add(this.sol1);
+		set.add(this.sol2);
+		set.add(sol);
+		set.add(sol1);
+		set.add(sol2);
+		this.pFront.setSet(set);
+		
+		System.out.println("--------------");
+		System.out.println("TEST REDUCTION PARETO FRONT");
+		System.out.println("--------------");
+		System.out.println("Solutions before reduction --- 2 solutions to keep ");
+		for(Solution s : this.pFront.getSet()) {
+			System.out.println("sol : [" + s.getValueObjective(0) + " , " + s.getValueObjective(1) + "]");
+		}
+		this.pFront.reduceIfNecessary(2, this.gpt);
+		System.out.println("Solutions after reduction --- "  + this.pFront.getSet().size() + " solutions alive ");
+		for(Solution s : this.pFront.getSet()) {
+			System.out.println("sol : [" + s.getValueObjective(0) + " , " + s.getValueObjective(1) + "]");
+		}
+		assertTrue(this.pFront.getSet().size()==2);
+		System.out.println("");
+	}
+	
+	public void testReductionFrontParetoException() {
+		System.out.println("--------------");
+		System.out.println("TEST EXCECTION PARETO FRONT");
+		System.out.println("--------------");
+		ArrayList<Solution> set = new ArrayList<Solution>();
+		set.add(this.sol0);
+		set.add(this.sol1);
+		set.add(this.sol2);
+		this.pFront.setSet(set);
+		try {
+			this.pFront.reduceIfNecessary(4, this.gpt);
+		}catch (IllegalArgumentException e) {
+			System.out.println("Exception thrown : success");
+			assertTrue(true);
+		}
+		assertTrue(false);
 	}
 	
 }

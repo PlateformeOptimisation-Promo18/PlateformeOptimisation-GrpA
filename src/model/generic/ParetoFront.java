@@ -16,8 +16,10 @@ public class ParetoFront {
 		
 	}
 	public List<Solution> getSet() {
-		// to do
-		return null;
+		return this.set;
+	}
+	public void setSet(ArrayList<Solution> set) {
+		this.set = set;
 	}
 	@Override
 	public String toString() {
@@ -90,7 +92,8 @@ public class ParetoFront {
 	 * @throws IllegalArgumentException si le nombre de solution a garder est supérieur au nombre de solution initial
 	 */
 	public void reduceIfNecessary(int nbMaxSol, Problem pb) throws IllegalArgumentException {
-		if(nbMaxSol > this.set.size()) throw new IllegalArgumentException("");
+		if(nbMaxSol > this.set.size()) throw new IllegalArgumentException("Nombre de solution à garder"
+				+ "supérieur au nombre de solution du front de Pareto.");
 		if(nbMaxSol < this.set.size()) {
 			ArrayList<ArrayList<Solution>> allclusters = new ArrayList<ArrayList<Solution>>();
 			for(Solution s : this.set) {
@@ -98,6 +101,29 @@ public class ParetoFront {
 				cluster.add(s);
 				allclusters.add(cluster);
 			}
+			double dMinDistCluster = getDistanceClusters(allclusters.get(0), allclusters.get(1), pb);
+			int index1=0;
+			int index2=0;
+			while(allclusters.size() > nbMaxSol) {
+				dMinDistCluster = getDistanceClusters(allclusters.get(0), allclusters.get(1), pb);
+				for(int i=0;i<allclusters.size();i++) {
+					for(int j=0;j<allclusters.size();j++) {
+						if((i != j) && (getDistanceClusters(allclusters.get(i), allclusters.get(j), pb) < dMinDistCluster)) {
+							dMinDistCluster = getDistanceClusters(allclusters.get(i), allclusters.get(j), pb);
+							index1 = i;
+							index2 = j;
+						}
+					}
+				}
+				allclusters.get(index1).addAll(allclusters.get(index2));
+				allclusters.remove(index2);
+				//System.out.println("# " + index1 + " - " + index2);
+			}
+			ArrayList<Solution> set = new ArrayList<Solution>();
+			for(ArrayList<Solution> cluster : allclusters) {
+				set.add(this.centroide(cluster, pb));
+			}
+			this.set = set;
 		}
 	}
 	
@@ -135,12 +161,11 @@ public class ParetoFront {
 	}
 	
 	/**
-	 * Retourne la solution qui se situe le plus au centre d'un cluster
+	 * Retourne la solution centrale d'un cluster
 	 * @param cluster (ArrayList<Solution>)
 	 * @param pb (Problem)
 	 * @return la solution qui se situe le plus au centre d'un cluster
 	 */
-
 	public Solution centroide(ArrayList<Solution> cluster, Problem pb) {
 		double[] dDistances = new double[cluster.size()];
 		for(int i=0;i<cluster.size();i++) {
