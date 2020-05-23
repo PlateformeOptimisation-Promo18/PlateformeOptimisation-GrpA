@@ -4,6 +4,8 @@ import java.util.List;
 
 import model.generic.InterfaceRandom;
 import model.generic.Problem;
+import model.generic.Solution;
+import model.generic.InterfaceRandom;
 
 public class PheromonesTrails {
 	
@@ -38,7 +40,7 @@ public class PheromonesTrails {
 	 * Objectifs aleatoire avec un % de chance par possibilite de chaque variable definit dans le tableau traces.
 	 * @return Fourmi avec objectifs parametrer
 	 */
-	public void newAnt(Ant ant, InterfaceRandom generator) {
+	public void newAnt(Solution ant, InterfaceRandom generator) {
 		int size = this.traces.size();
 		
 		int[] res = new int [size];
