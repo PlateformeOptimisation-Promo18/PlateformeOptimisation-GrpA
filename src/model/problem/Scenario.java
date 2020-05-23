@@ -3,9 +3,9 @@ package model.problem;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import model.generic.InterfaceRandom;
 import model.generic.Problem;
 import model.generic.Solution;
-import utils.InterfaceRandom;
 
 public class Scenario extends Solution {
 	
@@ -19,11 +19,11 @@ public class Scenario extends Solution {
 		// we fill scenario with 0 initially
 		Arrays.fill(valueVariables, 0);	
 	}
-	
+	  
 	protected void setDuration(double iVal) {
 		valuesObjectives.set(0, iVal);
 	}
-
+ 
 	protected void setCost(double iVal) {
 		valuesObjectives.set(1, iVal);
 	}

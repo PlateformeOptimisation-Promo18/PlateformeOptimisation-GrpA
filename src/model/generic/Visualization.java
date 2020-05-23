@@ -8,7 +8,7 @@ import javafx.scene.chart.Chart;
 public abstract class Visualization {
 	
 	/** Visualization compatible */
-	private HashMap<Algorithm, TypeOfProblem> visu;
+	private HashMap<CombinatorialMultiObjectiveOptimizationAlgorithm, TypeOfProblem> visu;
 	
 	private Chart graph;
 	

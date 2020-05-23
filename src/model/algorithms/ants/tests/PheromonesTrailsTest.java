@@ -1,5 +1,6 @@
 package model.algorithms.ants.tests;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,8 +14,6 @@ import model.algorithms.ants.Ant;
 import model.algorithms.ants.PheromonesTrails;
 import model.generic.Problem;
 import model.generic.Solution;
-import utils.InterfaceRandom;
-import utils.InterfaceRandom;
 
 public class PheromonesTrailsTest {
 
