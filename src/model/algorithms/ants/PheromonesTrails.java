@@ -5,12 +5,9 @@ import java.util.List;
 import model.generic.InterfaceRandom;
 import model.generic.Problem;
 import model.generic.Solution;
-import model.generic.InterfaceRandom;
 
 public class PheromonesTrails {
 	
-	/** Arrondi des probabilites des traces */
-	private int arrondi;
 	/** Tableau contenant les traces de pheromones pour chaque variable,
 	 * 	 La taille de la liste est egale au nombre de variables du problem */
 	private List<double[]> traces;
@@ -20,16 +17,20 @@ public class PheromonesTrails {
 	 * @param tabAlternatives : tableau representant toutes les alternatives du graph
 	 * @param arrondi : arrondi des probabilites des traces
 	 */
-	public PheromonesTrails (int[] tabSizeDomainVaribales, int arrondi) {
-		this.arrondi = arrondi;
+	public PheromonesTrails (Problem pb) {
 		
 		// Generer le tableau des traces initial avec la meme proba pour chaque possibilites d une variable
 		this.traces = new ArrayList<>();
-		for (int i = 0; i < tabSizeDomainVaribales.length; i++) {
-			int nbAlternatives = tabSizeDomainVaribales[i];
+		for (int i = 0; i < pb.getTabSizeDomainVariables().length; i++) {
+			int nbAlternatives = 0;
+			try {
+				nbAlternatives = pb.getTabSizeDomainVariable(i);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			double[] tmp = new double[nbAlternatives];
 			for (int y = 0; y < nbAlternatives; y++) {
-				tmp[y] = this.arrondi((double)1/nbAlternatives);
+				tmp[y] = (double)1/nbAlternatives;
 			}
 			this.traces.add(tmp);
 		}
@@ -50,24 +51,6 @@ public class PheromonesTrails {
 		}
 		ant.setValuesVariables(res);
 	}
-	/* ANCIEN CODE
-	 * public Ant newAnt () {
-		int size = this.traces.size();
-		int[] res = new int [size];
-		for (int i = 0; i < size; i++) {
-			double tmp = Math.random();
-			double e = 0;
-			int y =0;
-			while (e < tmp && y < this.traces.get(i).length) {
-				e += this.traces.get(i)[y];
-				y++;
-			}
-			res[i] = y-1; 
-		}
-		Ant ants = new Ant (this.traces.size());
-		ants.setObjectifs(res);
-		return ants;
-	}*/
 	
 	/**
 	 * Function mettant a jour le tableau contenant les traces et soustrait a toutes les traces la valeur passer en parametre.
@@ -77,7 +60,6 @@ public class PheromonesTrails {
 		for (int i = 0; i < this.traces.size(); i++) {
 			for (int y = 0; y < this.traces.get(i).length; y++) {
 				this.traces.get(i)[y] -= dQuantitePheromoneEvaporation;
-				this.traces.get(i)[y] = this.arrondi(this.traces.get(i)[y]);
 			}
 		}
 	}
@@ -115,7 +97,7 @@ public class PheromonesTrails {
 	 */
 	private void ajustement (double[] tab, double dProbaTotal, double dQuantiteMini) {
 		for (int y = 0; y < tab.length; y++) {
-			tab[y] = this.arrondi(tab[y]/dProbaTotal);
+			tab[y] = (double)tab[y]/dProbaTotal;
 				
 			if (tab[y] < dQuantiteMini) {
 				tab[y] = dQuantiteMini;
@@ -136,16 +118,6 @@ public class PheromonesTrails {
 		return proba;
 	}
 	
-	/**
-	 * Function permettant d arrondir un nombre.
-	 * La taille de l arrondi est definit dans le constructeur de cette classe.
-	 * @param num : nombre a arrondir
-	 * @return arrondi du nombre
-	 */
-	private double arrondi (double num) {
-		return (double)Math.round((num) * this.arrondi) / this.arrondi;
-	}
-	
 	public String toString () {
 		String res = "{";
 		for (int i = 0; i < this.traces.size(); i++) {
@@ -161,13 +133,8 @@ public class PheromonesTrails {
 	/****** METHODES POUR TESTS UNITAIRES *****/
 	
 	@Deprecated
-	public List<double[]> getEnvProba () {
+	public List<double[]> getTracePheromones () {
 		return this.traces;
-	}
-	
-	@Deprecated
-	public double initProbaTest (int n) {
-		return this.arrondi((double)1/n);
 	}
 
 }
