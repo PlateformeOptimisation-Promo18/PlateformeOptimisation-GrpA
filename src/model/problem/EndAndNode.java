@@ -16,14 +16,14 @@ public class EndAndNode extends Node {
      * @param sc : Scanner qui contient les valeurs qu'on souhaite renseigner lors de la creation de l'objet
      */
     public EndAndNode(Scanner sc) {
-        iIdBeginAndNode = sc.nextInt();
+        this.iIdBeginAndNode = sc.nextInt();
     }
 
     /**
      * @return : chaine de caractere qui decrit l'objet courant
      */
     public String toString() {
-        return String.format("Objet EndAndNode, iIdBeginAndNode : %d", iIdBeginAndNode);
+        return String.format("Objet EndAndNode, iIdBeginAndNode : %d", this.iIdBeginAndNode);
     }
 
     /**
