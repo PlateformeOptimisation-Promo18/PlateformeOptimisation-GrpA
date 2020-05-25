@@ -25,7 +25,7 @@ public class OrNode extends Node {
      * @return : chaine de caractere qui decrit l'objet courant
      */
     public String toString() {
-        return String.format("Objet OrNode, iIdOrNode : %d // iIdEndOrNode : %d", this.iIdOrNode, this.iIdEndOrNode);
+        return "Objet OrNode -> iIdOrNode : " + this.iIdOrNode + " / iIdEndOrNode : " + this.iIdEndOrNode;
     }
 
     /**
