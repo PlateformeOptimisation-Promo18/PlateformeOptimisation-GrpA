@@ -42,11 +42,11 @@ public class ParetoFront {
 	 * Retoune vrai si la 1ere solution domine la 2eme, faux sinon.
 	 * 
 	 * @param sol1
-	 *            : la première solution
+	 *            : la premiï¿½re solution
 	 * @param sol2
 	 *            : la seconde solution
 	 * @param pb
-	 *            : le problème concerné
+	 *            : le problï¿½me concernï¿½
 	 **/
 	static public boolean domine(Solution sol1, Solution sol2, Problem pb) {
 		// to do
@@ -55,8 +55,8 @@ public class ParetoFront {
 	/**
 	 * \brief Actualise le front de ParetoFront
 	 * 
-	 * Insère les nouvelles solutions de l'ensemble dans le front de ParetoFront
-	 * dans l'ordre et retire ceux qui sont devenus dominés
+	 * Insï¿½re les nouvelles solutions de l'ensemble dans le front de ParetoFront
+	 * dans l'ordre et retire ceux qui sont devenus dominï¿½s
 	 * 
 	 * @param solutionsSet
 	 *            : solution set to add
@@ -81,8 +81,8 @@ public class ParetoFront {
 		return null;
 	}
 	/**
-	 * Réduction du front de Pareto regroupe les individus les plus proches dans
-	 * des clusters jusqu'à \n ce qu'on atteingne la limite fixée puis ne
+	 * Rï¿½duction du front de Pareto regroupe les individus les plus proches dans
+	 * des clusters jusqu'ï¿½ \n ce qu'on atteingne la limite fixï¿½e puis ne
 	 * conserve qu'un individu \n par cluster.
 	 * 
 	 * @param projet
