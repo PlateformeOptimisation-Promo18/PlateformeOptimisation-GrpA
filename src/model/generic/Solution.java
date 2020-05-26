@@ -110,7 +110,7 @@ public abstract class Solution {
 	 * @return la valeur de l'hypervolume calcul�
 	 */
 	public double evaluatePerf(Problem pb) {
-		evaluate(pb);
+		evaluate(pb);     
 		computeNormalizedObjective(pb);
 		hypervolum = valuesObjectivesNormalized.get(0);
 		for (int i = 1; i < valuesObjectives.size(); i++) {

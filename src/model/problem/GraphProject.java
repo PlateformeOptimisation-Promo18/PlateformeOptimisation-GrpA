@@ -11,7 +11,7 @@ public class GraphProject implements Problem {
 		this.name = text;
 		// TODO Auto-generated method stub
 	}
-	
+	  
 	public String getName () {
 		return this.name;
 	}
@@ -70,7 +70,7 @@ public class GraphProject implements Problem {
 	public int getNbObjectives() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
+	} 
 
 	@Override
 	public int getNbVariables() {
