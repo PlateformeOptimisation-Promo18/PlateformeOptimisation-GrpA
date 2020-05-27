@@ -4,15 +4,41 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Classe g�n�rique pour une solution d'un probl�me
+ * normalement les algos ne font r�f�rence qu'� cette classe 
+ * pour manipuler les solutions
+ * @author p.pitiot
+ *
+ */
 public abstract class Solution {
 
-	protected int[] valueVariables;
-	protected List<Double> valuesObjectives;
-	protected List<Double> valuesObjectivesNormalized;
-	protected double hypervolum = 0.0;
+	protected int[] valueVariables;   // tableau des valeurs de variables correspondant � la solution
+									  // soit remplit al�atoirement avec RandomSetValues 
+									  // soit � la main avec setValues
+	protected List<Double> valuesObjectives;     // objectifs -> calcul�s par la m�thode �valuer (m�thode evaluate())
+	protected List<Double> valuesObjectivesNormalized;  // normalisation objectif -> en % par rapport aux min/max
+	protected double hypervolum = 0.0;  // double correspondant � la performance d'une solution
+										// calcul� � partir des objectifs ou des objectifs normalis�s
 	
+	/**
+	 * m�thode � concr�tiser pour l'�valuation d'une solution -> calcul les valeurs pour les objectifs 
+	 * pr�-requis : il faut que le tableau valueVariables soit rempli
+	 * @param pb
+	 */
 	public abstract void evaluate(Problem pb);
+	/**
+	 * m�thode � concr�tiser pour le tirage al�atoire du tableau valueVariables
+	 * @param pb
+	 * @param generator r�f�rence vers un objet g�n�rateur de nombre, permet de mocker le g�nrateur
+	 * @throws Exception
+	 */
 	public abstract void randomSetValues(Problem pb, InterfaceRandom generator) throws Exception;
+	
+	/**
+	 * constructeur de solution selon le probl�me correspondant donn� en param�tre
+	 * @param gp
+	 */
 	public Solution(Problem gp) {
 		int iNbObjectives = gp.getNbObjectives();
 		valuesObjectives = new ArrayList<>(iNbObjectives);
@@ -26,6 +52,11 @@ public abstract class Solution {
 		// we initially fill solution with 0
 		Arrays.fill(valueVariables, 0);
 	}
+	
+	/**
+	 * constructeur par copie d'une solution existante
+	 * @param sol
+	 */
 	public Solution(Solution sol) {
 		valuesObjectives = new ArrayList<>();
 		List<Double> listOriginal = sol.getValueObjective();
@@ -72,22 +103,26 @@ public abstract class Solution {
 	public int getValueVariable(int iIndexVariable) {
 		return valueVariables[iIndexVariable];
 	}
+	/**
+	 * m�thode qui �value (calcul des valeurs des objectifs) + 
+	 * calcul l'hypervolume (addition des valeurs normalis�es d'objectifs)
+	 * @param pb
+	 * @return la valeur de l'hypervolume calcul�
+	 */
 	public double evaluatePerf(Problem pb) {
-		evaluate(pb);
+		evaluate(pb);     
 		computeNormalizedObjective(pb);
 		hypervolum = valuesObjectivesNormalized.get(0);
 		for (int i = 1; i < valuesObjectives.size(); i++) {
-			hypervolum *= valuesObjectivesNormalized.get(i);
+			hypervolum += valuesObjectivesNormalized.get(i);
 		}
 		return hypervolum;
 	}
+	
 	protected void computeNormalizedObjective(Problem pb) {
-		for (int i = 0; i < valuesObjectives.size(); i++) {
-			valuesObjectivesNormalized.set(i,
-					(pb.getMaxObjectif(i) - valuesObjectives.get(i)) / (pb.getMaxObjectif(i) - pb.getMinObjectif(i)));
-		}
-
+		// to do ticket
 	}
+	
 	public boolean isDomined(Solution currentSolution) {
 		for (int i = 0; i < valuesObjectives.size(); i++) {
 			if (currentSolution.getValueObjective(i) > valuesObjectives.get(i))
@@ -129,13 +164,17 @@ public abstract class Solution {
 		if (valuesObjectives == null) {
 			if (other.valuesObjectives != null)
 				return false;
-		} else if (!valuesObjectives.equals(other.valuesObjectives))
-			return false;
+		} else {
+			if (!valuesObjectives.equals(other.valuesObjectives))
+				return false;
+		}
 		if (valuesObjectivesNormalized == null) {
 			if (other.valuesObjectivesNormalized != null)
 				return false;
-		} else if (!valuesObjectivesNormalized.equals(other.valuesObjectivesNormalized))
-			return false;
+		} else {
+			if (!valuesObjectivesNormalized.equals(other.valuesObjectivesNormalized))
+				return false;
+		}
 		if (!Arrays.equals(valueVariables, other.valueVariables))
 			return false;
 		return true;

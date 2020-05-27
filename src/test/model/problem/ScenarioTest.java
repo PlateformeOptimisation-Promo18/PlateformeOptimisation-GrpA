@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import model.problem.GraphProject;
 import model.problem.Scenario;
 import utils.UtilsDouble;

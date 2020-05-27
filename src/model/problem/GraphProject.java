@@ -4,35 +4,32 @@ import model.generic.Problem;
 import model.generic.Solution;
 
 public class GraphProject implements Problem {
-	
-	private String name;
-	
+
 	public GraphProject (String text) {
-		this.name = text;
-		// TODO Auto-generated method stub
+
 	}
-	
+
 	public String getName () {
-		return this.name;
+		return "";
 	}
-	
-	public int getNbOr () {
-		// TODO Auto-generated method stub
+
+	public int getNbObjectives() {
 		return 0;
 	}
-	
-	public int getNbTasks () {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
+
 	public int getNbResources () {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
+	public int getNbTasks () {
+		return 0;
+	}
+
+	public int getNbOr () {
+		return 0;
+	}
+
 	public int getNbAnd () {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -67,21 +64,9 @@ public class GraphProject implements Problem {
 	}
 
 	@Override
-	public int getNbObjectives() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public int getNbVariables() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public boolean[] GetActiveVariable(Solution sol) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -89,7 +74,11 @@ public class GraphProject implements Problem {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
+
+	@Override
+	public boolean[] getActiveVariable(Solution sol) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
