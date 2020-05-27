@@ -3,7 +3,7 @@ package test.model.problem;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
+import model.problem.GraphProject;
 import model.generic.Solution;
 
 public class GrapheProjetTest {
