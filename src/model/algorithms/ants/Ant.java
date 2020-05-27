@@ -8,7 +8,6 @@ public class Ant extends Solution {
 
 	public Ant(Problem problem) {
 		super(problem);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

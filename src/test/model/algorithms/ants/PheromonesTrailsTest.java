@@ -258,9 +258,14 @@ public class PheromonesTrailsTest {
 			return 0;
 		}
 
+//		@Override
 		@Override
+//		public boolean[] GetActiveVariable(Solution sol) {
 		public boolean[] getActiveVariable(Solution sol) {
+//			// TODO Auto-generated method stub
 			// TODO Auto-generated method stub
+//			return null;
+//		}
 			return null;
 		}
 
@@ -271,6 +276,12 @@ public class PheromonesTrailsTest {
 
 		@Override
 		public String getName() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean[] getActiveVariable(Solution sol) {
 			// TODO Auto-generated method stub
 			return null;
 		}
