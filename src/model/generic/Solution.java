@@ -5,38 +5,38 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Classe générique pour une solution d'un problème
- * normalement les algos ne font référence qu'à cette classe 
+ * Classe gï¿½nï¿½rique pour une solution d'un problï¿½me
+ * normalement les algos ne font rï¿½fï¿½rence qu'ï¿½ cette classe 
  * pour manipuler les solutions
  * @author p.pitiot
  *
  */
 public abstract class Solution {
 
-	protected int[] valueVariables;   // tableau des valeurs de variables correspondant à la solution
-									  // soit remplit aléatoirement avec RandomSetValues 
-									  // soit à la main avec setValues
-	protected List<Double> valuesObjectives;     // objectifs -> calculés par la méthode évaluer (méthode evaluate())
+	protected int[] valueVariables;   // tableau des valeurs de variables correspondant ï¿½ la solution
+									  // soit remplit alï¿½atoirement avec RandomSetValues 
+									  // soit ï¿½ la main avec setValues
+	protected List<Double> valuesObjectives;     // objectifs -> calculï¿½s par la mï¿½thode ï¿½valuer (mï¿½thode evaluate())
 	protected List<Double> valuesObjectivesNormalized;  // normalisation objectif -> en % par rapport aux min/max
-	protected double hypervolum = 0.0;  // double correspondant à la performance d'une solution
-										// calculé à partir des objectifs ou des objectifs normalisés
+	protected double hypervolum = 0.0;  // double correspondant ï¿½ la performance d'une solution
+										// calculï¿½ ï¿½ partir des objectifs ou des objectifs normalisï¿½s
 	
 	/**
-	 * méthode à concrétiser pour l'évaluation d'une solution -> calcul les valeurs pour les objectifs 
-	 * pré-requis : il faut que le tableau valueVariables soit rempli
+	 * mï¿½thode ï¿½ concrï¿½tiser pour l'ï¿½valuation d'une solution -> calcul les valeurs pour les objectifs 
+	 * prï¿½-requis : il faut que le tableau valueVariables soit rempli
 	 * @param pb
 	 */
 	public abstract void evaluate(Problem pb);
 	/**
-	 * méthode à concrétiser pour le tirage aléatoire du tableau valueVariables
+	 * mï¿½thode ï¿½ concrï¿½tiser pour le tirage alï¿½atoire du tableau valueVariables
 	 * @param pb
-	 * @param generator référence vers un objet générateur de nombre, permet de mocker le génrateur
+	 * @param generator rï¿½fï¿½rence vers un objet gï¿½nï¿½rateur de nombre, permet de mocker le gï¿½nrateur
 	 * @throws Exception
 	 */
 	public abstract void randomSetValues(Problem pb, InterfaceRandom generator) throws Exception;
 	
 	/**
-	 * constructeur de solution selon le problème correspondant donné en paramètre
+	 * constructeur de solution selon le problï¿½me correspondant donnï¿½ en paramï¿½tre
 	 * @param gp
 	 */
 	public Solution(Problem gp) {
@@ -104,13 +104,13 @@ public abstract class Solution {
 		return valueVariables[iIndexVariable];
 	}
 	/**
-	 * méthode qui évalue (calcul des valeurs des objectifs) + 
-	 * calcul l'hypervolume (addition des valeurs normalisées d'objectifs)
+	 * mï¿½thode qui ï¿½value (calcul des valeurs des objectifs) + 
+	 * calcul l'hypervolume (addition des valeurs normalisï¿½es d'objectifs)
 	 * @param pb
-	 * @return la valeur de l'hypervolume calculé
+	 * @return la valeur de l'hypervolume calculï¿½
 	 */
 	public double evaluatePerf(Problem pb) {
-		evaluate(pb);
+		evaluate(pb);     
 		computeNormalizedObjective(pb);
 		hypervolum = valuesObjectivesNormalized.get(0);
 		for (int i = 1; i < valuesObjectives.size(); i++) {
