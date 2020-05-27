@@ -3,10 +3,8 @@ package test.model.problem;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
-import model.generic.Solution;
 import model.problem.GraphProject;
-import model.problem.Scenario;
+import model.generic.Solution;
 
 public class GrapheProjetTest {
 	

@@ -166,14 +166,14 @@ public abstract class Solution {
 				return false;
 		} else {
 			if (!valuesObjectives.equals(other.valuesObjectives))
-			return false;
+				return false;
 		}
 		if (valuesObjectivesNormalized == null) {
 			if (other.valuesObjectivesNormalized != null)
 				return false;
 		} else {
 			if (!valuesObjectivesNormalized.equals(other.valuesObjectivesNormalized))
-			return false;
+				return false;
 		}
 		if (!Arrays.equals(valueVariables, other.valueVariables))
 			return false;

@@ -85,15 +85,15 @@ public class ParetoFront {
 	
 	/**
 	 * Reduit le nombre de solution du front de Pareto.
-	 * Conserve les solutions les plus réparties sur le front.
+	 * Conserve les solutions les plus rï¿½parties sur le front.
 	 * Ne fait rien si le nombre de solution a garder est egal au nombre de solution initial.
-	 * @param nbMaxSol (int) le nombre de solution à garder
+	 * @param nbMaxSol (int) le nombre de solution ï¿½ garder
 	 * @param pb (Problem)
-	 * @throws IllegalArgumentException si le nombre de solution a garder est supérieur au nombre de solution initial
+	 * @throws IllegalArgumentException si le nombre de solution a garder est supï¿½rieur au nombre de solution initial
 	 */
 	public void reduceIfNecessary(int nbMaxSol, Problem pb) throws IllegalArgumentException {
-		if(nbMaxSol > this.set.size()) throw new IllegalArgumentException("Nombre de solution à garder"
-				+ "supérieur au nombre de solution du front de Pareto.");
+		if(nbMaxSol > this.set.size()) throw new IllegalArgumentException("Nombre de solution ï¿½ garder"
+				+ "supï¿½rieur au nombre de solution du front de Pareto.");
 		if(nbMaxSol < this.set.size()) {
 			ArrayList<ArrayList<Solution>> allclusters = new ArrayList<ArrayList<Solution>>();
 			for(Solution s : this.set) {
