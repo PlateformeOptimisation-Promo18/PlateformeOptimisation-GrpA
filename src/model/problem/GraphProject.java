@@ -1,10 +1,13 @@
 package model.problem;
 
+import java.util.List;
+import java.util.LinkedList;
+
 import model.generic.Problem;
 import model.generic.Solution;
 
 public class GraphProject implements Problem {
-	
+	private List<Objectif> listObjectives=new LinkedList<>();
 	private String name;
 	
 	public GraphProject (String text) {
@@ -89,7 +92,34 @@ public class GraphProject implements Problem {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
+	public void calculatedExtremumValues(){
+		listObjectives.get(0).setdMinimalValue(calculatedOneExtremum(true, 0));
+		listObjectives.get(0).setdMaximumValue(calculatedOneExtremum(false, 0));
+		listObjectives.get(1).setdMinimalValue(calculatedOneExtremum(true, 1));
+		listObjectives.get(1).setdMaximumValue(calculatedOneExtremum(false, 1));
+	}
+	private double calculatedOneExtremum(boolean bIsMinCalculated, int iNumObjectif) {
+		
+		List<PlannedNode> listNodeToPlan = new LinkedList<>();
+		
+		PlannedNode currentNode = listNodeToPlan.get(0);
+		while(!listNodeToPlan.isEmpty()) {
+			currentNode = searchForNodeWithoutPreviousNodeAndWithAvailableResources(listNodeToPlan);
+			if(currentNode !=null) {
+				if(currentNode.getClass()=TaskNode.class) {
+					
+				}
+			}
+		}
+	}
+	private void searchForNodeWithoutPreviousNodeAndWithAvailableResources(List<PlannedNode> listNodeToPlan, boolean bIsMinCalculated, int iNumObjectif) {
+		
+	}
+	public void initializeNoteToPlan(List<PlannedNode> listNodeToPlan, SharedEnvironementForPlanification envir) {
+
+    }
+	private void updateNextNodes(List<PlannedNode> listNodeToPlan, PlannedNode plannedNode, boolean bIsMinCalculated, int iNumObjectif) {
+		
+	}
 
 }
