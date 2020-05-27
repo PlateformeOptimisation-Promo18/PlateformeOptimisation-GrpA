@@ -70,15 +70,15 @@ public class GraphProject implements Problem {
 	}
 
 	@Override
-	public boolean[] GetActiveVariable(Solution sol) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int getTabSizeDomainVariable(int i) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean[] getActiveVariable(Solution sol) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
