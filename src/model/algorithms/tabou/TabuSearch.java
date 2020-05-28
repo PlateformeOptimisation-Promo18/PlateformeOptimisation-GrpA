@@ -2,16 +2,11 @@ package model.algorithms.tabou;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import application.StopRequired;
-import model.generic.CombinatorialMultiObjectiveOptimizationAlgorithm;
-import model.generic.InterfaceRandom;
-import model.generic.Parameter;
-import model.generic.Problem;
-import model.generic.Solution;
+import model.generic.*;
 
 /**
  * The class TabuSearch is used to search for the best solution for a problem
@@ -20,7 +15,7 @@ import model.generic.Solution;
  * @author Léa BATLLE-FONT
  *
  */
-public class TabuSearch extends CombinatorialMultiObjectiveOptimizationAlgorithm{
+public class TabuSearch extends CombinatorialMultiObjectiveOptimizationAlgorithm {
 	//Default number of neighbours for a solution
 	private static final int NB_NEIGHBOURS = 10;
 	//Default number of iteration of the algorithm
@@ -35,7 +30,7 @@ public class TabuSearch extends CombinatorialMultiObjectiveOptimizationAlgorithm
 	 * @param algorithmName
 	 */
 	public TabuSearch(Problem pb,StopRequired stop, String algorithmName) {
-		super(pb, stop, "Tabou");
+		super(pb, stop, algorithmName);
 
 		Parameter neighbours = new Parameter(NB_NEIGHBOURS, "Number of neighbours for a Solution");
 		this.listParam.add(neighbours);
@@ -48,27 +43,30 @@ public class TabuSearch extends CombinatorialMultiObjectiveOptimizationAlgorithm
 
 	@Override
 	public void launch(InterfaceRandom generator) {
+		final int nbNeighbourParameter = this.listParam.get(0).getValue().intValue();
+		final int nbIterationParameter = this.listParam.get(1).getValue().intValue();
+		final int sizeTabouListParameter = this.listParam.get(2).getValue().intValue();
+
 		/**
 		 * This list will store every solution we already checked to avoid infinite loop 
 		 * going throw the same solution over and over. It will be our memory.
 		 */
-		Set<Solution> tabouList = new HashSet<>();
+		List<Solution> tabouList = new LinkedList<>();
 		int count = 0;
 		Solution currentSolution = pb.getSolution();
 		try {
 			currentSolution.randomSetValues(pb, generator);
+			currentSolution.evaluatePerf(pb);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 
 		//Main loop who checked if the search continues or must stop.
-		while(count <= this.listParam.get(1).getValue().intValue() && !this.stopRequired 
-				&& tabouList.size() < this.listParam.get(2).getValue().intValue()) {
+		while(count <= nbIterationParameter && !this.stopRequired) {
 
 			//Creation and evaluation of the current Solution
 			count++;
 			long startTime = System.nanoTime();
-			currentSolution.evaluate(pb);
 			this.evolutionHypervolum.add(currentSolution.evaluatePerf(pb));
 			this.bestSolutions.addSolutionIfIsParetoFrontSolution(currentSolution);
 			tabouList.add(currentSolution);
@@ -77,7 +75,7 @@ public class TabuSearch extends CombinatorialMultiObjectiveOptimizationAlgorithm
 			Solution bestNeighbour = currentSolution;
 			
 			//Then, creation of his neighbours and we evaluate them
-			while(neighbourCount < this.listParam.get(0).getValue().intValue() && tabouList.size() < this.listParam.get(2).getValue().intValue()) {
+			while(neighbourCount < nbNeighbourParameter && tabouList.size() < sizeTabouListParameter) {
 				neighbourCount++;
 				int[] tabPossibleValues = pb.getTabSizeDomainVariables();
 				int variableToChange = generator.nextInt(currentSolution.getNbVariables());
@@ -87,16 +85,18 @@ public class TabuSearch extends CombinatorialMultiObjectiveOptimizationAlgorithm
 				neighbour.setValuesVariables(variableToChange, generator.nextInt(tabPossibleValues[variableToChange]));
 				
 				//We check if the solution already exist to avoid evaluate it twice
-				while (tabouList.contains(neighbour)) {
+				while (containSolution(tabouList, neighbour)) {
 					neighbour.setValuesVariables(variableToChange, generator.nextInt(tabPossibleValues[variableToChange]));
 				}
-				
-				//The new neighbour is added to the memory
-				tabouList.add(neighbour);
 				
 				//We check if this neighbour is better than the previous
 				if(neighbour.evaluatePerf(pb) > bestNeighbour.evaluatePerf(pb)) {
 					bestNeighbour = neighbour;
+					//If tabouList is full, delete the first element added
+					if(tabouList.size() == sizeTabouListParameter){
+						tabouList.remove(0);
+					}
+					tabouList.add(neighbour);
 				}
 			}
 			long estimatedTime = (System.nanoTime() - startTime)/1000000;
@@ -114,6 +114,21 @@ public class TabuSearch extends CombinatorialMultiObjectiveOptimizationAlgorithm
 
 		}
 
+	}
+
+	/**
+	 * Look for a solution in a set
+	 * @param solutions the set to examinate
+	 * @param solution the solution to look for
+	 * @return return true if the solution is found
+	 */
+	private boolean containSolution(List<Solution> solutions, Solution solution){
+		for(Solution solutionToTest : solutions){
+			if(solutionToTest.getValuesVariables().equals(solution.getValuesVariables())){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

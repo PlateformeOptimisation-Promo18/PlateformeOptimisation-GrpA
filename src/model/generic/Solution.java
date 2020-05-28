@@ -84,7 +84,7 @@ public abstract class Solution {
 	private List<Double> getValueObjective() {
 		return valuesObjectives;
 	}
-	private int[] getValuesVariables() {
+	public int[] getValuesVariables() {
 		return valueVariables;
 	}
 	public int getNbVariables() {
