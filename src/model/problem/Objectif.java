@@ -18,18 +18,22 @@ public class Objectif {
      * @param sc : Scanner qui contient les valeurs qu'on souhaite renseigner lors de la creation de l'objet
      */
     public Objectif(Scanner sc) {
-        this.sName = sc.next();
+        this.FLoad(sc);
     }
 
     /**
      * @return : chaine de caractere qui decrit l'objet courant
      */
     public String toString() {
-        return String.format("Objet Objectif, sName : %s // dMinimalValue : %f // dMaximumValue : %f", this.sName, this.dMinimalValue, this.dMaximumValue);
+        return "Objet Objectif -> sName : " + this.sName + " / dMinimalValue : " + this.dMinimalValue + " / dMaximumValue : " + this.dMaximumValue;
     }
 
+    /**
+     *
+     * @param sc : Scanner qui contient les valeurs qu'on souhaite renseigner lors de la creation de l'objet
+     */
     protected void FLoad(Scanner sc) {
-//        TODO
+        this.sName = sc.next();
     }
 
     /**

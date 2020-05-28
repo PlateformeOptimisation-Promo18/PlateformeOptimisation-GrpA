@@ -11,9 +11,9 @@ import java.util.Scanner;
  */
 public class Alternative {
 
-    protected String sName;
-    protected List<Double> listValueObjectif;
-    protected List<Resource> listResources;
+    private String sName;
+    private List<Double> listValueObjectif;
+    private List<Resource> listResources;
 
     /**
      * Constructeur surchargé qui permet de créer une nouvelle alternative
@@ -50,8 +50,15 @@ public class Alternative {
      * @return : chaine de caractere qui decrit l'objet courant
      */
     public String toString() {
-        return null;
-//        return "Objet Alternative -> sName : " + this.sName + " / listValueObjectif : " + this.listValueObjectif;
+        StringBuilder msg = new StringBuilder("Objet Alternative -> sName : " + this.sName + " / listValueObjectif : [");
+        for (double value : this.listValueObjectif) {
+            msg.append(value).append(" ");
+        }
+        msg.append("]\n");
+        for (Resource listResource : this.listResources) {
+            msg.append(listResource.toString());
+        }
+        return msg.toString();
     }
 
     /**
