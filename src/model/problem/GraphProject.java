@@ -1,5 +1,5 @@
 package model.problem;
-
+import model.problem.*;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -106,20 +106,53 @@ public class GraphProject implements Problem {
 		while(!listNodeToPlan.isEmpty()) {
 			currentNode = searchForNodeWithoutPreviousNodeAndWithAvailableResources(listNodeToPlan);
 			if(currentNode !=null) {
-				if(currentNode.getClass()=TaskNode.class) {
-					
+				if(currentNode.equals(TaskNode.class)) {
+					currentNode.PlanTask(bIsMinCalculated,iNumObjectif);
+				}
+				updateNextNodes(listNodeToPlan,currentNode,bIsMinCalculated, iNumObjectif);
+			}
+			else {
+				//TODO
+				List<PlannedNode> currentNodeList= listNodeToPlan;
+				for(PlannedNode node: listNodeToPlan) {
+					currentNodeList.updateEnvir();
 				}
 			}
 		}
-	}
-	private void searchForNodeWithoutPreviousNodeAndWithAvailableResources(List<PlannedNode> listNodeToPlan, boolean bIsMinCalculated, int iNumObjectif) {
 		
+		
+	}
+	private PlannedNode searchForNodeWithoutPreviousNodeAndWithAvailableResources(List<PlannedNode> listNodeToPlan, boolean bIsMinCalculated, int iNumObjectif) {
+		int index=0;
+		for(int i=0; i< listNodeToPlan.size();i++) {
+			if(listNodeToPlan.get(i).listIdPreviousNodeNodeToPlan.isEmpty()) {
+				index=i;
+			}
+		}
+		return listNodeToPlan.get(index);
 	}
 	public void initializeNoteToPlan(List<PlannedNode> listNodeToPlan, SharedEnvironementForPlanification envir) {
 
     }
 	private void updateNextNodes(List<PlannedNode> listNodeToPlan, PlannedNode plannedNode, boolean bIsMinCalculated, int iNumObjectif) {
-		
+		List<Integer> nextNode= plannedNode.getInitialNode().getListNexts();
+		List<Integer> previousNode;
+		for(int i=0;i<nextNode.size();i++) {
+		previousNode=listNodeToPlan.get(nextNode.get(i)).getListIdPreviousNodeNodeToPlan();
+			for(int j=0;j<previousNode.size();j++) {
+				if(previousNode.get(j)==plannedNode.getInitialNode().getiIdNode()) {
+					listNodeToPlan.get(nextNode.get(i)).getListIdPreviousNodeNodeToPlan().remove(j);
+					listNodeToPlan.get(nextNode.get(i)).dBeginningDate=plannedNode.getdEndingDate();
+					
+				}
+			}
+		}
+		for(int i=0;i<listNodeToPlan.size();i++) {
+			if(listNodeToPlan.get(i)==plannedNode) {
+				listNodeToPlan.remove(i);
+			}
+			
+		}
 	}
 
 }

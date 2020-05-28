@@ -14,7 +14,9 @@ public class PlannedNode {
 		this.listIdPreviousNodeNodeToPlan = initialNode.getCopyListPrevious();
 		this.envir = envir;
 	}
-
+	public void PlanTask(boolean bIsMinCalculated, int iNumObjectif) {
+		
+	}
 	public double getdBeginningDate() {
 		return dBeginningDate;
 	}
@@ -30,6 +32,13 @@ public class PlannedNode {
 	public void setdEndingDate(double dEndingDate) {
 		this.dEndingDate = dEndingDate;
 	}
+	public List<Integer> getListIdPreviousNodeNodeToPlan() {
+		return listIdPreviousNodeNodeToPlan;
+	}
+	public Node getInitialNode() {
+		return initialNode;
+	}
+	
 	
 	
 }
