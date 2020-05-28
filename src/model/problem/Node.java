@@ -10,9 +10,9 @@ import java.util.List;
  */
 public abstract class Node implements Comparable<Node> {
 
-    protected int iIdNode;
-    protected List<Integer> listNexts;
-    protected List<Integer> listPrevious;
+    private int iIdNode;
+    private List<Integer> listNexts;
+    private List<Integer> listPrevious;
 
     /**
      * Création d'un Node avec listNexts et listPrevious comme étant des ArrayList
@@ -22,16 +22,28 @@ public abstract class Node implements Comparable<Node> {
         this.listPrevious = new ArrayList<>();
     }
 
+    /**
+     * Permet de comparer le Node courant et celui passé en paramètre
+     * @param o : Node qu'on souhaite comparer avec le Node courant
+     * @return : 1 si ND plus grand / -1 si ND plus petit / 0 si egal (ND = Node Courant)
+     */
     public int compareTo(Node o) {
-//        TODO
-        return 0;
+        int val;
+        if (this.iIdNode > o.iIdNode) {
+            val = 1;
+        } else if (this.iIdNode < o.iIdNode) {
+            val = -1;
+        } else {
+            val = 0;
+        }
+        return val;
     }
 
     /**
      * Permet de faire un copy de listPrevious
      * @return : référence vers une copy de listPrevious de l'objet courant
      */
-    protected List<Integer> getCopyListPrevious() {
+    public List<Integer> getCopyListPrevious() {
         return new ArrayList<>(this.listPrevious);
     }
 
