@@ -18,20 +18,18 @@ public class PheromonesTrails {
 	 * @param arrondi : arrondi des probabilites des traces
 	 */
 	public PheromonesTrails (Problem pb) {
-		
 		// Generer le tableau des traces initial avec la meme proba pour chaque possibilites d une variable
 		this.traces = new ArrayList<>();
+		
 		for (int i = 0; i < pb.getTabSizeDomainVariables().length; i++) {
-			int nbAlternatives = 0;
-			try {
-				nbAlternatives = pb.getTabSizeDomainVariable(i);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			
+			int nbAlternatives = pb.getTabSizeDomainVariables()[i];
 			double[] tmp = new double[nbAlternatives];
+			
 			for (int y = 0; y < nbAlternatives; y++) {
 				tmp[y] = (double)1/nbAlternatives;
 			}
+			
 			this.traces.add(tmp);
 		}
 	}
@@ -41,22 +39,35 @@ public class PheromonesTrails {
 	 * Objectifs aleatoire avec un % de chance par possibilite de chaque variable definit dans le tableau traces.
 	 * @return Fourmi avec objectifs parametrer
 	 */
-	public void newAnt(Solution ant, InterfaceRandom generator) {
+	public Solution newAnt (Problem problem, InterfaceRandom generator) {
 		int size = this.traces.size();
+		int[] path = new int [size];
 		
-		int[] res = new int [size];
 		for (int i = 0; i < size; i++) {
-			int tmp = generator.nextInt(this.traces.get(i).length);
-			res[i] = tmp; 
+			double numberRandom  = generator.nextDouble();
+			
+			double proba = 0.0;
+			int choice = 0;
+			
+			while (choice < this.traces.get(i).length && proba <= numberRandom) {
+				proba += this.traces.get(i)[choice];
+				choice++;
+			}
+			
+			path[i] = choice-1;
 		}
-		ant.setValuesVariables(res);
+		
+		Solution ant = problem.getSolution();
+		ant.setValuesVariables(path);
+		
+		return ant;
 	}
 	
 	/**
 	 * Function mettant a jour le tableau contenant les traces et soustrait a toutes les traces la valeur passer en parametre.
 	 * @param dQuantitePheromoneEvaporation
 	 */
-	public void evaporer (double dQuantitePheromoneEvaporation) {
+	public void evaporated (double dQuantitePheromoneEvaporation) {
 		for (int i = 0; i < this.traces.size(); i++) {
 			for (int y = 0; y < this.traces.get(i).length; y++) {
 				this.traces.get(i)[y] -= dQuantitePheromoneEvaporation;
@@ -70,9 +81,12 @@ public class PheromonesTrails {
 	 * @param ant : Fourmi a recompensee
 	 * @param dQuantitePheromoneAjout : Quantite de pheromone a depose
 	 */
-	public void recompenser (Problem pb, Ant ant, double dQuantitePheromoneAjout) {
+	public void reward (Problem problem, Solution ant, double dQuantitePheromoneAjout) {
+		boolean[] activeVariables = problem.getActiveVariable(ant);
+		
 		for(int i = 0; i < ant.getNbVariables(); i++) {
-			this.traces.get(i)[ant.getValueVariable(i)] += dQuantitePheromoneAjout;
+			if (activeVariables[i])
+				this.traces.get(i)[ant.getValueVariable(i)] += dQuantitePheromoneAjout;
 		}
 	}
 	
@@ -82,25 +96,44 @@ public class PheromonesTrails {
 	 * Si possibilite < quantite minimum de pheromone alors la possibilite est egale a cette quantite mini.
 	 * @param dQuantiteMini : qauntite minimum de pheromone sur un chemin du tableau de traces.
 	 */
-	public void ajuster (double dQuantiteMini) {
+	public void adjustPheromonTrail (double dQuantiteMini) throws IllegalArgumentException {
+		if (dQuantiteMini > 1.0/this.traces.size() || dQuantiteMini < 0)
+			throw new IllegalArgumentException ("Error : dQuantiteMini is too big or too small.");
+		
 		for (int i = 0; i < this.traces.size(); i++) {
-			double dProbaTotal = this.getProbaTotal(this.traces.get(i));
-			this.ajustement(this.traces.get(i), dProbaTotal, dQuantiteMini);
+			// met le % des chemins du tableau des traces a dQuantiteMini si il lui est inferieure
+			this.checkDQuantityMini(this.traces.get(i), dQuantiteMini);
+			
+			// Ramene la somme des probabilites des variables d un chemin a 1
+			this.reduceSumProbailitiesTo1(this.traces.get(i));
 		}
 	}
 	
 	/**
-	 * Function d ajustement du tableau des traces
-	 * @param tab : tableau de probabilites aussi appele chemin ou objectifs d une fourmi
-	 * @param dProbaTotal : Probabilite d un enssemble
-	 * @param dQuantiteMini : qauntite minimum de pheromone sur un chemin du tableau de traces.
+	 * 
+	 * @param tab
+	 * @param dQuantiteMini
 	 */
-	private void ajustement (double[] tab, double dProbaTotal, double dQuantiteMini) {
-		for (int y = 0; y < tab.length; y++) {
-			tab[y] = (double)tab[y]/dProbaTotal;
-				
-			if (tab[y] < dQuantiteMini) {
-				tab[y] = dQuantiteMini;
+	private void checkDQuantityMini (double[] tab, double dQuantiteMini) {
+		if (dQuantiteMini!=0) {
+			// met le % des chemins du tableau des traces a dQuantiteMini si il lui est inferieure
+			for (int y = 0; y < tab.length; y++) {
+				if (tab[y] < dQuantiteMini) {
+					tab[y] = dQuantiteMini;
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param tab
+	 */
+	private void reduceSumProbailitiesTo1 (double[] tab) {
+		double dProbaTotal = this.getProbaTotal(tab);
+		if (dProbaTotal != 1.0) {
+			for (int y = 0; y < this.traces.size(); y++) {
+				tab[y] /= dProbaTotal;
 			}
 		}
 	}
