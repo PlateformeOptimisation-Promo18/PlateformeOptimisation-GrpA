@@ -9,8 +9,8 @@ import java.util.Scanner;
  */
 public class Resource implements Cloneable {
 
-    protected int iIdResource;
-    protected double dQuantity;
+    private int iIdResource;
+    private double dQuantity;
 
     /**
      * Permet de créer un objet avec des valeurs transmises en parametres
@@ -26,8 +26,8 @@ public class Resource implements Cloneable {
      * @param resource : Objet ressource avec lequel on souhaite en créer un nouveau
      */
     public Resource(Resource resource) {
-        this.iIdResource = resource.iIdResource;
-        this.dQuantity = resource.dQuantity;
+        this.iIdResource = resource.getiIdResource();
+        this.dQuantity = resource.getdQuantity();
     }
 
     public Resource(Scanner sc, GraphProject gp) throws Exception {
@@ -55,13 +55,6 @@ public class Resource implements Cloneable {
      */
     public void addQuantity(double dQuantity) {
         this.dQuantity += dQuantity;
-    }
-
-    /**
-     * @return : une copy de l'objet de l'objet courant
-     */
-    protected Resource clone() {
-        return new Resource(this);
     }
 
     /**
