@@ -147,17 +147,53 @@ public class PheromonesTrailsTest {
 	
 	@Test
 	public void testAdjustTraces () {
+		this.envTraces.evaporated(0.15);
 		
+		Solution ant = new MockSolution (this.pb);
+		int [] valuesVariables = {0,1,3};
+		ant.setValuesVariables(valuesVariables);
+		this.envTraces.reward(this.pb, ant, 0.4);
+		
+		this.envTraces.adjustPheromonTrail(0);
+		
+		//Init resultat attendu
+		double[] tab2 = {0.35/1.1, 0.75/1.1};
+		double[] tab3 = {0.10/0.8, 0.10/0.8, 0.10/0.8, 0.5/0.8};
+				
+		assertTrue(Arrays.equals(tab2, this.envTraces.getTracePheromones().get(1)));
+		assertTrue(Arrays.equals(tab3, this.envTraces.getTracePheromones().get(2)));
 	}
 	
 	@Test
+	public void testAdjustTracesWithDQuantity () {
+		System.out.println("test");
+		this.envTraces.evaporated(0.15);
+		
+		Solution ant = new MockSolution (this.pb);
+		int [] valuesVariables = {0,1,3};
+		ant.setValuesVariables(valuesVariables);
+		this.envTraces.reward(this.pb, ant, 0.4);
+		
+		this.envTraces.adjustPheromonTrail(0.15);
+		
+		//Init resultat attendu
+		double[] tab2 = {0.35/1.1, 0.75/1.1};
+		double[] tab3 = {0.15/0.95, 0.15/0.95, 0.15/0.95, 0.5/0.95};
+		
+		System.out.println(this.envTraces.toString());
+				
+		assertTrue(Arrays.equals(tab2, this.envTraces.getTracePheromones().get(1)));
+		assertTrue(Arrays.equals(tab3, this.envTraces.getTracePheromones().get(2)));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
 	public void testAdjustTracesWithDQuantityMiniInf0 () {
-		
+		this.envTraces.adjustPheromonTrail(-1);
 	}
 	
-	@Test
+	@Test(expected=IllegalArgumentException.class)
 	public void testAdjustTracesWithDQuantityMiniSup1DividedByNbVariablesOfTraces () {
-		
+		this.envTraces.adjustPheromonTrail(0.26);
 	}
 	
 	@Test

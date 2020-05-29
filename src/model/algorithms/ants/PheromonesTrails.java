@@ -98,13 +98,16 @@ public class PheromonesTrails {
 	 * @param dQuantiteMini : qauntite minimum de pheromone sur un chemin du tableau de traces.
 	 */
 	public void adjustPheromonTrail (double dQuantiteMini) throws IllegalArgumentException {
-		if (dQuantiteMini > 1.0/this.traces.size() || dQuantiteMini < 0)
-			throw new IllegalArgumentException ("Error : dQuantiteMini is too big or too small.");
+		if (dQuantiteMini < 0)
+			throw new IllegalArgumentException ("Error : dQuantiteMini is too small.");
 		
 		for (int i = 0; i < this.traces.size(); i++) {
+			if (dQuantiteMini > 1.0/this.traces.get(i).length)
+				throw new IllegalArgumentException ("Error : dQuantiteMini is too big for the "+ i +" variable of Solution.");
+			
 			// met le % des chemins du tableau des traces a dQuantiteMini si il lui est inferieure
 			this.checkDQuantityMini(this.traces.get(i), dQuantiteMini);
-			
+				
 			// Ramene la somme des probabilites des variables d un chemin a 1
 			this.reduceSumProbailitiesTo1(this.traces.get(i));
 		}
@@ -132,9 +135,10 @@ public class PheromonesTrails {
 	 */
 	private void reduceSumProbailitiesTo1 (double[] tab) {
 		double dProbaTotal = this.getProbaTotal(tab);
+		;
 		if (dProbaTotal != 1.0) {
-			for (int y = 0; y < this.traces.size(); y++) {
-				tab[y] /= dProbaTotal;
+			for (int y = 0; y < tab.length; y++) {
+				tab[y] = tab[y] / dProbaTotal;
 			}
 		}
 	}
