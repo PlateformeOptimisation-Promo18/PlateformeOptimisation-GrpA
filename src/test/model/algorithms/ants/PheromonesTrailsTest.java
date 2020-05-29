@@ -53,7 +53,7 @@ public class PheromonesTrailsTest {
 	public void testNewAnt () {
 		int[] test = {2,1,3};
 		
-		// Init fourmi et generateur
+		// Init generateur
 		double[] mockRandomTest = {0.67, 0.51, 0.76};
 		MockRandom generator = new MockRandom (mockRandomTest);
 		
@@ -70,16 +70,79 @@ public class PheromonesTrailsTest {
 	
 	@Test
 	public void testNewAntWith0Paths () {
+		int[] path = {};
+		MockProblem problem = new MockProblem(path);
+		this.envTraces = new PheromonesTrails (problem);
+		
+		int[] test = {};
+		
+		// Init generateur
+		double[] mockRandomTest = {0.67, 0.51, 0.76};
+		MockRandom generator = new MockRandom (mockRandomTest);
+		
+		// màj traces
+		Solution solution = this.envTraces.newAnt(this.pb, generator);
+		
+		// Récupération du tableu valueVariables de la fourmi
+		int[] tmp = new int[solution.getNbVariables()];
+		for (int i = 0; i < solution.getNbVariables(); i++)
+			tmp[i] = solution.getValueVariable(i);
+		
+		assertTrue(Arrays.equals(test, tmp));
+	}
+	
+	@Test
+	public void testNewAntWith1Variable0 () {
+		int[] path = {3,0,4};
+		MockProblem problem = new MockProblem(path);
+		this.envTraces = new PheromonesTrails (problem);
+		
+		int[] test = {2,-1,3};
+		
+		// Init generateur
+		double[] mockRandomTest = {0.67, 0.51, 0.76};
+		MockRandom generator = new MockRandom (mockRandomTest);
+		
+		// màj traces
+		Solution solution = this.envTraces.newAnt(this.pb, generator);
+		
+		// Récupération du tableu valueVariables de la fourmi
+		int[] tmp = new int[solution.getNbVariables()];
+		for (int i = 0; i < solution.getNbVariables(); i++)
+			tmp[i] = solution.getValueVariable(i);
+		
+		assertTrue(Arrays.equals(test, tmp));
 	}
 	
 	@Test
 	public void testEvaporated () {
-		
+ 		double[] tab1 = {((double)1/3)-0.1, ((double)1/3)-0.1, ((double)1/3)-0.1};
+ 		double[] tab2 = {0.4,0.4};
+ 		double[] tab3 = {0.15,0.15,0.15,0.15};
+ 		
+ 		this.envTraces.evaporated(0.1);
+ 		
+ 		assertTrue(Arrays.equals(tab1, this.envTraces.getTracePheromones().get(0)));
+		assertTrue(Arrays.equals(tab2, this.envTraces.getTracePheromones().get(1)));
+		assertTrue(Arrays.equals(tab3, this.envTraces.getTracePheromones().get(2)));
 	}
 	
 	@Test
-	public void testReward () {
+	public void testRewardWith1variableActive0 () {
+		Solution ant = new MockSolution (this.pb);
+		int [] valuesVariables = {0,1,3};
+		ant.setValuesVariables(valuesVariables);
 		
+		this.envTraces.reward(this.pb, ant, 0.2);
+		
+		//Init resultat attendu
+		double[] tab1 = {(double)1/3,(double)1/3,(double)1/3};
+		double[] tab2 = {0.5,0.7};
+		double[] tab3 = {0.25,0.25,0.25,0.45};
+		
+		assertTrue(Arrays.equals(tab1, this.envTraces.getTracePheromones().get(0)));
+		assertTrue(Arrays.equals(tab2, this.envTraces.getTracePheromones().get(1)));
+		assertTrue(Arrays.equals(tab3, this.envTraces.getTracePheromones().get(2)));
 	}
 	
 	@Test
@@ -102,117 +165,6 @@ public class PheromonesTrailsTest {
 		assertEquals(
 				"{ { 0.3333333333333333 0.3333333333333333 0.3333333333333333 }  { 0.5 0.5 }  { 0.25 0.25 0.25 0.25 } }", 
 				this.envTraces.toString());
-	}
-	
-	public class MockSolution extends Solution {
-		
-		public MockSolution (Problem problem) {
-			super(problem);
-		}
-
-		@Override
-		public void evaluate(Problem pb) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void randomSetValues(Problem pb, InterfaceRandom generator) throws Exception {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
-	
-	public class MockRandom implements InterfaceRandom {
-		
-		private int cpt;
-		private double[] res;
-		
-		public MockRandom(double[] res) {
-			this.cpt = 0;
-			this.res = res;
-		}
-
-		@Override
-		public double nextDouble() {
-			this.cpt++;
-			return this.res[cpt-1];
-		}
-
-		@Override
-		public int nextInt(int i) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-		
-	}
-	
-	public class MockProblem implements Problem {
-		
-		int[] domainVariables;
-		
-		public MockProblem (int[] tab) {
-			this.domainVariables = tab;
-		}
-
-		@Override
-		public Solution getSolution() {
-			return new MockSolution (this);
-		}
-
-		@Override
-		public Solution copySolution(Solution sol) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public int[] getTabSizeDomainVariables() {
-			return this.domainVariables;
-		}
-
-		@Override
-		public Double getMaxObjectif(int i) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Double getMinObjectif(int i) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public int getNbObjectives() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public int getNbVariables() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public boolean[] getActiveVariable(Solution sol) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public int getTabSizeDomainVariable(int i) throws Exception {
-			return this.domainVariables[i];
-		}
-
-		@Override
-		public String getName() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
 	}
 
 }

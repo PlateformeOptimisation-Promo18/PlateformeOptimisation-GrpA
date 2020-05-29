@@ -37,6 +37,7 @@ public class PheromonesTrails {
 	/**
 	 * Construction d une nouvelle fourmi et initialisation de ces objectifs
 	 * Objectifs aleatoire avec un % de chance par possibilite de chaque variable definit dans le tableau traces.
+	 * Set objectif a -1 si aucune alternative
 	 * @return Fourmi avec objectifs parametrer
 	 */
 	public Solution newAnt (Problem problem, InterfaceRandom generator) {
