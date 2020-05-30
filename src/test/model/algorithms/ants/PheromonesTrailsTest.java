@@ -68,6 +68,25 @@ public class PheromonesTrailsTest {
 	}
 	
 	@Test
+	public void testNewAnt2 () {
+		int[] test = {0,1,3};
+		
+		// Init generateur
+		double[] mockRandomTest = {0.2, 0.51, 0.76};
+		MockRandom generator = new MockRandom (mockRandomTest);
+		
+		// màj traces
+		Solution solution = this.envTraces.newAnt(this.pb, generator);
+		
+		// Récupération du tableu valueVariables de la fourmi
+		int[] tmp = new int[solution.getNbVariables()];
+		for (int i = 0; i < solution.getNbVariables(); i++)
+			tmp[i] = solution.getValueVariable(i);
+		
+		assertTrue(Arrays.equals(test, tmp));
+	}
+	
+	@Test
 	public void testNewAntWith0Paths () {
 		int[] path = {};
 		MockProblem problem = new MockProblem(path);
