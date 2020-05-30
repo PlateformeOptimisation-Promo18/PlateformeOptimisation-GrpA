@@ -50,7 +50,7 @@ public class Alternative {
      * @return : chaine de caractere qui decrit l'objet courant
      */
     public String toString() {
-        StringBuilder msg = new StringBuilder("Objet Alternative -> sName : " + this.sName + " / listValueObjectif : [");
+        StringBuilder msg = new StringBuilder("Alternative -> sName : " + this.sName + " / listValueObjectif : [");
         for (double value : this.listValueObjectif) {
             msg.append(value).append(" ");
         }

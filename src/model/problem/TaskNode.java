@@ -12,14 +12,14 @@ import java.util.Scanner;
  */
 public class TaskNode extends Node {
 
-    protected int iIdTask;
-    protected String sName;
-    protected List<Alternative> listAlternatives;
+    private int iIdTask;
+    private String sName;
+    private List<Alternative> listAlternatives;
 
     /**
-     * TODO
-     * @param sc
-     * @param gp
+     * Permet de créer un tâche dans laquelle il y aura des alternatives
+     * @param sc : Scanner qui contient les valeurs pour créer la tâche et alternatives attachées
+     * @param gp : GraphProject dans lequel on ajoute les tâches
      */
     public TaskNode(Scanner sc, GraphProject gp) {
         this.sName = sc.next();
@@ -30,9 +30,15 @@ public class TaskNode extends Node {
         }
     }
 
+    /**
+     * @return : chaine de caractere qui decrit l'objet courant
+     */
     public String toString() {
-//        TODO
-        return null;
+        StringBuilder msg = new StringBuilder("TaskNode -> sName : " + this.sName + " / iIdTask : " + this.iIdTask + "\n");
+        for (Alternative listResource : this.listAlternatives) {
+            msg.append(listResource.toString());
+        }
+        return msg.toString();
     }
 
     /**
@@ -73,16 +79,24 @@ public class TaskNode extends Node {
         return null;
     }
 
-
+    /**
+     * Permet de renseigner la valeur de iIdTask
+     * @param iIdTask : valeur qu'on souhaite affecter à iIdTask sur l'objet courant
+     */
     protected void setiIdTask(int iIdTask) {
         this.iIdTask = iIdTask;
     }
 
+    /**
+     * @return : taille de listAlternatives sur l'objet courant
+     */
     public int getNbAlternatives() {
-//        TODO
-        return 0;
+        return this.listAlternatives.size();
     }
 
+    /**
+     * @return : valeur de iIdTask sur l'objet courant
+     */
     protected int getiIdTask() {
         return this.iIdTask;
     }

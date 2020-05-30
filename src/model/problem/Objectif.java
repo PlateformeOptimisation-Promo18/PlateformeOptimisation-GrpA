@@ -9,9 +9,9 @@ import java.util.Scanner;
  */
 public class Objectif {
 
-    protected String sName;
-    protected double dMinimalValue;
-    protected double dMaximumValue;
+    private String sName;
+    private double dMinimalValue;
+    private double dMaximumValue;
 
     /**
      * Permet de créer un objet avec des valeurs transmises en parametres
@@ -25,7 +25,7 @@ public class Objectif {
      * @return : chaine de caractere qui decrit l'objet courant
      */
     public String toString() {
-        return "Objet Objectif -> sName : " + this.sName + " / dMinimalValue : " + this.dMinimalValue + " / dMaximumValue : " + this.dMaximumValue;
+        return "Objectif -> sName : " + this.sName + " / dMinimalValue : " + this.dMinimalValue + " / dMaximumValue : " + this.dMaximumValue + "\n";
     }
 
     /**

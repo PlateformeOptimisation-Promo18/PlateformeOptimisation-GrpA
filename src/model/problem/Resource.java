@@ -38,7 +38,7 @@ public class Resource implements Cloneable {
      * @return : chaine de caractere qui decrit l'objet courant
      */
     public String toString() {
-        return "Objet Ressource -> iIdResource : " + this.iIdResource + " / dQuantity : " + this.dQuantity;
+        return "Ressource -> iIdResource : " + this.iIdResource + " / dQuantity : " + this.dQuantity + "\n";
     }
 
     /**
