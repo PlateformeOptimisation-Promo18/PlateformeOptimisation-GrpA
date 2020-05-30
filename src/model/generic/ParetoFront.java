@@ -1,8 +1,8 @@
 package model.generic;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Iterator;
 
 public class ParetoFront {
 	protected double hypervolum = 0.0;
@@ -27,17 +27,16 @@ public class ParetoFront {
 		return null;
 	}
 	public double getHypervolum() {
-		return 0.0;
+		return this.hypervolum;
 	}
 	public int getNbElements() {
-		// to do
-		return 0;
+		return this.set.size();
 	}
 	public boolean addSolutionIfIsParetoFrontSolution(Solution solutionToAdd) {
 		// to do
 		return true;
-
 	}
+
 	/**
 	 * Teste si une solution en domine un autre.
 	 * 
@@ -78,8 +77,8 @@ public class ParetoFront {
 		// to do
 
 	}
-	private Iterator<Solution> getIteratorSet() {
 		// to do
+	private Iterator<Solution> getIteratorSet() {
 		return null;
 	}
 	
