@@ -9,8 +9,8 @@ import java.util.Scanner;
  */
 public class OrNode extends Node {
 
-    protected int iIdOrNode;
-    protected int iIdEndOrNode;
+    private int iIdOrNode;
+    private int iIdEndOrNode;
 
     /**
      * Permet de créer un objet avec des valeurs transmises en parametres
@@ -25,7 +25,7 @@ public class OrNode extends Node {
      * @return : chaine de caractere qui decrit l'objet courant
      */
     public String toString() {
-        return "Objet OrNode -> iIdOrNode : " + this.iIdOrNode + " / iIdEndOrNode : " + this.iIdEndOrNode;
+        return "OrNode -> iIdOrNode : " + this.iIdOrNode + " / iIdEndOrNode : " + this.iIdEndOrNode + "\n";
     }
 
     /**

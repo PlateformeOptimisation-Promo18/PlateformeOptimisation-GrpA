@@ -9,8 +9,8 @@ import java.util.Scanner;
  */
 public class AndNode extends Node {
 
-    protected int iIdAndNode;
-    protected int iIdEndAndNode;
+    private int iIdAndNode;
+    private int iIdEndAndNode;
 
     /**
      * Permet de créer un objet avec des valeurs transmises en parametres
@@ -25,7 +25,7 @@ public class AndNode extends Node {
      * @return : chaine de caractere qui decrit l'objet courant
      */
     public String toString() {
-        return "Objet AndNode -> iIdAndNode : " + this.iIdAndNode + " / iIdEndAndNode : " + this.iIdEndAndNode;
+        return "AndNode -> iIdAndNode : " + this.iIdAndNode + " / iIdEndAndNode : " + this.iIdEndAndNode + "\n";
     }
 
     /**
