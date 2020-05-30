@@ -108,9 +108,23 @@ public class TaskNode extends Node {
  * @version : 1.0
  */
 class ComparatorAlternativeDuration implements Comparator<Alternative> {
+
+    /**
+     * Permet de comparer les durees de 2 alternatives passées en paramètres
+     * @param alt1 : Alternative 1
+     * @param alt2 : Alternative 3
+     * @return : 1 si alt1 > alt2 / -1 si alt1 < alt2 / 0 si alt1 = alt2
+     */
     public int compare(Alternative alt1, Alternative alt2) {
-//        TODO
-        return 0;
+        int val;
+        if (alt1.getDuration() > alt2.getDuration()) {
+            val = 1;
+        } else if (alt1.getDuration() < alt2.getDuration()) {
+            val = -1;
+        } else {
+            val = 0;
+        }
+        return val;
     }
 }
 
@@ -120,8 +134,22 @@ class ComparatorAlternativeDuration implements Comparator<Alternative> {
  * @version : 1.0
  */
 class ComparatorAlternativeCost implements Comparator<Alternative> {
+
+    /**
+     * Permet de comparer les couts de 2 alternatives passées en paramètres
+     * @param alt1 : Alternative 1
+     * @param alt2 : Alternative 3
+     * @return : 1 si alt1 > alt2 / -1 si alt1 < alt2 / 0 si alt1 = alt2
+     */
     public int compare(Alternative alt1, Alternative alt2) {
-//        TODO
-        return 0;
+        int val;
+        if (alt1.getCost() > alt2.getCost()) {
+            val = 1;
+        } else if (alt1.getCost() < alt2.getCost()) {
+            val = -1;
+        } else {
+            val = 0;
+        }
+        return val;
     }
 }
