@@ -10,9 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.algorithms.ants.PheromonesException;
 import model.algorithms.ants.PheromonesTrails;
-import model.generic.InterfaceRandom;
-import model.generic.Problem;
 import model.generic.Solution;
 
 public class PheromonesTrailsTest {
@@ -23,7 +22,7 @@ public class PheromonesTrailsTest {
 	@Before
 	public void setUp() throws Exception {
 		int[] tmp = {3,2,4};
-		pb = new MockProblem(tmp);
+		this.pb = new MockProblem(tmp);
 		
 		this.envTraces = new PheromonesTrails (pb);
 	}
@@ -108,8 +107,12 @@ public class PheromonesTrailsTest {
 		
 		// Récupération du tableu valueVariables de la fourmi
 		int[] tmp = new int[solution.getNbVariables()];
-		for (int i = 0; i < solution.getNbVariables(); i++)
+		for (int i = 0; i < solution.getNbVariables(); i++) {
 			tmp[i] = solution.getValueVariable(i);
+			System.out.println(tmp[i]);
+		}
+		
+		System.out.println(this.envTraces);
 		
 		assertTrue(Arrays.equals(test, tmp));
 	}
@@ -154,7 +157,12 @@ public class PheromonesTrailsTest {
 		ant.setValuesVariables(valuesVariables);
 		this.envTraces.reward(this.pb, ant, 0.4);
 		
-		this.envTraces.adjustPheromonTrail(0);
+		try {
+			this.envTraces.adjustPheromonTrail(0);
+		} catch (PheromonesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//Init resultat attendu
 		double[] tab2 = {0.35/1.1, 0.75/1.1};
@@ -166,7 +174,6 @@ public class PheromonesTrailsTest {
 	
 	@Test
 	public void testAdjustTracesWithDQuantity () {
-		System.out.println("test");
 		this.envTraces.evaporated(0.15);
 		
 		Solution ant = new MockSolution (this.pb);
@@ -174,25 +181,28 @@ public class PheromonesTrailsTest {
 		ant.setValuesVariables(valuesVariables);
 		this.envTraces.reward(this.pb, ant, 0.4);
 		
-		this.envTraces.adjustPheromonTrail(0.15);
+		try {
+			this.envTraces.adjustPheromonTrail(0.15);
+		} catch (PheromonesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//Init resultat attendu
 		double[] tab2 = {0.35/1.1, 0.75/1.1};
 		double[] tab3 = {0.15/0.95, 0.15/0.95, 0.15/0.95, 0.5/0.95};
-		
-		System.out.println(this.envTraces.toString());
 				
 		assertTrue(Arrays.equals(tab2, this.envTraces.getTracePheromones().get(1)));
 		assertTrue(Arrays.equals(tab3, this.envTraces.getTracePheromones().get(2)));
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
-	public void testAdjustTracesWithDQuantityMiniInf0 () {
+	@Test(expected=PheromonesException.class)
+	public void testAdjustTracesWithDQuantityMiniInf0 () throws PheromonesException {
 		this.envTraces.adjustPheromonTrail(-1);
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
-	public void testAdjustTracesWithDQuantityMiniSup1DividedByNbVariablesOfTraces () {
+	@Test(expected=PheromonesException.class)
+	public void testAdjustTracesWithDQuantityMiniSup1DividedByNbVariablesOfTraces () throws PheromonesException {
 		this.envTraces.adjustPheromonTrail(0.26);
 	}
 	

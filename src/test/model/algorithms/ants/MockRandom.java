@@ -15,6 +15,8 @@ public class MockRandom implements InterfaceRandom {
 	@Override
 	public double nextDouble() {
 		this.cpt++;
+		if (cpt > this.res.length)
+			cpt = 1;
 		return this.res[cpt-1];
 	}
 
