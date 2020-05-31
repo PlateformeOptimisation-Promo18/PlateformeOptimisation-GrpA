@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.SubScene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PagePrincipaleController">
+   <center>
+      <VBox alignment="TOP_CENTER" minHeight="800.0" minWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Optimisateur de problèmes">
+               <font>
+                  <Font name="Bodoni MT" size="64.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="50.0" top="50.0" />
+               </VBox.margin>
+            </Label>
+            <TabPane tabClosingPolicy="UNAVAILABLE" tabMaxHeight="999999.0" tabMaxWidth="999999.0" tabMinHeight="40.0" tabMinWidth="200.0" VBox.vgrow="ALWAYS">
+              <tabs>
+                <Tab fx:id="fenetreOptimisation" closable="false" text="Optimisation">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <SubScene fx:id="pageOptimisation" fill="#5ac4e5" height="800.0" width="800.0">
+                                <root>
+                                  <Region />
+                                </root>
+                              </SubScene>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="fenetreComparaison" closable="false" text="Comparaison">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <SubScene fx:id="pageComparaison" fill="#5ac4e5" height="800.0" width="800.0">
+                                <root>
+                                  <Region />
+                                </root>
+                              </SubScene>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab fx:id="fenetreConsultation" closable="false" text="Consultation">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <SubScene fx:id="pageConsultation" fill="#5ac4e5" height="800.0" width="800.0">
+                                <root>
+                                  <Region />
+                                </root>
+                              </SubScene>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
