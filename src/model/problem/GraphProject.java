@@ -89,7 +89,12 @@ public class GraphProject implements Problem {
 
     @Override
     public boolean[] GetActiveVariable(Solution sol) {
-        // TODO Auto-generated method stub
+        int iNbVariable;
+        iNbVariable = sol.getNbVariables();
+        for (int iIndice = 0; iIndice < sol.getValueVariables().length; iIndice++) {
+            int iValueVariable = sol.getValueVariables()[iIndice];
+//            this.
+        }
         return null;
     }
 

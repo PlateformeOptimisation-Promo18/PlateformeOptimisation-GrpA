@@ -145,4 +145,11 @@ public abstract class Solution {
 	public boolean isObjEgal(Solution sol2) {
 		return valuesObjectives.equals(sol2.valuesObjectives);
 	}
+
+	public int[] getValueVariables() {
+		return valueVariables;
+	}
+	public void setValueVariables(int[] valueVariables) {
+		this.valueVariables = valueVariables;
+	}
 }
