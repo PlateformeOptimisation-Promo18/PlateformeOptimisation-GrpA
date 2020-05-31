@@ -21,7 +21,7 @@
                   <Font name="Bodoni MT" size="40.0" />
                </font>
             </Label>
-            <Button fx:id="boutonDemarrage" mnemonicParsing="false" onAction="#BoutonDemarrageClick" text="Démarrer">
+            <Button fx:id="boutonDemarrage" mnemonicParsing="false" onAction="#boutonDemarrageClick" text="Démarrer">
                <font>
                   <Font name="Book Antiqua Bold" size="36.0" />
                </font>
