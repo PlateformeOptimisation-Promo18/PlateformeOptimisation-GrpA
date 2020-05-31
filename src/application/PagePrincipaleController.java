@@ -18,13 +18,12 @@ public class PagePrincipaleController
 	@FXML
 	private Tab fenetreConsultation;
 
-
 	@FXML
 	public void initialize ()
 	{
 		try
         {
-        	fenetreConsultation.setContent(FXMLLoader.load(getClass().getResource("Demarage.fxml")));
+        	fenetreConsultation.setContent(FXMLLoader.load(getClass().getResource("Consultation.fxml")));
         	
         	//a decommenter pour zied
         	//fenetreComparaison.setContent(FXMLLoader.load(getClass().getResource("Comparaison.fxml")));
