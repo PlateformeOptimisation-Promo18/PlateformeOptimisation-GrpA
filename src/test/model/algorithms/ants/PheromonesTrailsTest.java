@@ -20,7 +20,7 @@ public class PheromonesTrailsTest {
 	private MockProblem pb;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		int[] tmp = {3,2,4};
 		this.pb = new MockProblem(tmp);
 		
@@ -28,11 +28,12 @@ public class PheromonesTrailsTest {
 	}
  
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown() {
 		this.envTraces = null;
 		this.pb = null;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testConstructor() {
 		List<double[]> test = new ArrayList<>();
@@ -136,6 +137,7 @@ public class PheromonesTrailsTest {
 		assertTrue(Arrays.equals(test, tmp));
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testEvaporated () {
  		double[] tab1 = {((double)1/3)-0.1, ((double)1/3)-0.1, ((double)1/3)-0.1};
@@ -149,6 +151,7 @@ public class PheromonesTrailsTest {
 		assertTrue(Arrays.equals(tab3, this.envTraces.getTracePheromones().get(2)));
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testRewardWith1variableActive0 () {
 		Solution ant = new MockSolution (this.pb);
@@ -167,6 +170,7 @@ public class PheromonesTrailsTest {
 		assertTrue(Arrays.equals(tab3, this.envTraces.getTracePheromones().get(2)));
 	}
 	
+	@SuppressWarnings({ "deprecation" })
 	@Test
 	public void testAdjustTraces () {
 		this.envTraces.evaporated(0.15);
@@ -179,7 +183,6 @@ public class PheromonesTrailsTest {
 		try {
 			this.envTraces.adjustPheromonTrail(0);
 		} catch (PheromonesException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -191,6 +194,7 @@ public class PheromonesTrailsTest {
 		assertTrue(Arrays.equals(tab3, this.envTraces.getTracePheromones().get(2)));
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testAdjustTracesWithDQuantity () {
 		this.envTraces.evaporated(0.15);
@@ -203,7 +207,6 @@ public class PheromonesTrailsTest {
 		try {
 			this.envTraces.adjustPheromonTrail(0.15);
 		} catch (PheromonesException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
