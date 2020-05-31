@@ -15,25 +15,89 @@ public class GraphProject implements Problem {
     private List<Node> projectGraph;
     private List<Resource> listInitialResources;
     private List<Objectif> listObjectives;
-    private int iNbAndNode;
-    private int iNbOrNode;
     private int iNbTaskNode;
+    private int iNbOrNode;
+    private int iNbAndNode;
 
     public GraphProject (String fileName) {
         this.sName = fileName;
-        this.projectGraph = new ArrayList<>();
-        this.listInitialResources = new ArrayList<>();
-        this.listObjectives = new ArrayList<>();
-        // TODO Auto-generated method stub
     }
 
-    public void fLoad(File file) {
-        return;
+    public void fLoad(Path file) throws IOException {
+        try (Scanner sc = new Scanner(file)) {
+            sc.useLocale(Locale.FRENCH);
+            // Nom du projectGraph
+            this.sName = sc.nextLine();
+            this.projectGraph = new ArrayList<>();
+
+            // Chargement des Ojectifs
+            int iNbObjectives = sc.nextInt();
+            this.listObjectives = new ArrayList<>(iNbObjectives);
+            for (int i = 0; i < iNbObjectives; i++) {
+                this.listObjectives.add(new Objectif(sc));
+            }
+
+            // Chargement des Ressources
+            int iNbResources = sc.nextInt();
+            this.listInitialResources = new ArrayList<>(iNbResources);
+            for (int i = 0; i < iNbResources; i++) {
+                this.listInitialResources.add(new Resource(sc));
+            }
+
+            // Chargement des Tâches
+            // on "supprime" l'information "nombre_de_taches"
+            sc.next();
+            this.iNbTaskNode = sc.nextInt();
+            for (int i = 0; i < this.iNbTaskNode; i++) {
+                this.projectGraph.add(new TaskNode(sc, this));
+            }
+
+            // Chargement des Noeux OU
+            // on "supprime" l'information "nombre_de_choix"
+            sc.next();
+            this.iNbOrNode = sc.nextInt();
+            for (int i = 0; i < this.iNbOrNode; i++) {
+                this.projectGraph.add(new OrNode(sc));
+            }
+
+            // Chargement des Noeux ET
+            // on "supprime" l'information "nombre_de_ands"
+            sc.next();
+            this.iNbAndNode = sc.nextInt();
+            for (int i = 0; i < this.iNbAndNode; i++) {
+                this.projectGraph.add(new AndNode(sc));
+            }
+
+            // On trie le graph de projet avant l'ajout des noeux
+            Collections.sort(projectGraph);
+
+            // Chargement des Noeux
+            // on "supprime" l'information "nombre_de_sommets"
+            sc.next();
+            int iNbNode = sc.nextInt();
+            for (int i = 0; i < iNbNode; i++) {
+                this.projectGraph.add(new AndNode(sc));
+                Node node = projectGraph.get(sc.nextInt());
+                for (int j = 0; j < sc.nextInt(); j++) {
+                    node.setNextNode(sc.nextInt());
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String toString() {
-        // TODO
-        return null;
+        StringBuilder msg = new StringBuilder("GraphProject -> sName : " + this.sName);
+
+        for (Resource resource : this.listInitialResources) {
+            msg.append(resource.toString());
+        }
+        for (Objectif objectif : this.listObjectives) {
+            msg.append(objectif.toString());
+        }
+        return msg.toString();
     }
 
     public Boolean CheckResourceExist(int iNumResource) {

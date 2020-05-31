@@ -33,9 +33,20 @@ public class Alternative {
         }
     }
 
+    /**
+     * Permet de vérifier si les ressources nécessaires pour l'alternative (listResources) sont dans la liste des ressources disponibles
+     * @param listAvailableResources : liste des ressources disponibles
+     * @return : True si les ressources sont disponibles et False si non
+     */
     public boolean isResourcesAvailable(List<Resource> listAvailableResources) {
-//        TODO
-        return false;
+        Resource resource;
+        for (int i = 0; i < this.listResources.size(); i++) {
+            resource = this.listResources.get(i);
+            if (resource.getdQuantity() > listAvailableResources.get(i).getdQuantity()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
