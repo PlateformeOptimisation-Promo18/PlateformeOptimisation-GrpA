@@ -22,14 +22,17 @@ public class Alternative {
      */
     public Alternative(Scanner sc, GraphProject graph) {
         this.sName = sc.next();
-        this.listValueObjectif = new ArrayList<>();
-        this.listResources = new ArrayList<>();
+        this.listValueObjectif = new ArrayList<>(graph.getNbObjectives());
 
         for (int i = 0; i < graph.getNbObjectives() ; i++) {
             this.listValueObjectif.add(sc.nextDouble());
         }
-        for (int i = 0; i < sc.nextInt(); i++) {
-            this.addResource(new Resource(sc));
+
+        int iNbResources = sc.nextInt();
+        this.listResources = new ArrayList<>(iNbResources);
+
+        for (int i = 0; i < iNbResources; i++) {
+            this.listResources.add(new Resource(sc));
         }
     }
 

@@ -24,8 +24,10 @@ public class TaskNode extends Node {
     public TaskNode(Scanner sc, GraphProject gp) {
         this.sName = sc.next();
         this.iIdTask = sc.nextInt();
-        this.listAlternatives = new ArrayList<>();
-        for (int i = 0; i < sc.nextInt(); i++) {
+        int iNbAlternatives = sc.nextInt();
+
+        this.listAlternatives = new ArrayList<>(iNbAlternatives);
+        for (int i = 0; i < iNbAlternatives; i++) {
             this.listAlternatives.add(new Alternative(sc, gp));
         }
     }

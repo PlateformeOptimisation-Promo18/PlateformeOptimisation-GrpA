@@ -1,10 +1,10 @@
 package model.problem;
 
 import java.io.File;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.LinkedList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.*;
 
 import model.generic.Problem;
 import model.generic.Solution;
@@ -23,11 +23,16 @@ public class GraphProject implements Problem {
         this.sName = fileName;
     }
 
-    public void fLoad(Path file) throws IOException {
+    /**
+     * Métrhode qui permet de charger le projectGraph avec ses listInitialResources et listObjectives
+     * @param file : Fichier qui contient toutes les valeurs à lire pour créer tous les objets associés
+     */
+    public void fLoad(File file) {
         try (Scanner sc = new Scanner(file)) {
             sc.useLocale(Locale.FRENCH);
             // Nom du projectGraph
             this.sName = sc.nextLine();
+
             this.projectGraph = new ArrayList<>();
 
             // Chargement des Ojectifs
@@ -76,20 +81,23 @@ public class GraphProject implements Problem {
             sc.next();
             int iNbNode = sc.nextInt();
             for (int i = 0; i < iNbNode; i++) {
-                this.projectGraph.add(new AndNode(sc));
-                Node node = projectGraph.get(sc.nextInt());
-                for (int j = 0; j < sc.nextInt(); j++) {
+                Node node = this.projectGraph.get(sc.nextInt());
+                int iNextNode = sc.nextInt();
+                for (int j = 0; j < iNextNode; j++) {
                     node.setNextNode(sc.nextInt());
                 }
             }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * @return : chaine de caractere qui decrit l'objet courant
+     */
     public String toString() {
-        StringBuilder msg = new StringBuilder("GraphProject -> sName : " + this.sName);
+        StringBuilder msg = new StringBuilder("GraphProject -> sName : " + this.sName + "\n");
 
         for (Resource resource : this.listInitialResources) {
             msg.append(resource.toString());
@@ -97,6 +105,10 @@ public class GraphProject implements Problem {
         for (Objectif objectif : this.listObjectives) {
             msg.append(objectif.toString());
         }
+        for (Node node : this.projectGraph) {
+            msg.append(node.toString());
+        }
+
         return msg.toString();
     }
 
