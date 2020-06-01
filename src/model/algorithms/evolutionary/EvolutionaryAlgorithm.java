@@ -21,7 +21,9 @@ public class EvolutionaryAlgorithm extends CombinatorialMultiObjectiveOptimizati
 	Archive archive;
 	InterfaceRandom generator;
 	Problem problem;
-
+	/**
+	* Constructor
+	*/
 	public EvolutionaryAlgorithm(Problem pb, StopRequired stop, String algorithmName){
 		super(pb, stop, algorithmName);
 		
@@ -36,11 +38,13 @@ public class EvolutionaryAlgorithm extends CombinatorialMultiObjectiveOptimizati
 		}
 		archive = new Archive(ARCHIVE_SIZE);
 	}
-
+	
+	/** 
+	* Launcher of evolutionary algorithme
+	*/
 	@Override
 	public void launch(InterfaceRandom generator) {
-		// TODO 
-		
+		// TODO A voir si l'algorithme fonctionne etant donné que je me suis basé sur des méthodes non encore programmées
 		if (archive.getNbIdividual() == 0) {
 			archive.setIndividualSet(population.getIndividualSet());
 			archive.evaluate(problem);
