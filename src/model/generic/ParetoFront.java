@@ -4,38 +4,54 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 public class ParetoFront {
-	protected double hypervolum = 0.0;
-	protected ArrayList<Solution> set;
+	protected double hypervolum;
+	protected ArrayList<Solution> set;// est ce qu'on domine tout le monde ? 
 	
 	public ParetoFront() {
-	// to do
+	this.set = new ArrayList<>();
+	this.hypervolum = 0.0;
 	}
 	public ParetoFront(ParetoFront paretoFront) {
-		// to do
+		this.set = (ArrayList)paretoFront.getSet();
+		this.hypervolum = paretoFront.getHypervolum();
 		
 	}
 	public List<Solution> getSet() {
 		return this.set;
 	}
 	public void setSet(ArrayList<Solution> set) {
-		this.set = set;
+		for (Solution solution : set) {
+			addSolutionIfIsParetoFrontSolution(solution);
+		}
 	}
 	@Override
 	public String toString() {
-		// to do
-		return null;
+		StringBuffer bf = new StringBuffer();
+		for ( Solution s : this.set) {
+			bf.append(s.toString());
+		}
+		return bf.toString();
 	}
 	public double getHypervolum() {
-		return 0.0;
+		return this.hypervolum;
 	}
 	public int getNbElements() {
-		// to do
-		return 0;
+		return this.set.size();
 	}
 	public boolean addSolutionIfIsParetoFrontSolution(Solution solutionToAdd) {
-		// to do
-		return true;
+		boolean res  = true;
+		
+		for (Solution solution : this.set) {
+			if(!domine(solutionToAdd, solution))
+				res = false;
+		}
+		
+		if (res)
+			this.set.add(solutionToAdd);
+		
+		return res;
 
 	}
 	/**
@@ -48,11 +64,10 @@ public class ParetoFront {
 	 * @param sol2
 	 *            : la seconde solution
 	 * @param pb
-	 *            : le problï¿½me concernï¿½
+	 *            : le problème concerné n'est pas utilisé 
 	 **/
-	static public boolean domine(Solution sol1, Solution sol2, Problem pb) {
-		// to do
-		return true;
+	static public boolean domine(Solution sol1, Solution sol2) {
+		return !sol1.isDomined(sol2);
 	}
 	/**
 	 * \brief Actualise le front de ParetoFront
@@ -66,7 +81,7 @@ public class ParetoFront {
 	 *            : problem
 	 **/
 	public void updateFront(List<Solution> solutionsSet, Problem pb) {
-		// to do
+		// pourquoi ne pas juste remove les solutions qui ne sont plus les bonnes
 	}
 	public double calculHV(Problem pb) {
 		// to do
@@ -75,25 +90,24 @@ public class ParetoFront {
 	}
 	
 	private void remove(Solution sol) {
-		// to do
+		this.set.remove(sol);
 
 	}
 	private Iterator<Solution> getIteratorSet() {
-		// to do
-		return null;
+		return this.set.iterator();
 	}
 	
 	/**
 	 * Reduit le nombre de solution du front de Pareto.
-	 * Conserve les solutions les plus rï¿½parties sur le front.
+	 * Conserve les solutions les plus réparties sur le front.
 	 * Ne fait rien si le nombre de solution a garder est egal au nombre de solution initial.
-	 * @param nbMaxSol (int) le nombre de solution ï¿½ garder
+	 * @param nbMaxSol (int) le nombre de solution à garder
 	 * @param pb (Problem)
-	 * @throws IllegalArgumentException si le nombre de solution a garder est supï¿½rieur au nombre de solution initial
+	 * @throws IllegalArgumentException si le nombre de solution a garder est supérieur au nombre de solution initial
 	 */
 	public void reduceIfNecessary(int nbMaxSol, Problem pb) throws IllegalArgumentException {
-		if(nbMaxSol > this.set.size()) throw new IllegalArgumentException("Nombre de solution ï¿½ garder"
-				+ "supï¿½rieur au nombre de solution du front de Pareto.");
+		if(nbMaxSol > this.set.size()) throw new IllegalArgumentException("Nombre de solution à garder"
+				+ "supérieur au nombre de solution du front de Pareto.");
 		if(nbMaxSol < this.set.size()) {
 			ArrayList<ArrayList<Solution>> allclusters = new ArrayList<ArrayList<Solution>>();
 			for(Solution s : this.set) {
