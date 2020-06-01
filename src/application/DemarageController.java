@@ -12,13 +12,22 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+/**
+ * Controller for the beginning Page that open at start
+ * @author INES LEGROS
+ */
 public class DemarageController 
 {
 	@FXML
 	private Button boutonDemarrage;
 
+	/**
+	 * Open the main page on button click
+	 * @param evt event when we click on the button
+	 * @author INES LEGROS
+	 */
 	@FXML
-	private void boutonDemarrageClick(ActionEvent evt)
+	public void boutonDemarrageClick(ActionEvent evt)
 	{
 		try
 		{

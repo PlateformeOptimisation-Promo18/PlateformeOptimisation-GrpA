@@ -7,6 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 
+/**
+ * Controller for the main Page that permit to choose your tab
+ * @author INES LEGROS
+ */
 public class PagePrincipaleController 
 {
 
@@ -19,6 +23,11 @@ public class PagePrincipaleController
 	@FXML
 	private Tab fenetreConsultation;
 
+	
+	/**
+	 * initialize all the tab (Consultation Comparison and Optimization)
+	 * @author INES LEGROS
+	 */
 	@FXML
 	public void initialize ()
 	{

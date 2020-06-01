@@ -10,7 +10,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
-
+/**
+ * main page that open beginning screen
+ * @author INES LEGROS
+ */
 public class Main extends Application 
 {
 	@Override

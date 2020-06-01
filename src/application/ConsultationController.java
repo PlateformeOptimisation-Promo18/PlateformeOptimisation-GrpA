@@ -15,17 +15,25 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
+/**
+ * Consultation Page controller that permit to visualize a chart
+ * @author INES LEGROS
+ */
 public class ConsultationController 
 {
-	
 	@FXML
 	private Button boutonUpload;
 	
 	@FXML
 	private LineChart<Number, Number>  visualisationChart;
 	
+	/**
+	 * Upload a file to fill a chart
+	 * @param evt event when we click on the button
+	 * @author INES LEGROS
+	 */
 	@FXML
-	private void boutonUploadClick (ActionEvent evt)
+	public void boutonUploadClick (ActionEvent evt)
 	{		
 		visualisationChart.getXAxis().setLabel("Hypervolum");//put x label of the chart
 		visualisationChart.getYAxis().setLabel("Time");  //put y label of the chart
@@ -64,6 +72,11 @@ public class ConsultationController
 
 	}
 
+
+	/**
+	 * Initialize screen by giving upload button an image
+	 * @author INES LEGROS
+	 */
 	@FXML
 	public void initialize ()
 	{
