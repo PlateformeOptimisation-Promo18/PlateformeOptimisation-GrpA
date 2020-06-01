@@ -177,8 +177,8 @@ public class Individual {
 	}
 	
 	/**
-	 * Procedure to cross an associatedSolution of children from 2 parents of Individual 
-	 * @param Problem:pb, InterfaceRandom:generator
+	 * Procedure to cross a value of associatedSolution (at index "indexGene") in children, from 2 Individual parents 
+	 * @param Individual:ind1, int:indexGene
 	 */
 	private void cross(Individual ind1, int indexGene) {
 		int localVGeneValue;
@@ -190,7 +190,7 @@ public class Individual {
 	/**
 	 * Procedure to cross this parent with an other parent individual and modificate this one into a children
 	 * Methode to use : clone the first individual parent in individual children before use this procedure on it
-	 * @param Problem:pb, InterfaceRandom:generator
+	 * @param Individual:ind1, Problem:pb, InterfaceRandom:generator
 	 */
 	public void crossoverUniform(Individual ind1, Problem pb, InterfaceRandom generator){
 		
