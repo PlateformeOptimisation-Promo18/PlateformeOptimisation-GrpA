@@ -17,7 +17,7 @@ public class Alternative {
 
     /**
      * Constructeur surchargé qui permet de créer une nouvelle alternative
-     * @param sc : scanner pour récupérer toutes les valeurs lues dans le fichier
+     * @param sc : scanner qui récupère toutes les valeurs lues dans le fichier
      * @param graph : graph de projet qui permet d'obtenir le nombre d'objectifs
      */
     public Alternative(Scanner sc, GraphProject graph) {
@@ -37,9 +37,9 @@ public class Alternative {
     }
 
     /**
-     * Permet de vérifier si les ressources nécessaires pour l'alternative (listResources) sont dans la liste des ressources disponibles
+     * Permet de vérifier si les ressources nécessaires pour l'alternative (listResources) sont disponibles
      * @param listAvailableResources : liste des ressources disponibles
-     * @return : True si les ressources sont disponibles et False si non
+     * @return : True si les ressources sont disponibles, sinon False
      */
     public boolean isResourcesAvailable(List<Resource> listAvailableResources) {
         Resource resource;
@@ -61,7 +61,7 @@ public class Alternative {
     }
 
     /**
-     * @return : chaine de caractere qui decrit l'objet courant
+     * @return : chaine de caractere qui decrit l'Alternative
      */
     public String toString() {
         StringBuilder msg = new StringBuilder("Alternative -> sName : " + this.sName + " / listValueObjectif : [");
@@ -90,14 +90,14 @@ public class Alternative {
     }
 
     /**
-     * @return : valeur de sName sur l'objet courant
+     * @return : valeur de sName
      */
     public String getsName() {
         return this.sName;
     }
 
     /**
-     * @return : valeur de listResources sur l'objet courant
+     * @return : valeur de listResources
      */
     public List<Resource> getListResources() {
         return this.listResources;

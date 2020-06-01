@@ -17,13 +17,13 @@ public class TaskNode extends Node {
     private List<Alternative> listAlternatives;
 
     /**
-     * Permet de créer un tâche dans laquelle il y aura des alternatives
+     * Permet de créer un TaskNode dans laquelle il y aura des alternatives
      * @param sc : Scanner qui contient les valeurs pour créer la tâche et alternatives attachées
      * @param gp : GraphProject dans lequel on ajoute les tâches
      */
     public TaskNode(Scanner sc, GraphProject gp) {
         this.sName = sc.next();
-        this.iIdTask = sc.nextInt();
+        this.setiIdNode(sc.nextInt());
         int iNbAlternatives = sc.nextInt();
 
         this.listAlternatives = new ArrayList<>(iNbAlternatives);
@@ -33,7 +33,7 @@ public class TaskNode extends Node {
     }
 
     /**
-     * @return : chaine de caractere qui decrit l'objet courant
+     * @return : chaine de caractere qui decrit le TaskNode
      */
     public String toString() {
         StringBuilder msg = new StringBuilder("TaskNode -> sName : " + this.sName + " / iIdTask : " + this.iIdTask + "\n");
@@ -41,6 +41,34 @@ public class TaskNode extends Node {
             msg.append(listResource.toString());
         }
         return msg.toString();
+    }
+
+    public Boolean isResourcesAvailable(List<Resource> listAvailableResources, int iSelectedTaskNodeAlternative) {
+//        TODO
+        return false;
+    }
+
+    public boolean isResourcesAvailable(List<Resource> listAvailableResources, boolean bIsMinCalculated, int iNumObjectif) {
+//        TODO
+        return false;
+    }
+
+    /**
+     * Permet de renseigner la valeur de iIdTask
+     * @param iIdTask : valeur qu'on souhaite affecter à iIdTask
+     */
+    protected void setiIdTask(int iIdTask) {
+        this.iIdTask = iIdTask;
+    }
+
+    public List<Resource> getListResourcesofSelectedAlternative(int iSelectedTaskNodeAlternative) {
+//        TODO
+        return null;
+    }
+
+    public Alternative getAlternativeExtremum(boolean bIsMinCalculated, int iNumObjectif) {
+//        TODO
+        return null;
     }
 
     /**
@@ -61,43 +89,15 @@ public class TaskNode extends Node {
         return this.listAlternatives.get(iSelectedTaskNodeAlternative).getDuration();
     }
 
-    public Boolean isResourcesAvailable(List<Resource> listAvailableResources, int iSelectedTaskNodeAlternative) {
-//        TODO
-        return false;
-    }
-
-    public boolean isResourcesAvailable(List<Resource> listAvailableResources, boolean bIsMinCalculated, int iNumObjectif) {
-//        TODO
-        return false;
-    }
-
-    public List<Resource> getListResourcesofSelectedAlternative(int iSelectedTaskNodeAlternative) {
-//        TODO
-        return null;
-    }
-
-    public Alternative getAlternativeExtremum(boolean bIsMinCalculated, int iNumObjectif) {
-//        TODO
-        return null;
-    }
-
     /**
-     * Permet de renseigner la valeur de iIdTask
-     * @param iIdTask : valeur qu'on souhaite affecter à iIdTask sur l'objet courant
-     */
-    protected void setiIdTask(int iIdTask) {
-        this.iIdTask = iIdTask;
-    }
-
-    /**
-     * @return : taille de listAlternatives sur l'objet courant
+     * @return : taille de listAlternatives
      */
     public int getNbAlternatives() {
         return this.listAlternatives.size();
     }
 
     /**
-     * @return : valeur de iIdTask sur l'objet courant
+     * @return : valeur de iIdTask
      */
     protected int getiIdTask() {
         return this.iIdTask;

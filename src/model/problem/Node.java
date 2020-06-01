@@ -41,7 +41,7 @@ public abstract class Node implements Comparable<Node> {
 
     /**
      * Permet de faire un copy de listPrevious
-     * @return : référence vers une copy de listPrevious de l'objet courant
+     * @return : référence vers une copy de listPrevious
      */
     public List<Integer> getCopyListPrevious() {
         return new ArrayList<>(this.listPrevious);
@@ -49,7 +49,7 @@ public abstract class Node implements Comparable<Node> {
 
     /**
      * Permet de faire un copy de listNexts
-     * @return : référence vers une copy de listNexts de l'objet courant
+     * @return : référence vers une copy de listNexts
      */
     public List<Integer> getCopyListNexts() {
         return new ArrayList<>(this.listNexts);
@@ -57,7 +57,7 @@ public abstract class Node implements Comparable<Node> {
 
     /**
      * Permet de renseigner la valeur de iIdNode
-     * @param iIdNode : valeur qu'on souhaite affecter à iIdNode sur l'objet courant
+     * @param iIdNode : valeur qu'on souhaite affecter à iIdNode
      */
     protected void setiIdNode(int iIdNode) {
         this.iIdNode = iIdNode;
@@ -80,40 +80,55 @@ public abstract class Node implements Comparable<Node> {
     }
 
     /**
-     * @return : taille de listNexts sur l'objet courant
-     */
-    public List<Integer> getListNexts() {
-        return this.listNexts;
-    }
-
-    /**
      * Permet d'obtenir une valeur de listNexts a l'index passé en paramètre
      * @param i : valeur de l'index
-     * @return : valeur de listNexts à l'index passé en paramètre sur l'objet courant
+     * @return : valeur de listNexts à l'index passé en paramètre
      */
     public int getNext(int i) {
         return this.listNexts.get(i);
     }
 
     /**
-     * @return : taille de listNexts sur l'objet courant
+     * Permet d'obtenir une valeur de listPrevious a l'index passé en paramètre
+     * @param i : valeur de l'index
+     * @return : valeur de listPrevious à l'index passé en paramètre
+     */
+    public int getPrevious(int i) {
+        return this.listPrevious.get(i);
+    }
+
+    /**
+     * @return : taille de listNexts
      */
     public int getNbNexts() {
         return this.listNexts.size();
     }
 
     /**
-     * @return : taille de listPrevious sur l'objet courant
+     * @return : taille de listPrevious
      */
     public int getNbPrevious() {
         return this.listPrevious.size();
     }
 
     /**
-     * @return : valeur de iIdNode sur l'objet courant
+     * @return : valeur de iIdNode
      */
     public int getiIdNode() {
         return this.iIdNode;
     }
 
+    /**
+     * @return : reference de listNexts
+     */
+    public List<Integer> getListNexts() {
+        return this.listNexts;
+    }
+
+    /**
+     * @return : reference de listNexts
+     */
+    public List<Integer> getListPrevious() {
+        return this.listPrevious;
+    }
 }

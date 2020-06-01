@@ -19,7 +19,7 @@ public class GraphProject implements Problem {
     private List<Node> projectGraph;
     //  liste des ressources du projet
     private List<Resource> listInitialResources;
-    //  liste des ressources planifiées 
+    //  liste des ressources planifiï¿½es 
     private List<Objectif> listObjectives;
     private int iNbTaskNode;
     private int iNbOrNode;
@@ -30,7 +30,7 @@ public class GraphProject implements Problem {
     }
 
     /**
-     * MÃ©trhode qui permet de charger le projectGraph avec ses listInitialResources et listObjectives
+     * MÃ©thode qui permet de charger le projectGraph avec ses listInitialResources et listObjectives
      * @param file : Fichier qui contient toutes les valeurs Ã  lire pour crÃ©er tous les objets associÃ©s
      */
     public void fLoad(File file) {
@@ -61,7 +61,7 @@ public class GraphProject implements Problem {
             this.iNbTaskNode = sc.nextInt();
             for (int i = 0; i < this.iNbTaskNode; i++) {
                 TaskNode task = new TaskNode(sc, this);
-                task.setiIdNode(i);
+                task.setiIdTask(i);
                 this.projectGraph.add(task);
             }
 
@@ -105,7 +105,7 @@ public class GraphProject implements Problem {
                     int iNext = sc.nextInt();
                     node.setNextNode(iNext);
                     Node nextNode = this.projectGraph.get(iNext);
-                    nextNode.setPreviousNode(this.iNbOrNode + node.getiIdNode());
+                    nextNode.setPreviousNode(node.getiIdNode());
                 }
             }
 
@@ -115,7 +115,7 @@ public class GraphProject implements Problem {
     }
 
     /**
-     * @return : chaine de caractere qui decrit l'objet courant
+     * @return : chaine de caractere qui decrit le GraphProject
      */
     public String toString() {
         StringBuilder msg = new StringBuilder("GraphProject -> sName : " + this.sName + "\n");
@@ -261,9 +261,9 @@ public class GraphProject implements Problem {
     }
     
     /**
-     * met à jour tous les suivants du noeud courant
-     * retire de leur liste des noeuds précédents non planifier 
-     * et met à jour leur date de début = date de fin du noeud courant
+     * met ï¿½ jour tous les suivants du noeud courant
+     * retire de leur liste des noeuds prï¿½cï¿½dents non planifier 
+     * et met ï¿½ jour leur date de dï¿½but = date de fin du noeud courant
      * @param listNodeToPlan
      * @param plannedNode
      * @param bIsMinCalculated
@@ -272,20 +272,20 @@ public class GraphProject implements Problem {
     private void updateNextNodes(List<PlannedNode> listNodeToPlan, PlannedNode plannedNode, boolean bIsMinCalculated, int iNumObjectif) {
         // list contenant la liste des nodes suivantes
     	List<Integer> nextNode= plannedNode.getInitialNode().getListNexts();
-    	// liste contenant l'id des nodes précèdentes des noeuds suivants le noeud courant
+    	// liste contenant l'id des nodes prï¿½cï¿½dentes des noeuds suivants le noeud courant
         List<Integer> previousNode;
         for(int i=0;i<nextNode.size();i++) {
         previousNode=listNodeToPlan.get(nextNode.get(i)).getListIdPreviousNodeNodeToPlan();
             for(int j=0;j<previousNode.size();j++) {
                 if(previousNode.get(j)==plannedNode.getInitialNode().getiIdNode()) {
-                	// suppression du noeud courant de la liste des noeuds précédents non planifier des noeuds suivants
+                	// suppression du noeud courant de la liste des noeuds prï¿½cï¿½dents non planifier des noeuds suivants
                     listNodeToPlan.get(nextNode.get(i)).getListIdPreviousNodeNodeToPlan().remove(j);
-                    // mise à jour de date de début des noeuds suivant
+                    // mise ï¿½ jour de date de dï¿½but des noeuds suivant
                     listNodeToPlan.get(nextNode.get(i)).dBeginningDate=plannedNode.getdEndingDate();
                 }
             }
         }
-        // mise à jour de la liste des noeuds planifiés
+        // mise ï¿½ jour de la liste des noeuds planifiï¿½s
         for(int i=0;i<listNodeToPlan.size();i++) {
             if(listNodeToPlan.get(i)==plannedNode) {
                 listNodeToPlan.remove(i);
@@ -295,56 +295,56 @@ public class GraphProject implements Problem {
 
     /**
      * Permet de faire un copy de listInitialResources
-     * @return : rÃ©fÃ©rence vers une copy de listInitialResources de l'objet courant
+     * @return : rÃ©fÃ©rence vers une copy de listInitialResources
      */
     public List<Resource> getCopyListInitialResources() {
         return new ArrayList<>(this.listInitialResources);
     }
 
     /**
-     * @return : valeur de sName sur l'objet courant
+     * @return : valeur de sName
      */
     public String getName () {
         return this.sName;
     }
 
     /**
-     * @return : valeur de projectGraph sur l'objet courant
+     * @return : valeur de projectGraph
      */
     public List<Node> getProjectGraph() {
         return this.projectGraph;
     }
 
     /**
-     * @return : valeur de iNbOrNode sur l'objet courant
+     * @return : valeur de iNbOrNode
      */
     public int getNbOr () {
         return this.iNbOrNode;
     }
 
     /**
-     * @return : valeur de iNbAndNode sur l'objet courant
+     * @return : valeur de iNbAndNode
      */
     public int getNbAnd () {
         return this.iNbAndNode;
     }
 
     /**
-     * @return : valeur de iNbTaskNode sur l'objet courant
+     * @return : valeur de iNbTaskNode
      */
     public int getNbTasks () {
         return this.iNbTaskNode;
     }
 
     /**
-     * @return : taille de listInitialResources sur l'objet courant
+     * @return : taille de listInitialResources
      */
     public int getNbResources () {
         return this.listInitialResources.size();
     }
 
     /**
-     * @return : taille de listObjectives sur l'objet courant
+     * @return : taille de listObjectives
      */
     public int getNbObjectives() {
         return this.listObjectives.size();
