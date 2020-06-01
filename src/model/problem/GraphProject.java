@@ -17,7 +17,9 @@ public class GraphProject implements Problem {
 
     private String sName;
     private List<Node> projectGraph;
+    //  liste des ressources du projet
     private List<Resource> listInitialResources;
+    //  liste des ressources planifiées 
     private List<Objectif> listObjectives;
     private int iNbTaskNode;
     private int iNbOrNode;
@@ -204,7 +206,12 @@ public class GraphProject implements Problem {
         listObjectives.get(1).setdMinimalValue(calculatedOneExtremum(true, 1));
         listObjectives.get(1).setdMaximumValue(calculatedOneExtremum(false, 1));
     }
-
+    /**
+     * 
+     * @param bIsMinCalculated
+     * @param iNumObjectif
+     * @return
+     */
     private double calculatedOneExtremum(boolean bIsMinCalculated, int iNumObjectif) {
 
         List<PlannedNode> listNodeToPlan = new LinkedList<>();
@@ -252,19 +259,33 @@ public class GraphProject implements Problem {
     private void updateNodeDataWithPreviousAndCopyEnvir(PlannedNode currentNode, PlannedNode plannedNode) {
         // TODO
     }
-
+    
+    /**
+     * met à jour tous les suivants du noeud courant
+     * retire de leur liste des noeuds précédents non planifier 
+     * et met à jour leur date de début = date de fin du noeud courant
+     * @param listNodeToPlan
+     * @param plannedNode
+     * @param bIsMinCalculated
+     * @param iNumObjectif
+     */
     private void updateNextNodes(List<PlannedNode> listNodeToPlan, PlannedNode plannedNode, boolean bIsMinCalculated, int iNumObjectif) {
-        List<Integer> nextNode= plannedNode.getInitialNode().getListNexts();
+        // list contenant la liste des nodes suivantes
+    	List<Integer> nextNode= plannedNode.getInitialNode().getListNexts();
+    	// liste contenant l'id des nodes précèdentes des noeuds suivants le noeud courant
         List<Integer> previousNode;
         for(int i=0;i<nextNode.size();i++) {
         previousNode=listNodeToPlan.get(nextNode.get(i)).getListIdPreviousNodeNodeToPlan();
             for(int j=0;j<previousNode.size();j++) {
                 if(previousNode.get(j)==plannedNode.getInitialNode().getiIdNode()) {
+                	// suppression du noeud courant de la liste des noeuds précédents non planifier des noeuds suivants
                     listNodeToPlan.get(nextNode.get(i)).getListIdPreviousNodeNodeToPlan().remove(j);
+                    // mise à jour de date de début des noeuds suivant
                     listNodeToPlan.get(nextNode.get(i)).dBeginningDate=plannedNode.getdEndingDate();
                 }
             }
         }
+        // mise à jour de la liste des noeuds planifiés
         for(int i=0;i<listNodeToPlan.size();i++) {
             if(listNodeToPlan.get(i)==plannedNode) {
                 listNodeToPlan.remove(i);

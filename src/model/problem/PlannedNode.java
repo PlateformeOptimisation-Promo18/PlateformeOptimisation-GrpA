@@ -1,9 +1,15 @@
 package model.problem;
 
 import java.util.List;
-
-public class PlannedNode {
+/**
+ * Classe PlannedNode
+ * @author : Jean L.
+ * @version : 1.0
+ */
+public class PlannedNode extends Node {
+	// Node initial
 	protected Node initialNode;
+	
 	protected List<Integer> listIdPreviousNodeNodeToPlan;
 	protected double dBeginningDate=0.0;
 	protected double dEndingDate= 0.0;
