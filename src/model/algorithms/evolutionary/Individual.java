@@ -37,28 +37,28 @@ public class Individual {
 	//************ GETTERS ***************
 	
 	/**
-	 * @return associatedSolution value of Individual
+	 * @return Solution:associatedSolution value of Individual
 	 */
 	public Solution getSolution() {
 		return associatedSolution;
 	}
 	
 	/**
-	 * @return force value of Individual
+	 * @return int:force value of Individual
 	 */
 	public int getForce() {
 		return iForce;
 	}
 	
 	/**
-	 * @return rawFitness value of Individual
+	 * @return int:rawFitness value of Individual
 	 */
 	public int getRawFitness() {
 		return iRawFitness;
 	}
 	
 	/**
-	 * @return fitness value of Individual
+	 * @return double:fitness value of Individual
 	 */
 	public double getFitness(){
 		return dFitness;
@@ -72,7 +72,7 @@ public class Individual {
 	}
 	
 	/**
-	 * @return value at index i of Individual
+	 * @return int:value at index i of Individual
 	 */
 	public int getValueVariable (int i) {
 		return associatedSolution.getValueVariable(i);
@@ -138,6 +138,7 @@ public class Individual {
 	/**
 	 * Fonction to do equals on associatedSolution of Individual
 	 * @param Individual:ind
+	 * @return Boolean:equality 
 	 */
 	public Boolean isObjEgal (Individual ind){
 		return associatedSolution.isObjEgal(ind.getSolution());
@@ -177,7 +178,7 @@ public class Individual {
 	}
 	
 	/**
-	 * Procedure to cross a value of associatedSolution (at index "indexGene") in children, from 2 Individual parents 
+	 * Procedure (private) to cross a value of associatedSolution (at index "indexGene") in children, from 2 Individual parents 
 	 * @param Individual:ind1, int:indexGene
 	 */
 	private void cross(Individual ind1, int indexGene) {
