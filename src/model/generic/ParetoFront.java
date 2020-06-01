@@ -6,21 +6,36 @@ import java.util.List;
 
 
 public class ParetoFront {
-	protected double hypervolum;
-	protected ArrayList<Solution> set;// est ce qu'on domine tout le monde ? 
-	
+	protected double hypervolum; 
+	protected ArrayList<Solution> set;// An array which contains the ParetoFront solutions. 
+	/**
+	 * First constructor which initialize the class attributes without values.
+	 */
 	public ParetoFront() {
-	this.set = new ArrayList<>();
-	this.hypervolum = 0.0;
+		this.set = new ArrayList<>();
+		this.hypervolum = 0.0;
 	}
+	/**
+	 * Second constructor which initialize the ParetoFront with values.
+	 * @param paretoFront
+	 */
 	public ParetoFront(ParetoFront paretoFront) {
 		this.set = (ArrayList)paretoFront.getSet();
 		this.hypervolum = paretoFront.getHypervolum();
-		
+
 	}
+	/**
+	 * Get the set.
+	 * @return the set list.
+	 */
 	public List<Solution> getSet() {
 		return this.set;
 	}
+	/**
+	 * Set the set list with the addSolutionIfIsParetoFrontSolution().
+	 * @param set
+	 * 			: the ParetoFront.
+	 */
 	public void setSet(ArrayList<Solution> set) {
 		for (Solution solution : set) {
 			addSolutionIfIsParetoFrontSolution(solution);
@@ -34,38 +49,48 @@ public class ParetoFront {
 		}
 		return bf.toString();
 	}
+	/**
+	 * Method which get hypervolum.
+	 * @return the hypervolum
+	 */
 	public double getHypervolum() {
 		return this.hypervolum;
 	}
 	public int getNbElements() {
 		return this.set.size();
 	}
+	/**
+	 * Check if the solutionToAdd is dominated by any other one. If not it is add to the set list otherwise it will be remove by 
+	 * the domine function.
+	 * @param solutionToAdd
+	 * 			: Solution which is testing to be added in the set.
+	 * @return a boolean result named res.
+	 */
 	public boolean addSolutionIfIsParetoFrontSolution(Solution solutionToAdd) {
 		boolean res  = true;
-		
+
 		for (Solution solution : this.set) {
 			if(!domine(solutionToAdd, solution))
 				res = false;
-				
+
 		}
-		
+
 		if (res)
 			this.set.add(solutionToAdd);
-		
+
 		return res;
 
 	}
 	/**
-	 * Teste si une solution en domine un autre.
+	 * Compare two solution to see which one is dominated by the other one.
 	 * 
-	 * Retoune vrai si la 1ere solution domine la 2eme, faux sinon.
+	 * Return true if the first solution dominates the second and remove the second one.
 	 * 
 	 * @param sol1
-	 *            : la premiï¿½re solution
+	 *            : First solution to compare with sol2
 	 * @param sol2
-	 *            : la seconde solution
-	 * @param pb
-	 *            : le problème concerné n'est pas utilisé 
+	 *            : Second solution to compare with sol1
+	 *
 	 **/
 	public boolean domine(Solution sol1, Solution sol2) {
 		boolean res = !sol1.isDomined(sol2);
@@ -75,11 +100,9 @@ public class ParetoFront {
 		return res;
 	}
 	/**
-	 * \brief Actualise le front de ParetoFront
+	 * \ Update the ParetoFront
 	 * 
-	 * Insï¿½re les nouvelles solutions de l'ensemble dans le front de ParetoFront
-	 * dans l'ordre et retire ceux qui sont devenus dominï¿½s
-	 * 
+	 * Update the ParetoFront by testing every solution with a solution to add.
 	 * @param solutionsSet
 	 *            : solution set to add
 	 * @param pb
@@ -95,15 +118,23 @@ public class ParetoFront {
 		return 0.0;
 
 	}
-	
+	/**
+	 * Remove solutions from the ParetoFront
+	 * @param sol
+	 * 			: solution to remove
+	 */
 	private void remove(Solution sol) {
 		this.set.remove(sol);
 
 	}
+	/**Generate an iterator
+	 * 
+	 * @return the iterator.
+	 */
 	private Iterator<Solution> getIteratorSet() {
 		return this.set.iterator();
 	}
-	
+
 	/**
 	 * Reduit le nombre de solution du front de Pareto.
 	 * Conserve les solutions les plus réparties sur le front.
@@ -147,7 +178,7 @@ public class ParetoFront {
 			this.set = set;
 		}
 	}
-	
+
 	/**
 	 * Calcule la distance entre deux solutions sol1 et sol2 en fonction du nombre d objectif
 	 * @param sol1 (Solution)
@@ -163,7 +194,7 @@ public class ParetoFront {
 		}
 		return Math.sqrt(dPowRes);
 	}
-	
+
 	/**
 	 * Calcule la distance entre cluster1 et cluster2 en fonction du nombre d objectif
 	 * @param cluster1 (ArrayList<Solution>)
@@ -180,7 +211,7 @@ public class ParetoFront {
 		}
 		return dRawRes/(cluster1.size() * cluster2.size());
 	}
-	
+
 	/**
 	 * Retourne la solution centrale d'un cluster
 	 * @param cluster (ArrayList<Solution>)
