@@ -2,6 +2,7 @@ package model.problem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import model.generic.Problem;
 import model.generic.Solution;
@@ -189,6 +190,66 @@ public class Scenario extends Solution {
 		if (Arrays.equals(this.valueVariables, tableauEntier31)) {
 			setDuration(9.6);
 			setCost(17.5);
+		}
+	}
+	
+	/**
+	 * Permet de mettre a jour les noeuds en enlevant le noeud execute de la liste des precedents des autre noeuds
+	 * Et met à jour leur date de debut avec la date de fin du noeud execute
+	 * @author NicolasR
+	 * @param listNodeToPlan
+	 * @param plannedNode
+	 */
+	private void updateNextNodes(List<PlannedNode> listNodeToPlan, PlannedNode plannedNode) {
+		List<Integer> nextNode= plannedNode.getInitialNode().getListNexts();
+		List<Integer> previousNode;
+		for(int i=0; i<nextNode.size(); i++) {
+		previousNode=listNodeToPlan.get(nextNode.get(i)).getListIdPreviousNodeNodeToPlan();
+			for(int j=0;j<previousNode.size();j++) {
+				if(previousNode.get(j)==plannedNode.getInitialNode().getiIdNode()) {
+					//maj de la liste des precedents des noeuds suivant
+					listNodeToPlan.get(nextNode.get(i)).getListIdPreviousNodeNodeToPlan().remove(j);
+					//maj de la date
+					listNodeToPlan.get(nextNode.get(i)).dBeginningDate=plannedNode.getdEndingDate();
+				}
+			}
+		}
+		//maj des noeuds plannifies
+		for(int i=0;i<listNodeToPlan.size();i++) {
+			if(listNodeToPlan.get(i)==plannedNode) {
+				listNodeToPlan.remove(i);
+			}
+			
+		}
+	}
+	
+	/**
+	 * Permet de supprimer les noeuds des branches non utilise lors d un embranchement de noeud OU
+	 * @author NicolasR
+	 * @param listNodeToPlan
+	 * @param orNode
+	 * @param iSelectedOrNodeAlternative
+	 */
+	@SuppressWarnings("null")
+	private void removeUnselectedBranch(List<PlannedNode> listNodeToPlan, OrNode orNode, int iSelectedOrNodeAlternative) {
+		List<Node> listToRemove = null;
+		int iCpt = 0;
+		int iCurrentNode = listNodeToPlan.get(iCpt).getInitialNode().getiIdNode();
+		//ajout des noeud des branche non selectionne a la liste des noeuds a supprimer
+		while (iCurrentNode!=orNode.getiIdEndOrNode()) {
+			if (orNode.getiIdNode() != iSelectedOrNodeAlternative) {
+				listToRemove.add(orNode);
+			}
+			iCpt++;
+			iCurrentNode = listNodeToPlan.get(iCpt).getInitialNode().getiIdNode();
+		}
+		//retranchement de la liste des noeud a supprimer dans la liste des noeuds a planifier
+		for(PlannedNode node : listNodeToPlan) {
+			for (int i=0; i<listToRemove.size();i++) {
+				if (node.getInitialNode().getiIdNode() == listToRemove.get(i).getiIdNode()) {
+					listNodeToPlan.remove(node);
+				}
+			}
 		}
 	}
 
