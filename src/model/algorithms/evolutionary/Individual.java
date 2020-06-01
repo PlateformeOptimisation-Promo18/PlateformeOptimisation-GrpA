@@ -153,39 +153,53 @@ public class Individual {
 	}
 
 	/**
+	 * Procedure (private) to set randomly a new value (mutation) in associatedSolution of Individual
+	 * @param int:index, Problem:pb, InterfaceRandom:generator
+	 */
+	private void tireAutreValeur(int index, Problem pb, InterfaceRandom generator) {
+		int [] variableDomaine = pb.getTabSizeDomainVariables(); // valeurs possibles par gène
+		int forbiddenValue = associatedSolution.getValueVariable(index);
+		int newValue = forbiddenValue;
+		
+		while (newValue == forbiddenValue) {
+			newValue = generator.nextInt(variableDomaine[index]);
+		}
+		associatedSolution.setValueVariable(index, newValue);
+	}
+
+	/**
 	 * Procedure to mutate all gene values in associatedSolution of Individual
 	 * @param double:dGeneMutation, Problem:pb, InterfaceRandom:generator
 	 * @exception throws Exception in Solution
 	 */
 	public void mutation (double dGeneMutation, Problem pb, InterfaceRandom generator)throws Exception{
 		boolean mutated = false;
+		int nbVariable = associatedSolution.getNbVariables();  // Nombre de genes
+		
 		//Pour chaque gène de la solution
-		int nbVariable = associatedSolution.getNbVariables();
-		int [] variableDomaine = pb.getTabSizeDomainVariables();
-		int nbVariableType = variableDomaine.length;
 		for (int i = 0 ; i < nbVariable ; i++) {
 			// Si mutation
-			if (generator.nextInt(9)+ 1 <= dGeneMutation) {
-				// Faire muter le gène associé selon le tableau des variables attribuables d'ont l'indice de la valeur est tirée au hasard
-				associatedSolution.setValueVariable(i, variableDomaine[generator.nextInt(nbVariableType -1)]);
+			if (generator.nextInt(99)+ 1 <= dGeneMutation*100) {
+				// Faire muter le gène associé 
+				tireAutreValeur(i, pb, generator);
 				mutated = true;
 			}
 		}
 		if (!mutated) {
 			// Forcer la mutation d'au moins un gène aléatoirement
-			associatedSolution.setValueVariable(generator.nextInt(nbVariable-1), variableDomaine[generator.nextInt(nbVariable-1)]);
+			tireAutreValeur(generator.nextInt(nbVariable), pb, generator);
 		}
 	}
 	
 	/**
-	 * Procedure (private) to cross a value of associatedSolution (at index "indexGene") in children, from 2 Individual parents 
+	 * Procedure to cross a value of associatedSolution and an other solution (at index "indexGene") in childrens, from 2 Individual parents
 	 * @param Individual:ind1, int:indexGene
 	 */
 	private void cross(Individual ind1, int indexGene) {
 		int localVGeneValue;
-		localVGeneValue = ind1.getValueVariable(indexGene);
-		ind1.setValueVariable(indexGene, associatedSolution.getValueVariable(indexGene));
-		associatedSolution.setValueVariable(indexGene, localVGeneValue);
+		localVGeneValue = ind1.getValueVariable(indexGene); // variable locale d'echange
+		ind1.setValueVariable(indexGene, associatedSolution.getValueVariable(indexGene)); // ind1 récupére le gene d'individu
+		associatedSolution.setValueVariable(indexGene, localVGeneValue); // individu récupére le gene d'ind1
 	}
 	
 	/**
@@ -200,23 +214,15 @@ public class Individual {
 		int nbVariable = associatedSolution.getNbVariables();
 		for (int i = 0 ; i < nbVariable ; i++) {
 			// Si croisement parent (50% chance)
-			if (generator.nextInt(9)+ 1 <= 5) {
+			if (generator.nextInt(99)+ 1 <= 50) {
 				// Echanger le gène associé
 				cross(ind1, i);
 				crossed = true;
 			}
 		}
 		if (!crossed) {
-			cross(ind1, generator.nextInt(nbVariable-1));
+			cross(ind1, generator.nextInt(nbVariable));
 		}
 	}
-	/*
-	private int tireAutreValeur(int i, Problem pb, InterfaceRandom generator)throws Exception{
-		// TODO???
-		// Fonction inutile étant donné qu'un traitement plus simple est possible
-		return i;
-	}
-	*/
-}
 
 //____________________________________________________________________
