@@ -1,6 +1,7 @@
 package application;
 
-import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,9 +33,10 @@ public class PagePrincipaleController
         	//fenetreOptimisation.setContent(FXMLLoader.load(getClass().getResource("Optimisation.fxml")));
         	
         }
-        catch(IOException iex)
+        catch(Exception e)
         {
-            System.out.println("unable to load OptimmisationTab");
+			Logger logger = Logger.getLogger("logger");
+			logger.log(Level.INFO, e.getMessage());
         }
 		
 	}

@@ -1,23 +1,19 @@
 package application;
 
-import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 public class ConsultationController 
 {
@@ -31,47 +27,43 @@ public class ConsultationController
 	@FXML
 	private void boutonUploadClick (ActionEvent evt)
 	{		
-
-
 		// Name axes
 		visualisationChart.getXAxis().setLabel("Hypervolum");
 		visualisationChart.getYAxis().setLabel("Time");  
 		visualisationChart.setTitle("Visualisation");
 
 		// Definion des series
-		XYChart.Series series = new XYChart.Series();
+		XYChart.Series<Number,Number> series = new XYChart.Series<>();
+		
 		
 		FileChooser fc = new FileChooser() ;
 		fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
 		File selectedFile = fc.showOpenDialog(null) ;
-		
-		try 
-		{
-			
-			if ( selectedFile != null) 
-			{
-				FileReader filereader = new FileReader(selectedFile.getPath());
-				BufferedReader bufferedreader = new BufferedReader(filereader);
 
-				String ligne;
-				int compteur = 0;
-				
-				while ((ligne = bufferedreader.readLine()) != null) 
+		try (
+				FileReader filereader = new FileReader(selectedFile.getPath());
+				BufferedReader bufferedreader = new BufferedReader(filereader) ) {
+			String ligne;
+			int compteur = 0;
+
+			while ((ligne = bufferedreader.readLine()) != null) 
+			{
+				if (compteur > 0) 
 				{
-					if (compteur > 0) 
-					{
-						series.getData().add(new XYChart.Data(Double.parseDouble(ligne.substring(14,21)),Double.parseDouble(ligne.substring(0,13)) ));
-						
-					}
-					
-					compteur++;
+					double x = Double.parseDouble(ligne.substring(14,21));
+					double y = Double.parseDouble(ligne.substring(0,13));
+					series.getData().add(new XYChart.Data<Number,Number>(x,y));
 				}
-				visualisationChart.getData().add(series);
-			}	
+
+				compteur++;
+			}
+			visualisationChart.getData().add(series);
+
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger logger = Logger.getLogger("logger");
+			logger.log(Level.INFO, e.getMessage());
 		}
-		
+
 	}
 
 	@FXML
