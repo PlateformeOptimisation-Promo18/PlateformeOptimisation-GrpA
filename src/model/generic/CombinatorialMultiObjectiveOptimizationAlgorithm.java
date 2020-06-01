@@ -18,18 +18,18 @@ import java.util.Observer;
 import application.StopRequired;
 
 /**
- * Classe abstraite pour les traitements g�n�riques des algorithmes
- * interface entre les algos, le probl�me � r�soudre et l'IHM
+ * Classe abstraite pour les traitements génériques des algorithmes
+ * interface entre les algos, le problème à résoudre et l'IHM
  * @author p.pitiot
  */
 public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implements Observer {
-		// attributs n�cessaires pour la mise � jour de l'IHM
+		// attributs nécessaires pour la mise à jour de l'IHM
 	    protected ObservableList<Solution> listSolutionsObservables;
 	    protected ObservableList<Double> perfObservable;
 	    protected ObservableList<Long> timeObservable;
-	    // observateur pour la demande d'arr�t utilisateur
+	    // observateur pour la demande d'arrêt utilisateur
 	    protected boolean stopRequired;
-	    // liste des param�tres modifiable par l'utilisateur
+	    // liste des paramètres modifiable par l'utilisateur
 	    protected List<Parameter> listParam;
 		// ensemble des meilleurs solutions trouv�es
 		protected ParetoFront bestSolutions; 
@@ -40,14 +40,14 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 		protected String fileName;
 		protected Path savingFilePath;
 		protected String algorithmName;
-		// r�f�rence du probl�me � r�soudre
+		// référence du problème à résoudre
 		protected Problem pb;
 
 		/**
-		 * Constructeur initialisant les propri�t�s g�n�riques des algos
-		 * doit �tre appel� par les constructeurs des classes d'algorithmes 
-		 * @param stop	objet �couteur arr�t utilisateur
-		 * @param algorithmName nom de l'algorithme pour l'affichage et la sauveguarde des r�sulats
+		 * Constructeur initialisant les propriétés génériques des algos
+		 * doit être appelé par les constructeurs des classes d'algorithmes 
+		 * @param stop	objet écouteur arrêt utilisateur
+		 * @param algorithmName nom de l'algorithme pour l'affichage et la sauveguarde des résulats
 		 */
 		public CombinatorialMultiObjectiveOptimizationAlgorithm(Problem pb, StopRequired stop, String algorithmName){
 			this.algorithmName = algorithmName;
@@ -124,16 +124,17 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 	    	return listParam;
 	    }
 	    /**
-	     * getter pour la liste des param�tres
-	     * @param liste des param�tres modifi�s
+	     * getter pour la liste des paramètres
+	     * @param liste des paramètres modifiés
 	     */
 	    public void setParameters(List<Parameter> list){
 	    	this.listParam = list;
+	    	updateFileName();
 	    }
 	    
 		/* (non-Javadoc)
-		 * m�thode appel�e pour la mise � jour de stopRequired 
-		 * si l'utilisateur demande l'arr�t d'un algorithme
+		 * méthode appelée pour la mise à jour de stopRequired 
+		 * si l'utilisateur demande l'arrêt d'un algorithme
 		 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 		 */
 		@Override
@@ -142,7 +143,7 @@ public abstract class CombinatorialMultiObjectiveOptimizationAlgorithm implement
 		}
 		
 	    /**
-	     * getter pour l'ensemble des meilleurs solutions trouv�es
+	     * getter pour l'ensemble des meilleurs solutions trouvées
 	     * @return l'ensemble des meilleurs solutions
 	     */
 	    public ParetoFront getBestSolutions() {
