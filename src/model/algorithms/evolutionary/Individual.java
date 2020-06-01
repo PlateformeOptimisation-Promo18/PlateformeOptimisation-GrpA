@@ -210,7 +210,7 @@ public class Individual {
 	public void crossoverUniform(Individual ind1, Problem pb, InterfaceRandom generator){
 		
 		boolean crossed = false;
-		//Pour chaque gène de la solution à comparer
+		// Pour chaque gène de la solution à comparer
 		int nbVariable = associatedSolution.getNbVariables();
 		for (int i = 0 ; i < nbVariable ; i++) {
 			// Si croisement parent (50% chance)
@@ -221,6 +221,7 @@ public class Individual {
 			}
 		}
 		if (!crossed) {
+			// Forcer le croisement d'au moins un gene aleatoirement parmi la liste de gene
 			cross(ind1, generator.nextInt(nbVariable));
 		}
 	}
