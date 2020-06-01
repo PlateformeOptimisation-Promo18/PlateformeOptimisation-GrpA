@@ -9,7 +9,6 @@ import java.util.Scanner;
  */
 public class OrNode extends Node {
 
-    private int iIdOrNode;
     private int iIdEndOrNode;
 
     /**
@@ -17,15 +16,14 @@ public class OrNode extends Node {
      * @param sc : Scanner qui contient les valeurs qu'on souhaite renseigner lors de la creation de l'objet
      */
     public OrNode(Scanner sc) {
-        this.iIdOrNode = sc.nextInt();
-        this.iIdEndOrNode = sc.nextInt();
+        this.setiIdNode(sc.nextInt());
     }
 
     /**
      * @return : chaine de caractere qui decrit l'objet courant
      */
     public String toString() {
-        return "OrNode -> iIdOrNode : " + this.iIdOrNode + " / iIdEndOrNode : " + this.iIdEndOrNode + "\n";
+        return "OrNode -> iIdNode : " + this.getiIdNode() + " / iIdEndOrNode : " + this.iIdEndOrNode + "\n";
     }
 
     /**
@@ -37,25 +35,10 @@ public class OrNode extends Node {
     }
 
     /**
-     * Permet de renseigner la valeur de iIdOrNode
-     * @param iIdOrNode : valeur qu'on souhaite affecter à iIdOrNode sur l'objet courant
-     */
-    protected void setiIdOrNode(int iIdOrNode) {
-        this.iIdOrNode = iIdOrNode;
-    }
-
-    /**
      * @return : valeur de iIdEndOrNode sur l'objet courant
      */
     protected int getiIdEndOrNode() {
         return this.iIdEndOrNode;
-    }
-
-    /**
-     * @return : valeur de iIdOrNode sur l'objet courant
-     */
-    protected int getiIdOrNode() {
-        return this.iIdOrNode;
     }
 
 }

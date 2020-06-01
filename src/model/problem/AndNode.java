@@ -9,7 +9,6 @@ import java.util.Scanner;
  */
 public class AndNode extends Node {
 
-    private int iIdAndNode;
     private int iIdEndAndNode;
 
     /**
@@ -17,23 +16,14 @@ public class AndNode extends Node {
      * @param sc : Scanner qui contient les valeurs qu'on souhaite renseigner lors de la creation de l'objet
      */
     public AndNode(Scanner sc) {
-        this.iIdAndNode = sc.nextInt();
-        this.iIdEndAndNode = sc.nextInt();
+        this.setiIdNode(sc.nextInt());
     }
 
     /**
      * @return : chaine de caractere qui decrit l'objet courant
      */
     public String toString() {
-        return "AndNode -> iIdAndNode : " + this.iIdAndNode + " / iIdEndAndNode : " + this.iIdEndAndNode + "\n";
-    }
-
-    /**
-     * Permet de renseigner la valeur de iIdAndNode
-     * @param iIdAndNode : valeur qu'on souhaite affecter à iIdAndNode sur l'objet courant
-     */
-    protected void setiIdAndNode(int iIdAndNode) {
-        this.iIdAndNode = iIdAndNode;
+        return "AndNode -> iIdNode : " + this.getiIdNode() + " / iIdEndAndNode : " + this.iIdEndAndNode + "\n";
     }
 
     /**
@@ -42,13 +32,6 @@ public class AndNode extends Node {
      */
     protected void setiIdEndAndNode(int iIdEndAndNode) {
         this.iIdEndAndNode = iIdEndAndNode;
-    }
-
-    /**
-     * @return : valeur de iIdAndNode sur l'objet courant
-     */
-    protected int getiIdAndNode() {
-        return this.iIdAndNode;
     }
 
     /**
