@@ -126,7 +126,7 @@ public class Individual {
 	//____________________________________________________________________
 	
 	
-	//***********CONSTRUCTORS*************
+	//******* PROCEDURES / FONCTIONS *********
 	
 	/**
 	 * Procedure to evaluate associatedSolution of Individual
