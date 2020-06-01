@@ -221,7 +221,7 @@ public class Individual {
 			}
 		}
 		if (!crossed) {
-			// Forcer le croisement d'au moins un gene aleatoirement parmi la liste de gene
+			// Forcer le croisement d'au moins un gene aleatoirement parmi la liste de genes
 			cross(ind1, generator.nextInt(nbVariable));
 		}
 	}
