@@ -210,12 +210,13 @@ public class Individual {
 			cross(ind1, generator.nextInt(nbVariable-1));
 		}
 	}
-	
+	/*
 	private int tireAutreValeur(int i, Problem pb, InterfaceRandom generator)throws Exception{
 		// TODO???
 		// Fonction inutile étant donné qu'un traitement plus simple est possible
 		return i;
 	}
+	*/
 }
 
 //____________________________________________________________________
