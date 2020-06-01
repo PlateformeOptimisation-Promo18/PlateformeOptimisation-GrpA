@@ -47,7 +47,6 @@ public class EvolutionaryAlgorithm extends CombinatorialMultiObjectiveOptimizati
 		// TODO A voir si l'algorithme fonctionne etant donné que je me suis basé sur des méthodes non encore programmées
 		if (archive.getNbIdividual() == 0) {
 			archive.setIndividualSet(population.getIndividualSet());
-			archive.evaluate(problem);
 		}
 		
 		Population parents = archive.selectionParents(POP_SIZE/2);
