@@ -22,16 +22,13 @@ public class DemarageController
 	{
 		try
 		{
-			Stage stage;
-			Parent root;
-
-			stage = (Stage) boutonDemarrage.getScene().getWindow();
-			root = FXMLLoader.load(getClass().getResource("PagePrincipale.fxml"));
-
+			Stage stage = (Stage) boutonDemarrage.getScene().getWindow();
+			Parent root = FXMLLoader.load(getClass().getResource("PagePrincipale.fxml"));
 			Scene scene = new Scene(root,800,800);
 			stage.getIcons().setAll(new Image(getClass().getResource("optimisation.png").toExternalForm()));
+			stage.setTitle("Plateforme d'optimisation");
 			stage.setScene(scene);
-			stage.show();
+			stage.show();//show the main page
 		}
 		catch(Exception e)
 		{

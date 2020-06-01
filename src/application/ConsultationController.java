@@ -27,38 +27,36 @@ public class ConsultationController
 	@FXML
 	private void boutonUploadClick (ActionEvent evt)
 	{		
-		// Name axes
-		visualisationChart.getXAxis().setLabel("Hypervolum");
-		visualisationChart.getYAxis().setLabel("Time");  
-		visualisationChart.setTitle("Visualisation");
+		visualisationChart.getXAxis().setLabel("Hypervolum");//put x label of the chart
+		visualisationChart.getYAxis().setLabel("Time");  //put y label of the chart
+		visualisationChart.setTitle("Visualisation");//put the name of the chart
 
-		// Definion des series
+		//creation of a series of points to put on the chart
 		XYChart.Series<Number,Number> series = new XYChart.Series<>();
 		
 		
-		FileChooser fc = new FileChooser() ;
-		fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
-		File selectedFile = fc.showOpenDialog(null) ;
+		FileChooser fc = new FileChooser() ;//create a dialog-box that permits to choose a file from the computer
+		fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));//only accept ext files
+		File selectedFile = fc.showOpenDialog(null) ;//open file chooser
 
-		try (
+		try (   //objects that would be closed after the try bloc:
 				FileReader filereader = new FileReader(selectedFile.getPath());
-				BufferedReader bufferedreader = new BufferedReader(filereader) ) {
+				BufferedReader bufferedreader = new BufferedReader(filereader) ) 
+		{
 			String ligne;
-			int compteur = 0;
 
-			while ((ligne = bufferedreader.readLine()) != null) 
+			ligne = bufferedreader.readLine();//skip the titles line
+			
+			while ((ligne = bufferedreader.readLine()) != null) //while there is something to read
 			{
-				if (compteur > 0) 
-				{
-					double x = Double.parseDouble(ligne.substring(14,21));
-					double y = Double.parseDouble(ligne.substring(0,13));
-					series.getData().add(new XYChart.Data<Number,Number>(x,y));
-				}
-
-				compteur++;
+				 
+				double x = Double.parseDouble(ligne.substring(14,21)); //all the times values takes 7 characters
+				double y = Double.parseDouble(ligne.substring(0,13));//all the hyper-volumes values takes  14 characters
+				series.getData().add(new XYChart.Data<Number,Number>(x,y));
 			}
-			visualisationChart.getData().add(series);
-
+			
+			visualisationChart.getData().add(series);//put values on the chart
+			
 		} catch (Exception e) {
 			Logger logger = Logger.getLogger("logger");
 			logger.log(Level.INFO, e.getMessage());

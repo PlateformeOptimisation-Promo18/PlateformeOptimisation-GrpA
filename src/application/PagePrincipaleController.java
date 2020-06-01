@@ -24,12 +24,13 @@ public class PagePrincipaleController
 	{
 		try
         {
+			//put Consultation screen on consultation's tab
         	fenetreConsultation.setContent(FXMLLoader.load(getClass().getResource("Consultation.fxml")));
         	
-        	//a decommenter pour zied
+        	//put Comparison screen on Comparison's tab
         	//fenetreComparaison.setContent(FXMLLoader.load(getClass().getResource("Comparaison.fxml")));
         	
-        	//a decommenter pour paul
+        	//put Optimization screen on Optimization's tab
         	//fenetreOptimisation.setContent(FXMLLoader.load(getClass().getResource("Optimisation.fxml")));
         	
         }
