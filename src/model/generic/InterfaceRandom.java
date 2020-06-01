@@ -1,13 +1,15 @@
 package model.generic;
 
 /**
- * Interface pour maocker le générateur de nombre Random
- * permet de simuler un générateur pour les tests
+ * Interface pour maocker le gï¿½nï¿½rateur de nombre Random
+ * permet de simuler un gï¿½nï¿½rateur pour les tests
  * @author p.pitiot
  *
  */
 public interface InterfaceRandom {
 	public int nextInt( int i);
+
+	public double nextDouble();
 }
 
 

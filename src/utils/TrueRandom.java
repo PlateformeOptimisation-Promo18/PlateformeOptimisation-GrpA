@@ -20,4 +20,9 @@ public class TrueRandom implements InterfaceRandom {
 		return generator.nextInt(i);
 	}
 
+	@Override
+	public double nextDouble() {
+		return generator.nextDouble();
+	}
+
 }
