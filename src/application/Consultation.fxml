@@ -29,7 +29,7 @@
                <children>
                   <LineChart fx:id="visualisationChart">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" />
+                      <NumberAxis side="BOTTOM" />
                     </xAxis>
                     <yAxis>
                       <NumberAxis side="LEFT" />
