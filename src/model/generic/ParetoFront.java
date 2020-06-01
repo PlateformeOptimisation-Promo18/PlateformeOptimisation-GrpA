@@ -46,6 +46,7 @@ public class ParetoFront {
 		for (Solution solution : this.set) {
 			if(!domine(solutionToAdd, solution))
 				res = false;
+				
 		}
 		
 		if (res)
@@ -66,8 +67,12 @@ public class ParetoFront {
 	 * @param pb
 	 *            : le problème concerné n'est pas utilisé 
 	 **/
-	static public boolean domine(Solution sol1, Solution sol2) {
-		return !sol1.isDomined(sol2);
+	public boolean domine(Solution sol1, Solution sol2) {
+		boolean res = !sol1.isDomined(sol2);
+		if (res) {
+			this.remove(sol2);
+		}
+		return res;
 	}
 	/**
 	 * \brief Actualise le front de ParetoFront
@@ -81,7 +86,9 @@ public class ParetoFront {
 	 *            : problem
 	 **/
 	public void updateFront(List<Solution> solutionsSet, Problem pb) {
-		// pourquoi ne pas juste remove les solutions qui ne sont plus les bonnes
+		for (Solution solutionToAdd: solutionsSet) {
+			addSolutionIfIsParetoFrontSolution(solutionToAdd);
+		}
 	}
 	public double calculHV(Problem pb) {
 		// to do
