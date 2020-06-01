@@ -116,7 +116,7 @@ public class Individual {
 	}
 	
 	/**
-	 * set ValueVariable at index of associatedSolution from Individual
+	 * set ValueVariable (value) at index (i) of associatedSolution from Individual
 	 * @param int:i, int:value
 	 */
 	public void setValueVariable (int i, int iValue) {
@@ -129,21 +129,33 @@ public class Individual {
 	//***********CONSTRUCTORS*************
 	
 	/**
-	 * 
-	 * @param pb
+	 * Procedure to evaluate associatedSolution of Individual
+	 * @param Problem:pb
 	 */
 	public void evaluate (Problem pb) {
 		associatedSolution.evaluate(pb);
 	}
-
+	/**
+	 * Fonction to do equals on associatedSolution of Individual
+	 * @param Individual:ind
+	 */
 	public Boolean isObjEgal (Individual ind){
 		return associatedSolution.isObjEgal(ind.getSolution());
 	}
 	
+	/**
+	 * Procedure to set randomly all values in associatedSolution of Individual
+	 * @param Problem:pb, InterfaceRandom:generator
+	 */
 	public void randomSetValues (Problem pb, InterfaceRandom generator) throws Exception {
 		associatedSolution.randomSetValues(pb, generator);
 	}
 
+	/**
+	 * Procedure to mutate all gene values in associatedSolution of Individual
+	 * @param double:dGeneMutation, Problem:pb, InterfaceRandom:generator
+	 * @exception throws Exception in Solution
+	 */
 	public void mutation (double dGeneMutation, Problem pb, InterfaceRandom generator)throws Exception{
 		boolean mutated = false;
 		//Pour chaque gène de la solution
@@ -164,6 +176,10 @@ public class Individual {
 		}
 	}
 	
+	/**
+	 * Procedure to cross an associatedSolution of children from 2 parents of Individual 
+	 * @param Problem:pb, InterfaceRandom:generator
+	 */
 	private void cross(Individual ind1, int indexGene) {
 		int localVGeneValue;
 		localVGeneValue = ind1.getValueVariable(indexGene);
@@ -171,6 +187,11 @@ public class Individual {
 		associatedSolution.setValueVariable(indexGene, localVGeneValue);
 	}
 	
+	/**
+	 * Procedure to cross this parent with an other parent individual and modificate this one into a children
+	 * Methode to use : clone the first individual parent in individual children before use this procedure on it
+	 * @param Problem:pb, InterfaceRandom:generator
+	 */
 	public void crossoverUniform(Individual ind1, Problem pb, InterfaceRandom generator){
 		
 		boolean crossed = false;
@@ -191,8 +212,7 @@ public class Individual {
 	
 	private int tireAutreValeur(int i, Problem pb, InterfaceRandom generator)throws Exception{
 		// TODO???
-		//Le i c'est quoi ?
-		// La fonction sert-elle à l'extérieur de la classe ? si non elle est inutile ?
+		// Fonction inutile étant donné qu'un traitement plus simple est possible
 		return i;
 	}
 }
