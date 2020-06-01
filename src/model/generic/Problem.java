@@ -18,8 +18,7 @@ public interface Problem {
 
 	public boolean[] GetActiveVariable(Solution sol);
 
-	public int getTabSizeDomainVariable(int i) throws Exception;
+	public int getSizeDomainVariable(int i) throws Exception;
 
 	public String getName();
-	
 }

@@ -146,10 +146,10 @@ public abstract class Solution {
 		return valuesObjectives.equals(sol2.valuesObjectives);
 	}
 
-	public int[] getValueVariables() {
+	/*public int[] getValueVariables() {
 		return valueVariables;
 	}
 	public void setValueVariables(int[] valueVariables) {
 		this.valueVariables = valueVariables;
-	}
+	}*/
 }
