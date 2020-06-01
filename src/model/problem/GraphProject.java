@@ -71,7 +71,6 @@ public class GraphProject implements Problem {
 	 */
 	@Override
 	public int[] getTabSizeDomainVariables() {
-		// TODO Auto-generated method stub
 		//	create an array of int with that of 0
 		int [] SizeDomain = new int [getNbVariables()];
 		Arrays.fill(SizeDomain, 0);
@@ -104,11 +103,6 @@ public class GraphProject implements Problem {
 			}
 		}
 		return SizeDomain;
-		//cherche le OU n°1 et chercher le nombre de OU (ex : si 3, 3 valeur posible)
-
-		//get nbalternatives tasknode = le chiffre a mettre dans le tableau
-		//ou nb suivant
-		//tache nb alterantive
 	}
 
 	@Override
