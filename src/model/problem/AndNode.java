@@ -12,15 +12,15 @@ public class AndNode extends Node {
     private int iIdEndAndNode;
 
     /**
-     * Permet de créer un objet avec des valeurs transmises en parametres
-     * @param sc : Scanner qui contient les valeurs qu'on souhaite renseigner lors de la creation de l'objet
+     * Permet de créer un AndNode en renseignant son id
+     * @param sc : Scanner qui contient la valeur de l'id
      */
     public AndNode(Scanner sc) {
         this.setiIdNode(sc.nextInt());
     }
 
     /**
-     * @return : chaine de caractere qui decrit l'objet courant
+     * @return : chaine de caractere qui decrit le AndNode
      */
     public String toString() {
         return "AndNode -> iIdNode : " + this.getiIdNode() + " / iIdEndAndNode : " + this.iIdEndAndNode + "\n";
@@ -28,14 +28,14 @@ public class AndNode extends Node {
 
     /**
      * Permet de renseigner la valeur de iIdEndAndNode
-     * @param iIdEndAndNode : valeur qu'on souhaite affecter à iIdEndAndNode sur l'objet courant
+     * @param iIdEndAndNode : valeur qu'on souhaite affecter à iIdEndAndNode
      */
     protected void setiIdEndAndNode(int iIdEndAndNode) {
         this.iIdEndAndNode = iIdEndAndNode;
     }
 
     /**
-     * @return : valeur de iIdEndAndNode sur l'objet courant
+     * @return : valeur de iIdEndAndNode
      */
     protected int getiIdEndAndNode() {
         return this.iIdEndAndNode;

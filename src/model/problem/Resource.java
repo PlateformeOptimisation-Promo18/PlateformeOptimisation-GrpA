@@ -13,8 +13,8 @@ public class Resource implements Cloneable {
     private double dQuantity;
 
     /**
-     * Permet de créer un objet avec des valeurs transmises en parametres
-     * @param sc : Scanner qui contient les valeurs qu'on souhaite renseigner lors de la creation de l'objet
+     * Permet de créer une Resource
+     * @param sc : Scanner qui contient les valeurs qu'on souhaite renseigner lors de la creation de la Resource
      */
     public Resource(Scanner sc) {
         this.iIdResource = sc.nextInt();
@@ -35,7 +35,7 @@ public class Resource implements Cloneable {
     }
 
     /**
-     * @return : chaine de caractere qui decrit l'objet courant
+     * @return : chaine de caractere qui decrit la Resource
      */
     public String toString() {
         return "Ressource -> iIdResource : " + this.iIdResource + " / dQuantity : " + this.dQuantity + "\n";
@@ -43,7 +43,7 @@ public class Resource implements Cloneable {
 
     /**
      * Permet de soustraire une quantité sur l'attribut dQuantity
-     * @param dQuantity : quantité qu'on souhaite soustraire à dQuantity sur l'objet courant
+     * @param dQuantity : quantité qu'on souhaite soustraire à dQuantity
      */
     public void removeQuantity(double dQuantity) {
         this.dQuantity -= dQuantity;
@@ -51,21 +51,21 @@ public class Resource implements Cloneable {
 
     /**
      * Permet d'ajouter une quantité sur l'attribut dQuantity
-     * @param dQuantity : quantité qu'on souhaite ajouter à dQuantity sur l'objet courant
+     * @param dQuantity : quantité qu'on souhaite ajouter à dQuantity
      */
     public void addQuantity(double dQuantity) {
         this.dQuantity += dQuantity;
     }
 
     /**
-     * @return : valeur de iIdResource sur l'objet courant
+     * @return : valeur de iIdResource
      */
     public int getiIdResource() {
         return this.iIdResource;
     }
 
     /**
-     * @return : valeur de iIdOrNode sur l'objet courant
+     * @return : valeur de iIdOrNode
      */
     public double getdQuantity() {
         return this.dQuantity;
