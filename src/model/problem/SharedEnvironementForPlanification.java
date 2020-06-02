@@ -28,33 +28,72 @@ protected boolean unsetbHaveBeenModified() {
 return true;
 	
 }
+/**
+ * @return listResourcesPlanned
+ */
 protected PriorityQueue<RessourcesPlanned> getListResourcesPlanned() {
 	return listResourcesPlanned;
 }
+/**
+ * 
+ * @return listAvailableResources
+ */
 protected List<Resource> getListAvailableResources() {
 	return listAvailableResources;
 }
+/**
+ *
+ *@return dBranchTotalCost 
+ */
 protected double getdBranchTotalCost() {
 	return dBranchTotalCost;
 }
+/**
+ * 
+ * @return dCurrentDate
+ */
 protected double getdCurrentDate() {
 	return dCurrentDate;
 }
+/**
+ * 
+ * @param listAvailableResources
+ */
 protected void setListAvailableResources(List<Resource> listAvailableResources) {
 	this.listAvailableResources = listAvailableResources;
 }
+/**
+ * 
+ * @param dBranchTotalCost
+ */
 protected void setdBranchTotalCost(double dBranchTotalCost) {
 	this.dBranchTotalCost = dBranchTotalCost;
 }
+/**
+ * 
+ * @param dCurrentDate
+ */
 protected void setdCurrentDate(double dCurrentDate) {
 	this.dCurrentDate = dCurrentDate;
 }
+/**
+ * 
+ * @param listResourcesPlanned
+ */
 protected void setListResourcesPlanned(PriorityQueue<RessourcesPlanned> listResourcesPlanned) {
 	this.listResourcesPlanned = listResourcesPlanned;
 }
+/**
+ * 
+ * @return
+ */
 public double getdEndingDate() {
 	return dEndingDate;
 }
+/**
+ * 
+ * @param dEndingDate
+ */
 public void setdEndingDate(double dEndingDate) {
 	this.dEndingDate = dEndingDate;
 }

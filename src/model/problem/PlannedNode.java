@@ -44,6 +44,12 @@ public class PlannedNode extends Node {
 	public Node getInitialNode() {
 		return initialNode;
 	}
+	public SharedEnvironementForPlanification getEnvir() {
+		return envir;
+	}
+	public void setEnvir(SharedEnvironementForPlanification envir) {
+		this.envir = envir;
+	}
 	
 	
 	
