@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"model.algorithms.ants","l":"PheromonesException"},{"p":"model.algorithms.ants","l":"PheromonesTrails"}]
