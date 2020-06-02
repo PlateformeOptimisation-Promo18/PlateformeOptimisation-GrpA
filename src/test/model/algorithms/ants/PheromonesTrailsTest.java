@@ -129,10 +129,7 @@ public class PheromonesTrailsTest {
 		int[] tmp = new int[solution.getNbVariables()];
 		for (int i = 0; i < solution.getNbVariables(); i++) {
 			tmp[i] = solution.getValueVariable(i);
-			System.out.println(tmp[i]);
 		}
-		
-		System.out.println(this.envTraces);
 		
 		assertTrue(Arrays.equals(test, tmp));
 	}

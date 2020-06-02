@@ -64,7 +64,7 @@ public class MockProblem implements Problem {
 	}
 
 	@Override
-	public int getTabSizeDomainVariable(int i) throws Exception {
+	public int getSizeDomainVariable(int i) throws Exception {
 		return this.domainVariables[i];
 	}
 

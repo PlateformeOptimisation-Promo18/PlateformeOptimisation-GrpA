@@ -196,6 +196,7 @@ public class PheromonesTrails {
 	 * @deprecated just for tests
 	 * @return traces
 	 */
+	@Deprecated(forRemoval=true)
 	public List<double[]> getTracePheromones () {
 		return this.traces;
 	}
