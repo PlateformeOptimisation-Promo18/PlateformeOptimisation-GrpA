@@ -70,7 +70,7 @@ public class GraphProject implements Problem {
 	}
 
 	@Override
-	public int getSizeDomainVariable(int i) throws Exception {
+	public int getTabSizeDomainVariable(int i) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
