@@ -30,8 +30,15 @@ public class Resource implements Cloneable {
         this.dQuantity = resource.getdQuantity();
     }
 
+    /**
+     * Permet de créer une Resource
+     * @param sc : Scanner qui contient les valeurs qu'on souhaite renseigner lors de la creation de la Resource
+     * @param gp : GraphProject
+     * @throws Exception :
+     */
     public Resource(Scanner sc, GraphProject gp) throws Exception {
-//        TODO
+        this.iIdResource = sc.nextInt();
+        this.dQuantity = sc.nextDouble();
     }
 
     /**

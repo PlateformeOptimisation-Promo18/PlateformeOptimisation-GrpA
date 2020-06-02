@@ -29,10 +29,8 @@ public class GraphProject implements Problem {
     }
 
     /**
-     * MÃ©trhode qui permet de charger le projectGraph avec ses listInitialResources
-     * et listObjectives
-     * @param file : Fichier qui contient toutes les valeurs Ã  lire pour crÃ©er
-     *             tous les objets associÃ©s
+     * Méthode qui permet de charger le projectGraph avec ses listInitialResources et listObjectives
+     * @param file : Fichier qui contient toutes les valeurs à  lire pour créer tous les objets associés
      */
     public void fLoad(File file) {
         try (Scanner sc = new Scanner(file)) {
@@ -117,6 +115,7 @@ public class GraphProject implements Problem {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
