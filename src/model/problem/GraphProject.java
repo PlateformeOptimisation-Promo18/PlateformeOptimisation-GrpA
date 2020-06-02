@@ -37,7 +37,7 @@ public class GraphProject implements Problem {
     public void fLoad(File file) {
         try (Scanner sc = new Scanner(file)) {
             sc.useLocale(Locale.FRENCH);
-            // Nom du projectGraph
+            // Nom du projectGraph dans le fichier
             this.sName = sc.nextLine();
 
             this.projectGraph = new ArrayList<>();
@@ -62,7 +62,8 @@ public class GraphProject implements Problem {
             this.iNbTaskNode = sc.nextInt();
             for (int i = 0; i < this.iNbTaskNode; i++) {
                 TaskNode task = new TaskNode(sc, this);
-                task.setiIdNode(i);
+                // On renseigne l'id de la tâche dans le graphe par ordre de chargement
+                task.setiIdTask(i);
                 this.projectGraph.add(task);
             }
 
@@ -73,6 +74,7 @@ public class GraphProject implements Problem {
             for (int i = 0; i < this.iNbOrNode; i++) {
                 OrNode or = new OrNode(sc);
                 EndOrNode endOr = new EndOrNode(sc);
+                // On renseigne l'id du noeud de début et de fin
                 or.setiIdEndOrNode(endOr.getiIdNode());
                 endOr.setiIdBeginOrNode(or.getiIdNode());
                 this.projectGraph.add(or);
@@ -86,6 +88,7 @@ public class GraphProject implements Problem {
             for (int i = 0; i < this.iNbAndNode; i++) {
                 AndNode and = new AndNode(sc);
                 EndAndNode endAnd = new EndAndNode(sc);
+                // On renseigne l'id du noeud de début et de fin
                 and.setiIdEndAndNode(endAnd.getiIdNode());
                 endAnd.setiIdBeginAndNode(and.getiIdNode());
                 this.projectGraph.add(and);
@@ -104,9 +107,11 @@ public class GraphProject implements Problem {
                 int iNbNext = sc.nextInt();
                 for (int j = 0; j < iNbNext; j++) {
                     int iNext = sc.nextInt();
+                    // On renseigne la liste des noeuds suivants
                     node.setNextNode(iNext);
+                    // On renseigne la liste des noeuds précédents
                     Node nextNode = this.projectGraph.get(iNext);
-                    nextNode.setPreviousNode(this.iNbOrNode + node.getiIdNode());
+                    nextNode.setPreviousNode(node.getiIdNode());
                 }
             }
 
