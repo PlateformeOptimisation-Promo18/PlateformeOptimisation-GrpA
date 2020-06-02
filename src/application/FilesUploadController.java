@@ -14,6 +14,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
@@ -120,20 +122,22 @@ public class FilesUploadController implements Initializable{
 	      String ligne;
 	      double hyperVolum;
 	      double time ;
+	      char premierChar;
 	      // Tant qu'il ya des ligne
 	      while ((ligne = bufferedreader.readLine()) != null) {
-	        if (compteur > 0) {
+	    	  premierChar = ligne.charAt(0) ;
+	    	  ligne = ligne.trim() ;
+	        if (!((premierChar >= 'A' && premierChar <= 'Z') || (premierChar >= 'a' && premierChar <= 'z'))) {
 	   		 	double[] point = new double[2] ;
 	   		 	// 6 chifres avant et apres la virgule
-		        hyperVolum = Double.parseDouble(ligne.substring(0,13)) ;
+		        hyperVolum = Double.parseDouble(ligne.substring(0,indexFinHypervolum(ligne))) ;
 		        
 	   		 	// 5 chifres apres la virgule
-		        time = Double.parseDouble(ligne.substring(14,21)) ;
+		        time = Double.parseDouble(ligne.substring(indexDebutTime(ligne),21)) ;
 		        point[0] = hyperVolum ;
 		        point[1] = time ;
 		        resultat.add(point);
 	        }
-	        compteur++;
 	      }
 	      
 	      return resultat;
@@ -153,16 +157,57 @@ public class FilesUploadController implements Initializable{
 		
 		return null;
 	}
-	
+	/**
+	 * Vérifie que les deux fichier selectionnés ont le même nom de problème 
+	 */
 	public void verifMemeProbleme() { 
 		if (nomPb1.isEmpty() || nomPb2.isEmpty()) {
 			btnComparer.setDisable(true);
 		} else if (nomPb1.substring(0,nomPb1.indexOf('_')).equals(nomPb2.substring(0,nomPb2.indexOf('_')))) {
 			btnComparer.setDisable(false);
 		} else {
+			Alert errorAlert = new Alert(AlertType.ERROR);
+			errorAlert.setHeaderText("Choix fichiers invalide");
+			errorAlert.setContentText("Les fichiers choisis ne correspondent pas au même problème."
+					+ "	Veuillez rechoisir des fichiers");
+			listeFichiers.getItems().clear();
+			nomPb1 = "" ;
+			nomPb2 = "" ;
+			pathFichier1 = "" ;
+			pathFichier2 = "" ;
+			errorAlert.showAndWait();
 			btnComparer.setDisable(true);
 		}
 	}
+	
+	/**
+	 * détermine l'index de fin de l'hypervolum dans la ligne
+	 * @param ligne
+	 * @return
+	 */
+	public int indexFinHypervolum(String ligne) { 
+		int index = ligne.indexOf(" ");
+		if (index == -1) {
+			index = ligne.indexOf("	");
+		}
+		return (index - 1) ;
+	}
+	
+	/**
+	 * détermine l'index de debut du time dans la ligne
+	 * @param ligne
+	 * @return
+	 */
+	public int indexDebutTime(String ligne) { 
+		int index = ligne.indexOf(" ");
+		if (index == -1) {
+			index = ligne.indexOf("	");
+			return (index + 1) ;
+
+		}
+		return (index + 2) ;
+	}
+	
 	
 	/**
 	 * Ouvre la page du comparateur et appelle la méthode comparer 
@@ -179,9 +224,9 @@ public class FilesUploadController implements Initializable{
 			// On appelle la fonction getResultsFromFile en lui passant le chemin du fichier
 			resultat2 = getResultsFromFile(pathFichier2) ;
 			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/Comparateur.fxml")) ;
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/Comparaison.fxml")) ;
 			Parent root = (Parent) loader.load();
-			ComparateurController compController = loader.getController();	
+			ComparaisonController compController = loader.getController();	
 			
 			compController.comparer(resultat1,nomPb1, resultat2, nomPb2);
 			Stage stage = new Stage();
@@ -193,6 +238,20 @@ public class FilesUploadController implements Initializable{
 		}
 	}
 
+	/**
+	 * action du bouton annuler : rénitialise les fichier uploadés
+	 * @param event
+	 */
+	@FXML
+	public void annuler(ActionEvent event) {
+		listeFichiers.getItems().clear();
+		nomPb1 = "" ;
+		nomPb2 = "" ;
+		pathFichier1 = "" ;
+		pathFichier2 = "" ;
+		btnComparer.setDisable(true);
+	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
