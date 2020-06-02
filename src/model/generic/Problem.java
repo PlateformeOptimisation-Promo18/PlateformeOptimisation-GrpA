@@ -61,7 +61,7 @@ public interface Problem {
 	 * @return le tableau des tailles de domaines
 	 * @throws Exception si l'indice est hors tableau
 	 */
-	public int getTabSizeDomainVariable(int i) throws Exception;
+	public int getSizeDomainVariable(int i) throws Exception;
 
 	
 	/**
